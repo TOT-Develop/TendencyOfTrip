@@ -1,0 +1,92 @@
+@charset "utf-8";
+
+
+/* header */
+
+#header{
+    height:0px;
+    position:relative;
+    z-index: 1000;
+}
+
+#header #headerWrapper{
+    display: flex;
+    justify-content: space-between;
+	padding:20px;
+}
+#header #headerWrapper #headerLogo #h1 a img{
+    width:30%;
+    min-width:100px;
+}
+
+
+/* headerRight */
+
+#header #headerWrapper #headerRight{
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    flex-wrap: nowrap; /* 줄 바꿈 방지 */
+    justify-content: flex-end; /* 오른쪽 정렬 */
+}
+#header #headerWrapper #headerRight #headerNav{
+	margin-right: 30px; 
+}
+
+#header #headerWrapper #headerRight #headerNav ul{
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    padding: 0; /* 패딩 제거 */
+    margin: 0; /* 마진 제거 */
+    list-style: none;
+}
+#header #headerWrapper #headerRight #headerNav ul li{
+    font-size:25px;
+    font-weight: 600;
+    margin-right: 30px;
+}
+#header #headerWrapper #headerRight #headerNav ul li:hover{
+    border-bottom:3px solid #1FB1D9;
+}
+
+/* login */
+
+#header #headerWrapper #headerRight #headerLogin {
+    white-space: nowrap;
+}
+#header #headerWrapper #headerRight #headerLogin p a{
+    font-size:18px;
+    font-weight: 500;
+    padding:5px 10px;
+}
+#header #headerWrapper #headerRight #headerLogin p a:hover{
+    background-color: #1FB1D9;
+    color:#fff;
+}
+
+@media (max-width: 768px) {
+    #header #headerWrapper {
+        flex-direction: column; /* 세로로 쌓이도록 */
+        align-items: center; /* 중앙 정렬 */
+    }
+    
+    #header #headerWrapper #headerRight {
+        flex-direction: column; /* 세로로 쌓이도록 */
+        align-items: center; /* 중앙 정렬 */
+        width: 100%; /* 너비 조정 */
+    }
+
+    #header #headerWrapper #headerRight #headerNav ul {
+        flex-direction: column; /* 세로로 쌓이도록 */
+        align-items: center; /* 중앙 정렬 */
+    }
+
+    #header #headerWrapper #headerRight #headerNav ul li {
+        margin: 10px 0; /* 세로 간격 조정 */
+    }
+}
+
+
+
+
+
+

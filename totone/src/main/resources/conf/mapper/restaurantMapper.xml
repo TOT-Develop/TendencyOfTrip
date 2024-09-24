@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Restaurant">
+    <resultMap id="resultRestaurant" type="test.bean.Restaurant">
+        <result property="num" column="NUM" jdbcType="VARCHAR"/>
+        <result property="address" column="ADDRESS" jdbcType="VARCHAR"/>
+        <result property="name" column="NAME" jdbcType="VARCHAR"/>
+        <result property="category" column="CATEGORY" jdbcType="VARCHAR"/>
+        <result property="addX" column="ADDX" jdbcType="VARCHAR"/>
+        <result property="addY" column="ADDY" jdbcType="VARCHAR"/>
+    </resultMap>
+
+	<select id="selectRestaurant" resultType="Restaurant">
+        SELECT 
+				*	
+        FROM
+        	RESTAURANT R
+       	
+	</select>
+	
+	<insert id="insertRestaurant" parameterType="Restaurant">
+	
+	 insert into RESTAURANT
+    (
+        RESTID, 
+        REGION_001, 
+		RESTAURANT_001, 
+        RESTNAME, 
+        RESTADDRESS, 
+		RESTX,
+		RESTY
+    ) 
+    values(
+        seq_REST.nextVal, 
+        <choose>
+            <when test="RESTADDRESS.contains('서울')">
+                '1'
+            </when>
+            <when test="RESTADDRESS.contains('인천')">
+                '2'
+            </when>
+            <when test="RESTADDRESS.contains('대전')">
+                '3'
+            </when>
+            <when test="RESTADDRESS.contains('대구')">
+                '4'
+            </when>
+            <when test="RESTADDRESS.contains('광주')">
+                '5'
+            </when>
+            <when test="RESTADDRESS.contains('부산')">
+                '6'
+            </when>
+            <when test="RESTADDRESS.contains('울산')">
+                '7'
+            </when>
+            <when test="RESTADDRESS.contains('세종')">
+                '8'
+            </when>
+            <when test="RESTADDRESS.contains('경기')">
+                '31'
+            </when>
+            <when test="RESTADDRESS.contains('강원')">
+                '32'
+            </when>
+            <when test="RESTADDRESS.contains('충북')">
+                '33'
+            </when>
+            <when test="RESTADDRESS.contains('충남')">
+                '34'
+            </when>
+            <when test="RESTADDRESS.contains('경북')">
+                '35'
+            </when>
+            <when test="RESTADDRESS.contains('경남')">
+                '36'
+            </when>
+            <when test="RESTADDRESS.contains('전북')">
+                '37'
+            </when>
+            <when test="RESTADDRESS.contains('전남')">
+                '38'
+            </when>
+            <when test="RESTADDRESS.contains('제주')">
+                '39'
+            </when>
+            <when test="RESTADDRESS.contains('전구')">
+                '40'
+            </when>
+            <otherwise>
+                ''
+            </otherwise>
+        </choose>, 
+        <choose>
+			<when test="RESTAURANT_001 != null and RESTAURANT_001.contains('한식')">
+                'K'
+            </when>
+            <when test="RESTAURANT_001 != null and RESTAURANT_001.contains('일식')">
+                'J'
+            </when>
+            <when test="RESTAURANT_001 != null and RESTAURANT_001.contains('중국식')">
+                'C'
+            </when>
+            <when test="RESTAURANT_001 != null and RESTAURANT_001.contains('양식')">
+                'W'
+            </when>
+            <otherwise>
+                ''
+            </otherwise>
+        </choose>, 
+        #{RESTNAME,jdbcType = VARCHAR},
+        #{RESTADDRESS,jdbcType = VARCHAR},
+        #{RESTX,jdbcType = VARCHAR}, 
+        #{RESTY, jdbcType = VARCHAR}
+    )
+    </insert>
+    
+    
+  
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+</mapper>
