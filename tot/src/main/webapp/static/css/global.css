@@ -9,6 +9,9 @@ body {
     font-family: 'Pretendard-Regular';
     margin: 0;
     padding: 0;
+    text-decoration: none;
+    color:#333;
+    list-style: none;
 }
 
 hr {
