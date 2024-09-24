@@ -130,8 +130,10 @@ public class MemberServiceImpl implements MemberService {
         return new PageResDTO<>(totalMemberCount, pageReqDTO.getPage(), members); // 현재 페이지를 pageReqDTO에서 가져오기
     }
 
-
-
+    @Override
+    public void updateMemberStatus(Map<String, Object> params) {
+        memberDao.updateMemberStatus(params);
+    }
 
 
 }

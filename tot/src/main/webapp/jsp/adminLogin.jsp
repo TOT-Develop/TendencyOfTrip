@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>admin login</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link rel="stylesheet" href="../static/css/global.css">
-  <link rel="stylesheet" href="../static/css/adminLogin.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/global.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/adminLogin.css">
   <script src="${pageContext.request.contextPath}/static/js/adminLogin.js"></script>
 </head>
 <body>

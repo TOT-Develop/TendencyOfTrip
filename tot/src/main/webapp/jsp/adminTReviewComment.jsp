@@ -13,6 +13,7 @@
     <script src="${pageContext.request.contextPath}/static/js/adminTReviewComment.js"></script>
     <title>댓글 관리</title>
 </head>
+    <%@ include file="adminMenu.jsp" %>
 <body>
     <div class="mainDiv">
         <div class="reviewTitleDiv">

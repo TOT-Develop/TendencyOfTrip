@@ -2,12 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="tot.dao.MemBanHistoryDao">
-   <insert id="insertBanHistory" parameterType="tot.domain.MemBanHistoryDTO">
-         INSERT INTO MEMBAN_HISTORY (
+    
+    <insert id="insertBanHistory" parameterType="tot.domain.MemBanHistoryDTO">
+        INSERT INTO MEMBAN_HISTORY (
             MEMBanId, MemId, BanReason, BanStart, BanEnd, BanLifted, LiftReason
         )
         VALUES (
-            #{memBanId}, #{memId}, #{banReason}, #{banStart}, #{banEnd}, null, null
+            SEQ_MEMBANID.nextval, #{memId}, #{banReason}, #{banStart}, #{banEnd}, null, null
         )
     </insert>
     
@@ -21,10 +22,16 @@
     </select>
     
     <select id="findBanHistoryByMemId" resultType="tot.domain.MemBanHistoryDTO">
-	    SELECT memId, banStart, banEnd, banReason, liftReason, banLifted 
-	    FROM MEMBAN_HISTORY
-	    WHERE memId = #{memId}
-	    ORDER BY banStart DESC
-	</select>
-    
+        SELECT memId, banStart, banEnd, banReason, liftReason, banLifted 
+        FROM MEMBAN_HISTORY
+        WHERE memId = #{memId}
+        ORDER BY banStart DESC
+    </select>
+
+    <update id="updateLiftHistory" parameterType="tot.domain.MemBanHistoryDTO">
+        UPDATE MEMBAN_HISTORY
+        SET BanLifted = #{banLifted}, LiftReason = #{liftReason}
+        WHERE MemId = #{memId} AND BanLifted IS NULL
+    </update>
+
 </mapper>

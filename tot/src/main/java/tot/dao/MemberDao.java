@@ -32,5 +32,4 @@ public interface MemberDao {
 
     public abstract int getTotalMemberCount(PageDTO pageDTO);
     
-    
 }

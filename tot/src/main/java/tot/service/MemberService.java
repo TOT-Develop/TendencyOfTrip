@@ -1,5 +1,7 @@
 package tot.service;
 
+import java.util.Map;
+
 import tot.common.page.PageReqDTO;
 import tot.common.page.PageResDTO;
 import tot.domain.MemberVO;
@@ -18,5 +20,5 @@ public interface MemberService {
 
     public abstract PageResDTO<MemberVO> getAllMembers(PageReqDTO pageReqDTO);
 
-	
+    public abstract void updateMemberStatus(Map<String, Object> params);
 }

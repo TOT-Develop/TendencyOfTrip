@@ -67,5 +67,4 @@ public class MemberDaoImpl implements MemberDao {
         return sqlSession.selectOne(NAMESPACE + "getTotalMemberCount", pageDTO);
     }
 
-    
 }

@@ -6,13 +6,10 @@ html, body {
 }
 
 #userWrapper {
-    z-index: -1;
-    width: calc(100% - 200px);
-    height: 100vh;
-    padding: 20px;
     margin-left: 200px;
+    position: absolute;
+    z-index: 2;
     box-sizing: border-box;
-    min-width: 600px; /* Minimum width */
 }
 
 #userContainer {
@@ -20,21 +17,41 @@ html, body {
     width: 95%;
     max-width: 100%;
     box-sizing: border-box;
+    background-color: #ffffff; /* 내용 영역 배경색 */
+    padding: 20px; /* 패딩 추가 */
+    border-radius: 10px; /* 둥근 모서리 */
+    /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */ /* 그림자 효과 */
 }
 
-#userContent {
-    box-sizing: border-box;
-    border: 3px solid rgb(151, 151, 151);
-    padding: 10px;
-    border-radius: 20px;
-    min-width: 600px; /* 최소 너비 설정 */
-    width: auto; /* 내용에 따라 자동으로 크기 조정 */
+h1 {
+    text-align: center;
+    margin-bottom: 20px; /* 제목 아래 여백 */
 }
 
+#searchForm {
+    display: flex; /* 플렉스박스 사용 */
+    justify-content: space-between; /* 공간을 골고루 배분 */
+    margin-bottom: 20px; /* 검색 양식 아래 여백 */
+}
+
+.searchInput,
+.statusSelect,
+.searchButton {
+    padding: 10px; /* 안쪽 여백 */
+    border: 1px solid #ccc; /* 테두리 색상 */
+    border-radius: 4px; /* 둥근 모서리 */
+}
+
+.searchButton {
+    background-color: #007bff; /* 버튼 배경색 */
+    color: white; /* 버튼 텍스트 색상 */
+    cursor: pointer; /* 포인터 커서 */
+}
 
 #userTable {
-    width: 100%;
+    width: %;
     border-collapse: collapse; /* Remove cell borders */
+    margin-bottom: 20px; /* 테이블 아래 여백 */
 }
 
 #userTable th, #userTable td {
@@ -53,16 +70,18 @@ html, body {
 }
 
 #userTable input[type="button"] {
-    width: 60px;
-    height: 30px;
+    width: 80px; /* 버튼 너비 */
+    height: 35px; /* 버튼 높이 */
     border: none;
     border-radius: 12px;
+    background-color: #28a745; /* 버튼 배경색 */
+    color: white; /* 버튼 텍스트 색상 */
     cursor: pointer;
 }
 
 #pagination {
     text-align: center;
-    margin: 20px 0;
+    margin: 20px 0; /* 여백 설정 */
 }
 
 #pagination a {
@@ -71,15 +90,27 @@ html, body {
     padding: 5px 10px;
     text-decoration: none;
     color: #333;
+    border: 1px solid #ccc; /* 테두리 추가 */
+    border-radius: 5px; /* 둥근 모서리 */
 }
 
 #pagination a.active {
     font-weight: bold;
-    color: #000;
+    color: #fff; /* 활성화된 링크 텍스트 색상 */
+    background-color: #007bff; /* 활성화된 링크 배경색 */
 }
 
 #pagination a.prev, #pagination a.next {
     font-weight: bold;
+}
+
+select,
+input {
+    width: 20%; /* 입력 및 선택 상자를 가로 전체로 설정 */
+    padding: 10px; /* 안쪽 여백 */
+    border: 1px solid #ccc; /* 테두리 색상 */
+    border-radius: 4px; /* 둥근 모서리 */
+    margin-top: 5px; /* 입력 상자 상단 여백 */
 }
 
 /* Responsive styles */

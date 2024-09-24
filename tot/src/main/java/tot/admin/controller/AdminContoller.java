@@ -1,12 +1,16 @@
 package tot.admin.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.Flags;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,24 +80,34 @@ public class AdminContoller {
  // 제재 페이지 호출
     @GetMapping("/banUser")
     public String getBanHistory(@RequestParam String id, Model model) {
-        // 회원 기본 정보 가져오기
-    	MemberVO member = memberService.findMemberByMemId(id);
+        System.out.println(id);
         
+        // 회원 기본 정보 가져오기
+        MemberVO member = memberService.findMemberByMemId(id);
+        System.out.println("멤버: " + member);
         if (member == null) {
             // 로그에 에러 메시지 추가
             System.out.println("해당 ID의 회원을 찾을 수 없습니다: " + id);
             model.addAttribute("error", "해당 ID의 회원을 찾을 수 없습니다.");
-            return "error"; // 오류 페이지로 리다이렉트하거나 적절한 페이지 반환
+            return "/tot/"; // 오류 페이지로 리다이렉트하거나 적절한 페이지 반환
         }
 
         model.addAttribute("member", member);
+        System.out.println(model.addAttribute("member", member));
 
-        // 제재 히스토리 가져오기
         List<MemBanHistoryDTO> banHistoryList = memBanHistoryService.getBanHistoryByMemId(id);
-        model.addAttribute("banHistoryList", banHistoryList);
+        System.out.println(banHistoryList);
+        if (banHistoryList == null || banHistoryList.isEmpty()) {
+            System.out.println("해당 ID의 제재 히스토리가 없습니다: " + id);
+            model.addAttribute("banHistoryList", new ArrayList<>()); // 빈 리스트로 설정
+        } else {
+            model.addAttribute("banHistoryList", banHistoryList);
+        }
 
-        return "admin/banUser"; // JSP 경로
+
+        return "banUser"; // JSP 경로
     }
+
 
 
 
@@ -109,6 +123,25 @@ public class AdminContoller {
 
         return ResponseEntity.ok("제재 완료");
     }
+
+
+    @PostMapping("/liftUserProc")
+    public ResponseEntity<String> liftUser(@RequestParam String id, @RequestParam String reason) {
+        // 회원 상태 업데이트 (M01로 변경)
+        Map<String, Object> params = new HashMap<>();
+        params.put("memId", id);
+        params.put("memberStatus", "M01");
+        params.put("banStart", null); // 시작 시간 제거
+        params.put("banEnd", null); // 종료 시간 제거
+
+        memberService.updateMemberStatus(params);
+
+        // 제재 해제 사유와 시간 기록
+        memBanHistoryService.updateLiftHistory(id, reason);
+
+        return ResponseEntity.ok("제재 해제 완료");
+    }
+
 
 
 

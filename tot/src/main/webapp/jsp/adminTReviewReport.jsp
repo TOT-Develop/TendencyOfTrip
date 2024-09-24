@@ -13,6 +13,7 @@
     <script src="${pageContext.request.contextPath}/static/js/adminTReviewReport.js"></script>
     <title>신고 내역 관리</title>
 </head>
+<jsp:include page="/jsp/adminMenu.jsp"></jsp:include>
 <body>
     <div class="mainDiv">
         <div class="reviewTitleDiv">

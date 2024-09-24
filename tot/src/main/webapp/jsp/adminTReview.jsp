@@ -14,6 +14,7 @@
     <script src="${pageContext.request.contextPath}/static/js/adminTReview.js"></script>
     <title>게시물 관리</title>
 </head>
+<%@ include file="adminMenu.jsp" %>
 <body>
     <div class="mainDiv">
         <div class="reviewTitleDiv">

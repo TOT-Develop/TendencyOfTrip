@@ -36,7 +36,7 @@ import tot.util.MemberUtil;
 public class TReviewServiceImpl implements TReviewService {
 
 	@Autowired
-    @Qualifier("TReviewDAOImpl")
+	@Qualifier("TReviewDAOImpl")
 	private TReviewDAO treviewDAO;
 
 	@Autowired

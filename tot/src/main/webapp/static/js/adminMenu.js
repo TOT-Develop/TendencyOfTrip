@@ -17,4 +17,13 @@ window.onload = function (){
 	$("#user").on('click', function(){
 		window.location.href="/tot/admin/adminUser";
 	})
+	$("#tripreview").on('click', function(){
+		window.location.href="/tot/admin/review/1/1";
+	})
+	$("#reviewcomment").on('click', function(){
+		window.location.href="/tot/admin/comment/1/1";
+	})
+	$("#report").on('click', function(){
+		window.location.href="/tot/admin/report/1/1";
+	})
 }
