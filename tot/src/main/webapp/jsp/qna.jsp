@@ -21,6 +21,7 @@
 	session.setAttribute("memid", "M01"); 
 %>
 <input type="hidden" name="memid" value="<%=session.getAttribute("memid")%>"/>
+	<jsp:include page="header.jsp"></jsp:include>
     <div class="wrapper">
       <div class="container">
           <div class="row1">
@@ -35,7 +36,7 @@
                     <option value="3" <c:if test="${qnacatno==null || qnacatno=='3'}" ></c:if>>불만요청</option>
                     <option value="4" <c:if test="${qnacatno==null || qnacatno=='4'}" ></c:if>>기타요청</option>
                 </select>
-                <input type="text" name="searchValue" placeholder="Search" class="searchBox" value="searchValue"/>
+                <input type="text" name="searchValue" placeholder="Search" class="searchBox" />
                 <input type="submit" value="검색" class="searchBtn"/>
                 <input type="button" value="+ 글쓰기" class="toWrite"/>
             </div>
@@ -67,5 +68,6 @@
           </div>          
       </div>
     </div>
+   	<jsp:include page="footer.jsp"></jsp:include>
   </body>
 </html>

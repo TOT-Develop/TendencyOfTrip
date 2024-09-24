@@ -13,17 +13,13 @@
         <div id="footerWrapper">
             <div id="footerCenterTop">
                 <ul>
-                    <li><a href="#">광고/제휴문의</a></li>
+                    <li><a href="#">광고문의 환영</a></li>
                     <li>|</li>
-                    <li><a href="#">서비스문의</a></li>
+                    <li><a href="#">스폰서문의 환영</a></li>
                     <li>|</li>
-                    <li><a href="#">개인정보 처리방침</a></li>
+                    <li><a href="#">스카웃제의 환영</a></li>
                     <li>|</li>
-                    <li><a href="#">이용약관</a></li>
-                    <li>|</li>
-                    <li><a href="#">여행지약관</a></li>
-                    <li>|</li>
-                    <li><a href="#">가이드약관 </a></li>
+                    <li><a href="#">인터뷰문의 환영</a></li>
                 </ul>
             </div>
             <div id="footerCenterBottom">

@@ -27,6 +27,7 @@
     	<typeAlias alias="ReportCommentDTO" type="tot.domain.ReportCommentDTO"/>
     	<typeAlias alias="ReportTReviewDTO" type="tot.domain.ReportTReviewDTO"/>
     	<typeAlias alias="HistoryVO" type="tot.domain.HistoryVO"/>
+    	<typeAlias alias="Qna" type="tot.domain.Qna"/>
     </typeAliases>
     
     <mappers>
@@ -40,6 +41,8 @@
         <mapper resource="conf/mapper/AdminTReviewMapper.xml"/>
         <mapper resource="conf/mapper/AdminCommentMapper.xml"/>
         <mapper resource="conf/mapper/AdminReportMapper.xml"/>
+       	<mapper resource="conf/mapper/qnaMapper.xml"/>
+        
     </mappers>
     
 </configuration>

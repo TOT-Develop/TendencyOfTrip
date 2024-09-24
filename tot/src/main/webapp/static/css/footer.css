@@ -18,7 +18,7 @@
 }
 #footer #footerWrapper #footerCenterTop ul{
     display: flex;
-    width:900px;
+    width:600px;
     justify-content: space-between;
 }
 #footer #footerWrapper #footerCenterTop ul li{

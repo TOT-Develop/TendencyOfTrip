@@ -1,8 +1,4 @@
-window.onload = function () {
-    const currentPage = 1;
-    const currentCategory = 'category';
-    const qna = [];
-    const qnaPage = 5;
+$(document).ready(function() {
     
     // 글쓰기 페이지로 이동
     $('.toWrite').click(function(){
@@ -38,6 +34,7 @@ window.onload = function () {
             throw new Error('Network response was not ok.');
         }
         return response.json(); // Parse the JSON data from the server
+		console.log('Error', response)
     })
     .then(data => {
         $('#qnaTableBody').html('');
@@ -52,7 +49,7 @@ window.onload = function () {
                     <td>${qna.qnaregdate}</td>
                 </tr>
             `);
-            $('#qnaTableBody').append(QnaLi); 
+            $('#qnaTableBody').append(QnaLi);
         });
 
         $('#qnaTableBody').on('click', '#qnaContent', function() {
@@ -67,4 +64,4 @@ window.onload = function () {
         load();
     } else {
     }
-};
+});
