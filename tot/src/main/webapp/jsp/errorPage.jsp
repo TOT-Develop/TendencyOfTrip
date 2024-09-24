@@ -10,6 +10,6 @@
 <body>
 	<h1>서버 오류</h1>
 	<p>${message}</p>
-	<a href="/totreviews">홈으로 돌아가기</a>
+	<a href="/tot">홈으로 돌아가기</a>
 </body>
 </html>

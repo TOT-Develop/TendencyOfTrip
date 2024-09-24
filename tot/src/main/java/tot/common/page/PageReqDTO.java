@@ -16,7 +16,7 @@ public class PageReqDTO {
 		this.page = 1;
 		this.searchType = SearchType.ALL;
 		this.sortType = SortType.LATEST;
-		this.activateFlag = Flag.CMT001;
+		this.activateFlag = activateFlag;
 	}
 
 	public int getPage() {

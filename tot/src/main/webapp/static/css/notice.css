@@ -1,0 +1,184 @@
+@charset "utf-8";
+.wrapper{
+  width:1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+.wrapper .container{
+  padding:180px 40px;
+  
+}
+
+/* h1 */
+.wrapper .container .row1{
+  font-size:20px;
+  padding:20px;
+}
+
+/* catecory */
+.wrapper .container .row2{
+  width:100%;
+}
+.wrapper .container .row2 .qnaCategories{
+  text-align: right;
+  height:40px;
+  line-height: 40px;
+}
+.wrapper .container .row2 .qnaCategories select{
+  width:100px;
+  height:30px;
+  font-size: 15px;
+  text-align: center;
+}
+.wrapper .container .row2 .qnaCategories input{
+  height: 26px;
+  text-align: center;
+}
+.wrapper .container .row2 .qnaCategories input[type='submit']{
+  height:30px;
+  padding:0 15px;
+  color:#1FB1D9;
+  background-color: rgba(0, 0,0,0);
+  border:2px solid #1FB1D9;
+  border-radius: 50px;
+  cursor: pointer;
+}
+.wrapper .container .row2 .qnaCategories input[type='button']{
+  height:30px;
+  padding:0 15px;
+  color:#fff;
+  background-color: #1FB1D9;
+  border-radius: 50px;
+  border:none;
+  cursor: pointer;
+}
+
+.button {
+    background-color: #1FB1D9;  /* 버튼 배경색 */
+    color: white;  /* 글자 색 */
+    border: none;  /* 테두리 제거 */
+    padding: 5px 10px;  /* 패딩 */
+    border-radius: 5px;  /* 모서리를 둥글게 */
+    cursor: pointer;  /* 마우스 커서 모양 */
+}
+
+.button:hover {
+    background-color: #007bff;  /* 마우스 오버 시 배경색 변경 */
+}
+
+
+/* table */
+.wrapper .container .row2 .questionList{
+  width:1200px;
+  width:100%;
+  box-sizing: border-box;
+  margin:20px 0;
+}
+.wrapper .container .row2 .questionList .table{
+  width:100%;
+  box-sizing: border-box;
+}
+.wrapper .container .row2 .questionList .table #qnaTableHead{
+  width:100%;
+  height:30px;
+  margin-bottom:40px;
+}
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th{
+  border:2px solid #4b4b4b;
+  border-radius: 5px;
+}
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(1){
+  width:10%;
+}
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(2){
+  width:55%;
+}
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(3){
+  width:15%
+}
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(4){
+  width:10%
+}
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(5){
+  width:10%
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableBody{
+  width:100%;
+  height:30px;
+  font-size:15px;
+}
+.wrapper .container .row2 .questionList .table #qnaTableBody tr:hover{
+  cursor: pointer;
+  background-color: #f1f1f1;
+}
+.wrapper .container .row2 .questionList .table #qnaTableBody tr td{
+  border: 2px solid #b6b6b6;
+  border-radius: 5px;
+  font-size:14px;
+  padding:5px 0px;
+}
+
+/* paging */
+.paging{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:20px;
+}
+.paging button{
+  width:30px;
+  height:30px;
+  background-color: rgba(0,0,0,0);
+  border:none;
+  cursor: pointer;
+}
+.paging .currentBtn{
+  width:26px;
+  height:26px;
+  border:2px solid #333;
+  border-radius:50%;
+}
+
+.paging button img{
+  width:30px;
+  height:30px;
+}
+
+.paginationNav {
+    display: flex;
+    justify-content: center;  /* 가운데 정렬 */
+    align-items: center;
+    margin-top: 20px;
+}
+
+.paginationList {
+    display: flex;  /* 페이징 번호들을 한 줄로 나열 */
+    list-style: none;  /* 리스트 스타일 제거 */
+    padding: 0;
+    margin: 0;
+}
+
+.paginationItem {
+    margin: 0 5px;  /* 각 페이지 번호 사이에 간격 추가 */
+}
+
+.paginationLink {
+    padding: 8px 12px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #333;
+    font-weight: bold;
+}
+
+.paginationLink:hover {
+    background-color: #f0f0f0;  /* 마우스 오버 시 배경색 */
+    color: #000;
+}
+
+.paginationItem.active .paginationLink {
+    background-color: #007bff;
+    color: #fff;
+}
+

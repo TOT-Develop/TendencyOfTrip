@@ -1,60 +1,17 @@
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
+    @font-face {
+        font-family: 'Pretendard-Regular';
+        src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+    }
 }
 
-body {
-    font-family: 'Pretendard-Regular';
-    margin: 0;
-    padding: 0;
-}
-
-hr {
-    border-width: 2px 0 0 0;
-    border-color: #fff;
-}
-
-.initButton {
-    padding: 10px 20px;
-    border: none;
-    background-color: #cfcfcf;
-    color: #333;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 0 10px;
-    border-radius: 4px;
-}
-
-.initButton.active {
-    background-color: #1fb1d9;
-    color: #fff;
-}
-
-.initButton2 {
-    padding: 10px 20px;
-    border: none;
-    background-color: #333;
-    color: #fff;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 0 10px;
-    border-radius: 4px;
-}
-
-.select {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 5px;
-}
-
-input[type="text"] {
-    width: 350px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+*{
+    text-decoration: none;
+    color:#333;
+    list-style: none;
+    margin:0;
+    padding:0;
+    font-family: 'pretendard';
 }

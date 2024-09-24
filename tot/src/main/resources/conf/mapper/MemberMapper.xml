@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tot.dao.MemberDao">
+    
+    <!-- 사용자 정보 삽입 -->
+    <insert id="saveMember" parameterType="tot.domain.MemberVO">
+        INSERT INTO MEMBER (MEMID, MEMNICK, MEMEMAIL, MEMBER_STATUS, MEMBER_MBTI, MEMBER_TT, MEMREGDATE)
+        VALUES (#{memId}, #{memNick}, #{memEmail}, 'M01', 'MB02', 'TT02', #{memRegDate})
+    </insert>
+    
+      <update id="updateNickname" parameterType="tot.domain.MemberVO">
+        UPDATE MEMBER SET MEMNICK = #{memNick} WHERE MEMID = #{memId}
+    </update>
+
+    <select id="findNicknameByMemId" resultType="string">
+        SELECT MEMNICK FROM MEMBER WHERE MEMID = #{memId}
+    </select>
+
+    <select id="findNicknameByNick" resultType="string">
+        SELECT MEMNICK FROM MEMBER WHERE MEMNICK = #{nickname}
+    </select>
+
+    <select id="findMemberByMemId" resultType="tot.domain.MemberVO">
+        SELECT * FROM MEMBER WHERE MEMID = #{memId}
+    </select>
+
+	<update id="updateMemberStatus">
+	    UPDATE MEMBER 
+	    SET MEMBER_STATUS = #{memberStatus}, MEMBER_BAN_START = #{banStart}, MEMBER_BAN_END = #{banEnd}
+	    WHERE MEMID = #{memId}
+	</update>
+    
+	<select id="getMembersWithPaging" parameterType="tot.common.page.PageDTO" resultType="tot.domain.MemberVO">
+    SELECT * FROM (
+        SELECT m.MEMID,
+               m.MEMNICK,
+               m.MEMEMAIL,
+               m.MEMREGDATE,
+               m.MEMUPDATE,
+               m.MEMBER_BAN_START AS memberbanstart,
+               m.MEMBER_BAN_END AS memberbanend,
+               c1.CODENAME AS MEMBER_STATUS,
+               c2.CODENAME AS MEMBER_MBTI,
+               c3.CODENAME AS MEMBER_TT,
+               ROW_NUMBER() OVER (ORDER BY m.MEMID) AS rn
+        FROM MEMBER m
+        LEFT JOIN CODE c1 ON m.MEMBER_STATUS = c1.CODEID 
+        LEFT JOIN CODE c2 ON m.MEMBER_MBTI = c2.CODEID
+        LEFT JOIN CODE c3 ON m.MEMBER_TT = c3.CODEID
+        <where>
+            <if test="dto.search != null and dto.search != ''">
+                m.MEMNICK LIKE '%' || #{dto.search} || '%'
+            </if>
+            <if test="dto.activateFlag != null">
+                AND MEMBER_STATUS = #{dto.activateFlag}
+            </if>
+        </where>
+    )
+    WHERE rn BETWEEN #{offset} + 1 AND #{offset} + #{pageRowCount}
+</select>
+
+
+
+	<!-- 총 회원 수 가져오기 -->
+    <select id="getTotalMemberCount" parameterType="tot.common.page.PageDTO" resultType="int">
+    SELECT COUNT(*)
+    FROM MEMBER m
+    LEFT JOIN CODE c1 ON m.MEMBER_STATUS = c1.CODEID 
+    LEFT JOIN CODE c2 ON m.MEMBER_MBTI = c2.CODEID
+    LEFT JOIN CODE c3 ON m.MEMBER_TT = c3.CODEID
+    <where>
+        <if test="dto.search != null and dto.search != ''">
+            m.MEMNICK LIKE '%' || #{dto.search} || '%'
+        </if>
+        <if test="dto.activateFlag != null">
+            AND c1.CODEID = #{dto.activateFlag}
+        </if>
+    </where>
+</select>
+
+
+
+	
+</mapper>

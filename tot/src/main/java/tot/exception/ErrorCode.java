@@ -12,8 +12,9 @@ public enum ErrorCode {
 	CONTENT_TOO_LONG(HttpStatus.BAD_REQUEST, "PR005", "내용은 1000자를 초과할 수 없습니다."),
 	NOT_FOUND_TREVAGREE(HttpStatus.BAD_REQUEST, "PR006", "개인정보 수집 및 이용동의를 체크해주세요."),
 	NOT_CHECK_TREVAGREE(HttpStatus.BAD_REQUEST, "PR007", "개인정보 수집 및 이용동의를 체크해주세요."),
-	NOT_CHECK_TREVRATING(HttpStatus.BAD_REQUEST, "PR008", "여행 후기 평점을 체크해주세요.");
-
+	NOT_CHECK_TREVRATING(HttpStatus.BAD_REQUEST, "PR008", "여행 후기 평점을 체크해주세요."),
+	DUPLICATE_NICKNAME(HttpStatus.BAD_REQUEST, "PR009", "중복된 닉네임입니다. 다시 입력해주세요.");
+	
 	private final HttpStatus httpStatus;
 	private final String code;
 	private final String message;

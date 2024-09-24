@@ -1,0 +1,108 @@
+@charset "utf-8";
+
+html, body {
+    min-width: 600px; /* 전체 페이지의 최소 너비 설정 */
+    overflow-x: auto; /* 수평 스크롤바가 필요할 경우 활성화 */
+}
+
+#userWrapper {
+    z-index: -1;
+    width: calc(100% - 200px);
+    height: 100vh;
+    padding: 20px;
+    margin-left: 200px;
+    box-sizing: border-box;
+    min-width: 600px; /* Minimum width */
+}
+
+#userContainer {
+    margin: 0 auto;
+    width: 95%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#userContent {
+    box-sizing: border-box;
+    border: 3px solid rgb(151, 151, 151);
+    padding: 10px;
+    border-radius: 20px;
+    min-width: 600px; /* 최소 너비 설정 */
+    width: auto; /* 내용에 따라 자동으로 크기 조정 */
+}
+
+
+#userTable {
+    width: 100%;
+    border-collapse: collapse; /* Remove cell borders */
+}
+
+#userTable th, #userTable td {
+    border: 2px solid #bdbdbd; /* Border style */
+    padding: 10px; /* Cell padding */
+    text-align: center; /* Center alignment */
+}
+
+#userTable th {
+    background-color: #f2f2f2; /* Header background color */
+    font-weight: bold; /* Bold font */
+}
+
+#userTable td {
+    line-height: 30px; /* Line height */
+}
+
+#userTable input[type="button"] {
+    width: 60px;
+    height: 30px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+#pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#pagination a {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+#pagination a.active {
+    font-weight: bold;
+    color: #000;
+}
+
+#pagination a.prev, #pagination a.next {
+    font-weight: bold;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    #userWrapper {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    #userContainer {
+        width: 100%;
+    }
+
+    #userContent {
+        padding: 5px; /* Reduce padding on small screens */
+    }
+
+    #userTable th, #userTable td {
+        padding: 5px; /* Reduce padding on small screens */
+    }
+
+    #userTable input[type="button"] {
+        width: 50px; /* Adjust button width on small screens */
+        height: 25px; /* Adjust button height on small screens */
+    }
+}

@@ -67,8 +67,8 @@ public class TReviewController {
 	@GetMapping("/add")
 	public String showTourReviewWrite(Model model) {
 		MemberVO member = MemberUtil.getAuthenticatedMember();
-
-		List<TripVO> trips = tripService.getTripByMemId(member.getMemId());
+		String MemId = member.getMemId();
+		List<TripVO> trips = tripService.getTripsByMemId(MemId);
 
 		model.addAttribute("trips", trips);
 		model.addAttribute("member", member);
@@ -103,7 +103,7 @@ public class TReviewController {
 	public String showTourReviewEdit(@PathVariable int trevId, Model model) {
 		MemberVO member = MemberUtil.getAuthenticatedMember();
 
-		List<TripVO> trips = tripService.getTripByMemId(member.getMemId());
+		List<TripVO> trips = tripService.getTripsByMemId(member.getMemId());
 		TReviewResDTO review = treviewService.getTReviewById(trevId);
 		List<CourseDTO> courses = courseService.getCourseDetailsByTripId(review.getTripId());
 

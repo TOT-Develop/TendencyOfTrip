@@ -1,12 +1,35 @@
-<%@page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>氅旍澑 韼橃澊歆�</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trick or Trip</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/global.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css"/>
 </head>
 <body>
-    <h1>氅旍澑 韼橃澊歆�</h1>
+
+	<jsp:include page="/jsp/header.jsp"></jsp:include>
+    <main id="main">
+        <div id="mainWrapper">
+            <div id="mainFirst">
+                <div id="mainFirstText">
+                    <h2>唱狼 己氢俊 蝶扼<br />栋唱绰 咯青啊捞靛</h2>
+                    <p>MBTI喊肺 眠玫秦林绰 咯青内胶甫 榴败焊技夸</p>
+                </div>
+                <div id="mainFirstBtn">
+                    <a href="${pageContext.request.contextPath}/tendency">
+				        <input type="button" value="TEST START" />
+				    </a>
+                </div>
+            </div>
+            <div id="mainSecond">
+
+            </div>
+        </div>
+    </main>
+<jsp:include page="/jsp/footer.jsp"></jsp:include>
 </body>
 </html>
