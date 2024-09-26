@@ -11,12 +11,17 @@ import tot.domain.TripVO;
 @Service
 public class TripServiceImpl implements TripService {
 
-	@Autowired
-	private TripDAO tripDAO;
-	
-	@Override
-	public List<TripVO> getTripByMemId(String memId) {
-		return tripDAO.getTripByMemId(memId);
-	}
+    @Autowired
+    private TripDAO tripDao;
+
+    @Override
+    public List<TripVO> getTripsByMemId(String memId) {
+        return tripDao.getTripsByMemId(memId);
+    }
+
+    @Override
+    public TripVO getTripById(int tripId) {
+        return tripDao.getTripById(tripId);
+    }
 
 }

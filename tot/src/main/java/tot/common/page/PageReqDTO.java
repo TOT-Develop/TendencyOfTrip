@@ -11,6 +11,7 @@ public class PageReqDTO {
 	private SearchType searchType; // 검색 유형 (전체, 제목, 내용)
 	private SortType sortType; // 정렬 방식 (최신순, 오래된순, 조회순, 평점순)
 	private Flag activateFlag; // 활성화 상태 플래그
+	private String status; // 접수대기/접수완료 상태
 
 	public PageReqDTO() {
 		this.page = 1;
@@ -58,6 +59,15 @@ public class PageReqDTO {
 	public void setActivateFlag(Flag activateFlag) {
 		this.activateFlag = activateFlag;
 	}
+	
+    public String getStatus() {
+        return status;
+    }
+    
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
 
 	@Override
 	public String toString() {

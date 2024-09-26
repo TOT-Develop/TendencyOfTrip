@@ -1,6 +1,7 @@
 package tot.common.page;
 
 import tot.common.Constants;
+import tot.common.enums.SearchType;
 import tot.util.MemberUtil;
 
 public class PageDTO {
@@ -11,6 +12,7 @@ public class PageDTO {
 	private String boardId; // 게시판 아이디
 	private int postId;
 	private String memId;
+	private SearchType searchType;
 
 	public PageDTO(PageReqDTO dto) {
 		this.pageRowCount = Constants.PAGE_ROW_COUNT;

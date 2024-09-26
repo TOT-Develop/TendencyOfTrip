@@ -7,8 +7,6 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<context:component-scan base-package="tot" />
-	
 	<!-- Enable Spring MVC annotations -->
 	<mvc:annotation-driven />
 	
@@ -29,10 +27,20 @@
 		<property name="maxUploadSizePerFile" value="10485760"></property> <!-- 10MB -->
 	</bean>
 	
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    	<property name="location">
-        	<value>classpath:/props/db.properties</value>
-    	</property>
+	<mvc:resources mapping="/static/**" location="/static/" />
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    	<property name="basePackage" value="tot.dao"/>
 	</bean>
+
+	<mvc:interceptors>
+	    <mvc:interceptor>
+	        <mvc:mapping path="/admin/**" /> <!-- Admin 경로에 대한 모든 요청을 인터셉트 -->
+	        <mvc:exclude-mapping path="/admin/adminLogin" /> <!-- 로그인 페이지 요청 제외 -->
+	        <mvc:exclude-mapping path="/admin/adminLoginProc" /> <!-- 로그인 처리 요청 제외 -->
+	        <mvc:exclude-mapping path="/static/**" /> <!-- 정적 파일 요청 제외 -->
+	        <bean class="tot.common.interceptor.AdminLoginInterceptor" /> <!-- 인터셉터 클래스 지정 -->
+	    </mvc:interceptor>
+	</mvc:interceptors>
 	
 </beans>

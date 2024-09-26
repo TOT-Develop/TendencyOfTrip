@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tot.dao.MemberDao">
+    
+    <!-- 사용자 정보 삽입 -->
+    <insert id="saveMember" parameterType="tot.domain.Member">
+        INSERT INTO MEMBER (MEMID, MEMNICK, MEMEMAIL, MEMBER_STATUS, MEMBER_MBTI, MEMBER_TT, MEMREGDATE)
+        VALUES (#{memId}, #{memNick}, #{memEmail}, 'M01', 'MB02', 'TT02', #{memRegDate})
+    </insert>
+    
+      <update id="updateNickname" parameterType="tot.domain.Member">
+        UPDATE MEMBER SET MEMNICK = #{memNick} WHERE MEMID = #{memId}
+    </update>
+
+    <select id="findNicknameByMemId" resultType="string">
+        SELECT MEMNICK FROM MEMBER WHERE MEMID = #{memId}
+    </select>
+
+    <select id="findNicknameByNick" resultType="string">
+        SELECT MEMNICK FROM MEMBER WHERE MEMNICK = #{nickname}
+    </select>
+
+    <select id="findMemberByMemId" resultType="tot.domain.Member">
+        SELECT * FROM MEMBER WHERE MEMID = #{memId}
+    </select>
+
+    <update id="updateMemberStatus">
+        UPDATE MEMBER 
+        SET MEMBER_001 = #{memberStatus}, MEMBER_BAN_START = #{banStart}, MEMBER_BAN_END = #{banEnd}
+        WHERE MEMID = #{memId}
+    </update>
+    
+	<select id="findEmailByMemberId" resultType="String">
+	    SELECT MEMEMAIL
+	    FROM MEMBER
+	    WHERE MEMID = #{memId}
+	</select>
+    
+    
+</mapper>
