@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
-    <title>공지사항 상세보기</title>
+    <title>관리자용 공지사항 상세보기</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/global.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/noticeDetail.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -34,7 +34,7 @@
             </div>
         </div>  
         <div class="buttons">
-            <button type="button" class="toListBtn" onclick="location.href='${pageContext.request.contextPath}/api/notices'">목록으로</button>
+            <button type="button" class="toListBtn" onclick="location.href='${pageContext.request.contextPath}/admin/api/notices'">목록으로</button>
             
         </div>
     </section>

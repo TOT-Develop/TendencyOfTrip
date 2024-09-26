@@ -26,9 +26,9 @@
                 <div id="headerNav">
                     <nav id="nav">
                         <ul>
-                            <li><a href="#">PLANNER</a></li>
+                            <li><a href="${pageContext.request.contextPath}/trip/list">PLANNER</a></li>
                             <li><a href="${pageContext.request.contextPath}/jsp/qna.jsp">QNA</a></li>
-                            <li><a href="#">REVIEW</a></li>
+                            <li><a href="${pageContext.request.contextPath}/review/all/1">REVIEW</a></li>
                             <li><a href="${pageContext.request.contextPath}/api/notices">NOTICE</a></li>
                         </ul>
                     </nav>

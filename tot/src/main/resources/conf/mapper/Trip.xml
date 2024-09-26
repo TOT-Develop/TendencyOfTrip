@@ -4,7 +4,7 @@
 
 <mapper namespace="tot.dao.TripDao">
 
-	<resultMap id="tripResultMap" type="tot.domain.TripVO">
+	<resultMap id="tripResultMap" type="tot.domain.TripDTO">
 	    <result property="regionName" column="regionName"/>
 	    <result property="regionImageUrl" column="regionImageUrl"/>
 	</resultMap>

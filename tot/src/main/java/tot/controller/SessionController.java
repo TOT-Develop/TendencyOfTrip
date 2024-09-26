@@ -20,6 +20,7 @@ public class SessionController {
 	        // memId가 없다면 'guest'로 기본값을 설정합니다.
 	        Map<String, String> response = new HashMap<>();
 	        response.put("memId", memId != null ? memId : "guest");
+	        System.out.println(memId);
 	        return response;
 	    }
 	

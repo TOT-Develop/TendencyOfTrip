@@ -14,7 +14,7 @@ public class HistoryDAOImpl implements HistoryDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
-	private static final String NAMESPACE = "tot.mapper.HistoryMapper";
+	private static final String NAMESPACE = "tot.dao.HistoryDAO";
 
 	@Override
 	public void insertTReviewHistory(HistoryVO historyVO) {

@@ -20,7 +20,6 @@ public class TripController {
 	        // tripId가 없는 경우 처리 로직
 	        model.addAttribute("tripId", "undefined");
 	    }
-	    session.setAttribute("memId", "user123"); // 실제 로그인 시 사용자의 ID로 대체 필요
 
 	    // 반환할 뷰 이름
 	    return "trip"; // trip.jsp와 일치해야 합니다.
@@ -30,7 +29,6 @@ public class TripController {
     @GetMapping("/list")
     public String getTripList(HttpSession session) {
         // memid를 세션에 저장
-        session.setAttribute("memId", "user123");
         return "tripList";  // tripList.jsp를 반환
     }
 }

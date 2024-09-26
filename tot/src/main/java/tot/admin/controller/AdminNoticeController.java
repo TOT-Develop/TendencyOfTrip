@@ -1,6 +1,5 @@
-package tot.controller;
+package tot.admin.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,10 +18,10 @@ import java.util.List;
 
 @CrossOrigin(origins="*")
 @Controller  
-@RequestMapping("/api/notices")
-public class NoticeController {
+@RequestMapping("admin/api/notices")
+public class AdminNoticeController {
 
-    @Autowired
+    @Inject
     NoticeService noticeService;
 
     // 공지사항 목록 가져오기 
@@ -41,7 +40,7 @@ public class NoticeController {
         model.addAttribute("pagination", pagination);
         model.addAttribute("pageReqDTO", pageReqDTO);
 
-        return "notice";  // JSP 뷰로 이동
+        return "adminNotice";  // JSP 뷰로 이동
     }
 
     // 공지사항 상세보기 (GET)
@@ -49,7 +48,7 @@ public class NoticeController {
     public String getNoticeDetail(@PathVariable int noid, Model model) throws Exception {
         Notice notice = noticeService.getNoticeById(noid);
         model.addAttribute("notice", notice);  // 모델에 notice 객체 추가
-        return "noticeDetail";  // JSP 파일의 경로 
+        return "adminNoticeDetail";  // JSP 파일의 경로 
     }
 
     // 공지사항 작성 (POST)

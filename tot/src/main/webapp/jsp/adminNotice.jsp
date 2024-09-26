@@ -6,11 +6,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
-    <title>공지사항 메인</title>
+    <title>Admin 공지사항 메인</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/global.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/notice.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>   
-    <script src="${pageContext.request.contextPath}/static/js/notice.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/adminNotice.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -47,17 +47,26 @@
                                     <th>작성자</th>
                                     <th>제목</th>
                                     <th>작성일</th>
+                                    <th>삭제</th>
+                                    <th>수정</th>
                                 </tr>                                
                             </thead>
                             <tbody id="qnaTableBody">
 								<c:forEach var="notice" items="${pagination.postList}">
 								    <tr>
-								        <td>관리자</td>
-								        <td><a href="${pageContext.request.contextPath}/api/notices/detail/${notice.noid}">${notice.notitle}</a></td>
+								        <td>${notice.noid}</td>
+								        <td><a href="${pageContext.request.contextPath}/admin/api/notices/detail/${notice.noid}">${notice.notitle}</a></td>
 								        <td><fmt:formatDate value="${notice.noregdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+								        <td><a href="#" class="deleteLink" onclick="deleteNotice(${notice.noid})">삭제</a></td>
+								        <td><a href="${pageContext.request.contextPath}/api/notices/update/${notice.noid}">수정</a></td>
 								    </tr>
 								</c:forEach>                                                            
                             </tbody>
+                            	<tr>
+									<th colspan="5" class="regbtn">
+                            			<button onclick="location.href='${pageContext.request.contextPath}/jsp/noticeRegist.jsp'">글쓰기</button>
+                            		</th>
+                            	</tr>
                         </table>
                     </div>                    
                     <!-- 페이징 버튼 추가 -->
@@ -65,13 +74,13 @@
                         <ul class="paginationList">
                             <!-- 처음 페이지로 이동하는 버튼 -->
                             <li class="paginationItem">
-                                <a href="${pageContext.request.contextPath}/api/notices?page=${pagination.startBlockPage}" class="paginationLink">&laquo;</a>
+                                <a href="${pageContext.request.contextPath}/admin/api/notices?page=${pagination.startBlockPage}" class="paginationLink">&laquo;</a>
                             </li>
 
                             <!-- 이전 페이지 버튼 -->
                             <c:if test="${pagination.isPrev}">
                                 <li class="paginationItem">
-                                    <a href="${pageContext.request.contextPath}/api/notices?page=${pagination.currentPage - 1}" class="paginationLink">이전</a>
+                                    <a href="${pageContext.request.contextPath}/admin/api/notices?page=${pagination.currentPage - 1}" class="paginationLink">이전</a>
                                 </li>
                             </c:if>
 
@@ -85,7 +94,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <li class="paginationItem">
-                                            <a href="${pageContext.request.contextPath}/api/notices?page=${pageNum}" class="paginationLink">${pageNum}</a>
+                                            <a href="${pageContext.request.contextPath}/admin/api/notices?page=${pageNum}" class="paginationLink">${pageNum}</a>
                                         </li>
                                     </c:otherwise>
                                 </c:choose>
@@ -94,13 +103,13 @@
                             <!-- 다음 페이지 버튼 -->
                             <c:if test="${pagination.isNext}">
                                 <li class="paginationItem">
-                                    <a href="${pageContext.request.contextPath}/api/notices?page=${pagination.currentPage + 1}" class="paginationLink">다음</a>
+                                    <a href="${pageContext.request.contextPath}/admin/api/notices?page=${pagination.currentPage + 1}" class="paginationLink">다음</a>
                                 </li>
                             </c:if>
 
                             <!-- 맨 끝으로 버튼 -->
                             <li class="paginationItem">
-                                <a href="${pageContext.request.contextPath}/api/notices?page=${pagination.endBlockPage}" class="paginationLink">&raquo;</a>
+                                <a href="${pageContext.request.contextPath}/admin/api/notices?page=${pagination.endBlockPage}" class="paginationLink">&raquo;</a>
                             </li>
                         </ul>
                     </nav>

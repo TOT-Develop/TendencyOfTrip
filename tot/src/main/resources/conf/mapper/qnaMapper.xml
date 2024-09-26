@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tot.dao.QnaDao">
+
+    <resultMap id="QnaResultMap" type="tot.domain.Qna">
+        <id property="qnaid" column="QNAID"/>
+        <result property="memid" column="MEMID"/>
+        <result property="memnick" column="MEMNICK"/>
+        <result property="qna_001" column="QNA_001"/>
+        <result property="qna_002" column="QNA_002"/>
+        <result property="commentstatus" column="COMMENTSTATUS"/>
+        <result property="qnatitle" column="QNATITLE"/>
+        <result property="qnatext" column="QNATEXT"/>
+        <result property="qnaregdate" column="QNAREGDATE"/>
+        <result property="qnaupdate" column="QNAUPDATE"/>
+    </resultMap>
+    
+    <!-- 페이징 처리된 QnA 목록 조회 -->
+    <select id="qnaListWithPaging" parameterType="PageDTO" resultMap="QnaResultMap">
+	    SELECT *
+	    FROM (
+	        SELECT qnaid, memid, memnick, qna_001, qna_002, commentstatus, qnatitle, qnatext, qnaregdate, qnaupdate,
+	               ROW_NUMBER() OVER(ORDER BY qnaregdate DESC) AS rn
+	        FROM qna
+	        <where>
+	            <if test="dto.search != null and dto.search != ''">
+	                <if test="dto.searchType.name() != 'ALL'">
+	                    AND qna_001 = #{dto.searchType}
+	                </if>
+	            </if>
+	        </where>
+	    )
+	    WHERE rn BETWEEN #{offset} + 1 AND #{offset} + #{pageRowCount}
+	</select>
+
+	<!-- QnA 총 개수 조회 -->
+	<select id="selectQnaTotalCount" parameterType="PageDTO" resultType="int">
+	    SELECT COUNT(*)
+	    FROM qna
+	    <where>
+	        <if test="dto.search != null and dto.search != ''">
+	            <if test="dto.searchType.name() != 'ALL'">
+	                AND qna_001 = #{dto.searchType}
+	            </if>
+	        </if>
+	    </where>
+	</select>
+
+	<!-- memId로 페이징 처리 -->
+	<select id="qnaListWithPagingByMemId" parameterType="map" resultMap="QnaResultMap">
+	    SELECT *
+	    FROM (
+	        SELECT qnaid, memid, memnick, qna_001, qna_002, commentstatus, qnatitle, qnatext, qnaregdate, qnaupdate,
+	               ROW_NUMBER() OVER(ORDER BY qnaregdate DESC) AS rn
+	        FROM qna
+	        WHERE memid = #{memId}  <!-- memId 조건 추가 -->
+	        <if test="dto.search != null and dto.search != ''">
+	            AND (qnatitle LIKE '%' || #{dto.search} || '%'
+	            OR qnatext LIKE '%' || #{dto.search} || '%')
+	        </if>
+	    )
+	    WHERE rn BETWEEN (#{dto.page} - 1) * 8 + 1 AND #{dto.page} * 8
+	</select>
+
+<select id="getQnaDetail" parameterType="int" resultType="Qna">
+	select * from qna
+	where qnaid=#{qnaid}	
+</select>
+
+<insert id="insertQna" parameterType="Qna">
+    insert into qna(QNAID, memid, memnick, qna_001, qna_002, commentstatus, qnatitle, qnatext, QNAREGDATE, QNAUPDATE)
+    values(seq_qnaid.nextval, #{memid}, #{memnick}, #{qna_001}, 'Q11', 'CMT001', #{qnatitle}, #{qnatext}, SYSDATE, null)
+</insert>
+
+<select id="qnaList" resultType="Qna">
+    select *
+    from qna q
+    join member m on q.memid = m.memid
+</select>
+
+<select id="getMemNickByMemId" resultType="string" parameterType="string">
+    select memNick
+    from member
+    where memid = #{memid}
+</select>
+
+<select id="getMyQnaList" parameterType="string" resultMap="QnaResultMap">
+    SELECT * 
+    FROM qna 
+    WHERE memid = #{memId}
+</select>
+
+<insert id="insertQnaComment" parameterType="QnaComment">
+    INSERT INTO QNACOMMENT (QNACID, QNAID, QNACTEXT, QNACREGDATE, QNACUPDATE)
+    VALUES (SEQ_QNACID.NEXTVAL, #{qnaid}, #{qnactext}, #{qnacregdate}, #{qnacupdate})
+</insert>
+
+<select id="getCommentsByQnaId" parameterType="int" resultType="tot.domain.QnaComment">
+    SELECT QNACID, QNAID, QNACTEXT, QNACREGDATE, QNACUPDATE 
+    FROM QNACOMMENT 
+    WHERE QNAID = #{qnaId}
+</select>
+
+    <!-- QnA 목록 조회 쿼리 -->
+    <select id="getQnaList" resultType="Qna">
+        SELECT * 
+        FROM QNA
+    </select>
+
+</mapper>

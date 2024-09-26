@@ -58,10 +58,11 @@ public class CourseDaoImpl implements CourseDao {
 
 	@Override
 	public CourseResDTO getCourseDetailsById(String dcourseType, int dcourseId) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("dcourseType", dcourseType);
-		params.put("dcourseId", dcourseId);
-
-		return sqlSession.selectOne(NAMESPACE + ".getCourseDetailsById", params);
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("dcourseType", dcourseType);
+	    params.put("dcourseId", dcourseId);
+	    System.out.println("Params: " + params); // 로그 출력
+	    return sqlSession.selectOne(NAMESPACE + ".getCourseDetailsById", params);
 	}
+
 }

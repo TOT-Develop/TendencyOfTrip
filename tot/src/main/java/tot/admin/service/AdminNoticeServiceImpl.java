@@ -1,34 +1,42 @@
-package tot.service;
+package tot.admin.service;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import tot.common.page.PageDTO;
-import tot.common.page.PageReqDTO;
-import tot.common.page.PageResDTO;
 import tot.dao.NoticeDao;
 import tot.domain.Notice;
 import tot.exception.ServerException;
+import tot.common.page.PageDTO;
+import tot.common.page.PageReqDTO;
+import tot.common.page.PageResDTO;
 
 @Service
-public class NoticeServiceImpl implements NoticeService {
+public class AdminNoticeServiceImpl implements AdminNoticeService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(NoticeServiceImpl.class); // logger 정의
+	private static final Logger logger = LoggerFactory.getLogger(AdminNoticeServiceImpl.class); // logger 정의
 	
     @Autowired
     private DataSourceTransactionManager transactionManager;
 	
     @Autowired
-    private NoticeDao noticeDao;
+    private SqlSessionFactory sqlSessionFactory;
+    
+	@Inject
+	NoticeDao noticeDao;
 	
 	@Override
 	public List<Notice> noticeList() throws Exception {

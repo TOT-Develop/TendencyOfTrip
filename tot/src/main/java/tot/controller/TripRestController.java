@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tot.domain.FestivalDTO;
 import tot.domain.FestivalVO;
-import tot.domain.TripVO;
+import tot.domain.TripDTO;
 import tot.service.TripService;
 import tot.service.CourseService;
 import tot.service.FestivalService;
@@ -36,10 +36,11 @@ public class TripRestController {
     private FestivalService festivalService;
 
     @GetMapping("/trips")
-    public ResponseEntity<List<TripVO>> getTripsByMemId(HttpSession session) {
+    public ResponseEntity<List<TripDTO>> getTripsByMemId(HttpSession session) {
         String memId = (String) session.getAttribute("memId");
+        System.out.println(memId);
         if (memId != null) {
-            List<TripVO> trips = tripService.getTripsByMemId(memId);
+            List<TripDTO> trips = tripService.getTripsByMemId(memId);
             return ResponseEntity.ok(trips);
         } else {
             return ResponseEntity.noContent().build();
@@ -54,8 +55,8 @@ public class TripRestController {
     }
 
     @GetMapping("/trip/{tripId}")
-    public ResponseEntity<TripVO> getTripById(@PathVariable int tripId) {
-        TripVO trip = tripService.getTripById(tripId);
+    public ResponseEntity<TripDTO> getTripById(@PathVariable int tripId) {
+    	TripDTO trip = tripService.getTripById(tripId);
         if (trip != null) {
             return ResponseEntity.ok(trip);
         } else {

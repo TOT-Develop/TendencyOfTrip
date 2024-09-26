@@ -1,44 +1,44 @@
-package tot.dao;
+package tot.admin.dao;
 
 import java.util.List;
+import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import tot.common.page.PageDTO;
 import tot.domain.Notice;
 
 @Repository
-public class NoticeDaoImpl implements NoticeDao {
+public class AdminNoticeDaoImpl implements AdminNoticeDao {
 	
-	@Autowired
+	@Inject
 	SqlSession sqlSession;
 	
-	private static final String NAMESPACE = "tot.dao.NoticeDao";
+	private static final String NAMESPACE = "NoticeDao";
 
 	@Override
 	public List<Notice> noticeList() throws Exception {
-	    return sqlSession.selectList("tot.dao.NoticeDao.NoticeList");
+	    return sqlSession.selectList("NoticeDao.NoticeList");
 	}
 	
     @Override
     public Notice getNoticeById(int noid) throws Exception {
-        return sqlSession.selectOne("tot.dao.NoticeDao.getNoticeById", noid);
+        return sqlSession.selectOne("NoticeDao.getNoticeById", noid);
     }
     
     @Override
     public void insertNotice(Notice notice) throws Exception {
-        sqlSession.insert("tot.dao.NoticeDao.insertNotice", notice); // MyBatis 쿼리 호출
+        sqlSession.insert("NoticeDao.insertNotice", notice); // MyBatis 쿼리 호출
     }
     
     @Override
     public int deleteNotice(int noid) throws Exception {
-    	 return sqlSession.delete("tot.dao.NoticeDao.deleteNotice", noid);
+    	 return sqlSession.delete("NoticeDao.deleteNotice", noid);
     }
     
     @Override
     public void updateNotice(Notice notice) throws Exception {
-        sqlSession.update("tot.dao.NoticeDao.updateNotice", notice);
+        sqlSession.update("NoticeDao.updateNotice", notice);
     }
     
     

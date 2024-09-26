@@ -8,11 +8,12 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class TripVO {
+public class TripDTO {
 
     private int tripId; // 여행 아이디
     private String memId; // 회원 아이디
     private String areacode; // 지역코드
+    private String tripName; // 여행 이름
     private int trAmt; // 여행 예상 비용
     private Date trStadate; // 여행 시작일
     private Date trEnddate; // 예상 도착일
@@ -22,25 +23,31 @@ public class TripVO {
     private String regionName; // 여행지역 이름
     private String regionImageUrl; // 지역 이미지 URL
 
-    public TripVO() {
+    public TripDTO() {
     }
 
-    public TripVO(int tripId, String memId, String areacode, int trAmt, Date trStadate, Date trEnddate, String trPeriod,
-                  int trPeople, String trImgpath, String regionName, String regionImageUrl) {
-        this.tripId = tripId;
-        this.memId = memId;
-        this.areacode = areacode;
-        this.trAmt = trAmt;
-        this.trStadate = trStadate;
-        this.trEnddate = trEnddate;
-        this.trPeriod = trPeriod;
-        this.trPeople = trPeople;
-        this.trImgpath = trImgpath;
-        this.regionName = regionName;
-        this.regionImageUrl = regionImageUrl;
-    }
+    
 
-    public int getTripId() {
+    public TripDTO(int tripId, String memId, String areacode, String tripName, int trAmt, Date trStadate,
+			Date trEnddate, String trPeriod, int trPeople, String trImgpath, String regionName, String regionImageUrl) {
+		super();
+		this.tripId = tripId;
+		this.memId = memId;
+		this.areacode = areacode;
+		this.tripName = tripName;
+		this.trAmt = trAmt;
+		this.trStadate = trStadate;
+		this.trEnddate = trEnddate;
+		this.trPeriod = trPeriod;
+		this.trPeople = trPeople;
+		this.trImgpath = trImgpath;
+		this.regionName = regionName;
+		this.regionImageUrl = regionImageUrl;
+	}
+
+
+
+	public int getTripId() {
         return tripId;
     }
 
@@ -130,7 +137,21 @@ public class TripVO {
         this.regionImageUrl = regionImageUrl;
     }
 
-    // 여행 기간을 표시하는 메서드
+    
+    
+    public String getTripName() {
+		return tripName;
+	}
+
+
+
+	public void setTripName(String tripName) {
+		this.tripName = tripName;
+	}
+
+
+
+	// 여행 기간을 표시하는 메서드
     @JsonGetter("displayPeriod")
     public String getDisplayPeriod() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -150,11 +171,15 @@ public class TripVO {
         return df.format(trAmt) + " 원";
     }
 
-    @Override
-    public String toString() {
-        return "TripVO [tripId=" + tripId + ", memId=" + memId + ", areacode=" + areacode + ", trAmt=" + trAmt
-                + ", trStadate=" + trStadate + ", trEnddate=" + trEnddate + ", trPeriod=" + trPeriod + ", trPeople="
-                + trPeople + ", trImgpath=" + trImgpath + ", regionName=" + regionName + ", regionImageUrl="
-                + regionImageUrl + "]";
-    }
+
+
+	@Override
+	public String toString() {
+		return "TripDTO [tripId=" + tripId + ", memId=" + memId + ", areacode=" + areacode + ", tripName=" + tripName
+				+ ", trAmt=" + trAmt + ", trStadate=" + trStadate + ", trEnddate=" + trEnddate + ", trPeriod="
+				+ trPeriod + ", trPeople=" + trPeople + ", trImgpath=" + trImgpath + ", regionName=" + regionName
+				+ ", regionImageUrl=" + regionImageUrl + "]";
+	}
+
+    
 }

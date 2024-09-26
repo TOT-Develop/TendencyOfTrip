@@ -28,7 +28,7 @@ import tot.domain.CourseDTO;
 import tot.domain.MemberVO;
 import tot.domain.TReviewReqDTO;
 import tot.domain.TReviewResDTO;
-import tot.domain.TripVO;
+import tot.domain.TripDTO;
 import tot.service.CommentService;
 import tot.service.CourseService;
 import tot.service.TReviewService;
@@ -68,7 +68,7 @@ public class TReviewController {
 	public String showTourReviewWrite(Model model) {
 		MemberVO member = MemberUtil.getAuthenticatedMember();
 		String MemId = member.getMemId();
-		List<TripVO> trips = tripService.getTripsByMemId(MemId);
+		List<TripDTO> trips = tripService.getTripsByMemId(MemId);
 
 		model.addAttribute("trips", trips);
 		model.addAttribute("member", member);
@@ -103,7 +103,7 @@ public class TReviewController {
 	public String showTourReviewEdit(@PathVariable int trevId, Model model) {
 		MemberVO member = MemberUtil.getAuthenticatedMember();
 
-		List<TripVO> trips = tripService.getTripsByMemId(member.getMemId());
+		List<TripDTO> trips = tripService.getTripsByMemId(member.getMemId());
 		TReviewResDTO review = treviewService.getTReviewById(trevId);
 		List<CourseDTO> courses = courseService.getCourseDetailsByTripId(review.getTripId());
 

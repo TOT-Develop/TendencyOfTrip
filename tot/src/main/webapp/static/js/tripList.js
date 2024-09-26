@@ -2,6 +2,7 @@ $(document).ready(function() {
     // 서버에서 memid를 가져오는 AJAX 요청
     $.getJSON("/tot/session/id", function(response) {
         let memId = response.memId;
+        console.log(memId);
         
         if (memId) {
             // AJAX 요청으로 여행 목록을 가져오는 코드
