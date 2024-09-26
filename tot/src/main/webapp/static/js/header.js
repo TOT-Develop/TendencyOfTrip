@@ -27,6 +27,10 @@ window.onload = function (){
 		window.location.href="main.jsp";
 	})
 	
+	// 공지사항페이지로 이동
+	$('#headerLogin').click(function(){
+		window.location.href="login.jsp";
+	})
 	
 	
 	

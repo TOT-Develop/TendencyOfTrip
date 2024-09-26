@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="tot.dao.FestivalDao">
+
+	<select id="findFestivalsByDateRange" parameterType="map" resultType="tot.domain.FestivalDTO">
+        SELECT * 
+        FROM festival 
+        WHERE areacode = #{areacode}
+        AND (TO_DATE(#{tripStartDate}, 'YYYY-MM-DD') BETWEEN TO_DATE(eventstartdate, 'YYYY-MM-DD') AND TO_DATE(eventenddate, 'YYYY-MM-DD')
+          OR TO_DATE(#{tripEndDate}, 'YYYY-MM-DD') BETWEEN TO_DATE(eventstartdate, 'YYYY-MM-DD') AND TO_DATE(eventenddate, 'YYYY-MM-DD'))
+    </select>
+
+    <select id="findFestivalsByMonth" parameterType="map" resultType="tot.domain.FestivalDTO">
+        SELECT * 
+        FROM festival 
+        WHERE areacode = #{areacode}
+        AND EXTRACT(MONTH FROM TO_DATE(eventstartdate, 'YYYY-MM-DD')) = EXTRACT(MONTH FROM TO_DATE(#{tripStartDate}, 'YYYY-MM-DD'))
+    </select>
+	
+</mapper>

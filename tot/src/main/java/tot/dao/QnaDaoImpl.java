@@ -1,11 +1,15 @@
 package tot.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import tot.common.page.PageDTO;
+import tot.common.page.PageReqDTO;
 import tot.domain.Member;
 import tot.domain.Qna;
 
@@ -14,6 +18,7 @@ public class QnaDaoImpl implements QnaDao {
 
 	
 	private SqlSession sqlSession;
+	private QnaDao qnaDao;
 
     @Autowired
     public QnaDaoImpl(SqlSession sqlSession) {
@@ -22,7 +27,7 @@ public class QnaDaoImpl implements QnaDao {
 	
 	@Override
 	public List<Qna> qnaList() {
-		return sqlSession.selectList("tot.dao.QnaDao.qnaList");
+        return sqlSession.selectList("tot.dao.QnaDao.qnaList");
 	}
 
 	@Override
@@ -39,6 +44,35 @@ public class QnaDaoImpl implements QnaDao {
 	public Qna getQna(int QNAID) {
 		return sqlSession.selectOne("tot.dao.QnaDao.getQnaList", QNAID); 
 	}
+	
+    // memId로 memNick을 가져오는 메서드
+    @Override
+    public String getMemNickByMemId(String memId) {
+        return qnaDao.getMemNickByMemId(memId);
+    }
+    
+    @Override
+    public List<Qna> qnaListWithPaging(PageDTO pageDTO) {
+        return sqlSession.selectList("tot.dao.QnaDao.qnaListWithPaging", pageDTO);
+    }
+    
+    @Override
+    public List<Qna> qnaListWithPagingByMemId(PageReqDTO dto, String memId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("dto", dto);
+        params.put("memId", memId);
+        return sqlSession.selectList("tot.dao.QnaDao.qnaListWithPagingByMemId", params);  // memId와 함께 처리
+    }
+
+    @Override
+    public int selectQnaTotalCount(PageDTO pageDTO) {
+        return sqlSession.selectOne("tot.dao.QnaDao.selectQnaTotalCount", pageDTO);
+    }
+    
+    @Override
+    public List<Qna> getMyQnaList(String memId) {
+        return sqlSession.selectList("tot.dao.QnaDao.getMyQnaList", memId);
+    }
 
 //	@Override
 //	public Member getMemberId(int MEMID) {

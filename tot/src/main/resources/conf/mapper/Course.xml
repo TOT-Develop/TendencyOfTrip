@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tot.dao.CourseDao">
+
+	<select id="getCourse" resultType="tot.domain.CourseDTO">
+	    SELECT C.*
+	    FROM COURSE C
+	    JOIN TRIP  T ON C.TRIPID= T.TRIPID
+	    WHERE T.TRIPID = #{tripId}
+	    ORDER BY C.COURID ASC
+	</select>
+	
+	
+	<select id="getLodging" resultType="tot.domain.LodgingDTO">
+	    SELECT *
+	    FROM LODGING
+	    WHERE LODID = #{lodId}
+	</select>
+
+    <!-- Restaurant 조회 -->
+	<select id="getRestaurant" resultType="tot.domain.RestaurantDTO">
+	    SELECT *
+	    FROM RESTAURANT
+	    WHERE RESTID = #{restId}
+	</select>
+	
+    <!-- Tour 조회 -->
+	  <select id="getTour" resultType="tot.domain.TourDTO">
+	    SELECT *
+	    FROM TOUR
+	    WHERE TOID = #{toId}
+	</select>
+	
+	<select id="getCourseById" parameterType="String" resultType="CourseDTO">
+        SELECT * FROM COURSE WHERE COURID = #{courseId}
+    </select>
+
+	<select id="getCourseByTripId" parameterType="int" resultMap="CourseDTOMap">
+		SELECT 
+		    C.COURID, 
+		    C.TRIPID, 
+		    C.AREACODE, 
+		    C.DCOURSE, 
+		    C.COURREGDATE, 
+		    C.COURUPDATE
+		FROM 
+		    COURSE C
+		JOIN 
+		    TRIP T ON C.TRIPID = T.TRIPID
+		WHERE 
+		    T.TRIPID = #{tripId}
+	</select>
+	
+	<select id="getCourseDetailsById" parameterType="map" resultType="CourseResDTO">
+	    <choose>
+	        <when test="dcourseType == 'TOID'">
+	            SELECT t.TONAME AS dname, t.TOADDRESS AS daddress
+	            FROM TOUR t
+	            WHERE t.toid = #{dcourseId}
+	        </when>
+	        <when test="dcourseType == 'RESTID'">
+	            SELECT r.RESTNAME AS dname, r.RESTADDRESS AS daddress
+	            FROM RESTAURANT r
+	            WHERE r.restid = #{dcourseId}
+	        </when>
+	        <when test="dcourseType == 'LODID'">
+	            SELECT l.LODNAME AS dname, l.LODADDRESS AS daddress
+	            FROM LODGING l
+	            WHERE l.lodid = #{dcourseId}
+	        </when>
+	        <otherwise>
+	            SELECT NULL AS dname, NULL AS daddress FROM DUAL
+	        </otherwise>
+   		</choose>
+	</select>
+	
+	<resultMap id="CourseDTOMap" type="CourseDTO">
+	    <id property="courId" column="COURID" />
+	    <result property="tripId" column="TRIPID" />
+	    <result property="areaCode" column="AREACODE" />
+	    <result property="dCourse" column="DCOURSE" />
+	    <result property="courRegdate" column="COURREGDATE" />
+	    <result property="courUpdate" column="COURUPDATE" />
+	</resultMap>
+</mapper>

@@ -4,28 +4,34 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class CourseDTO {
+    
+    private int courId;         // 코스 아이디
+    private int tripId;         // 여행 아이디
+    private String areacode;    // 지역 코드
+    private String dcourse;     // 하루 코스 설명 문자열
+    private List<CourseResDTO> courseDetail; // 하루 여행 상세 코스
+    private Timestamp courRegdate; // 등록일시
+    private Timestamp courUpdate;  // 수정일시
 
-	private int courId; // 코스 아이디
-	private int tripId; // 여행 아이디
-	private String areaCode; // 지역 코드
-	private String dCourse; // 하루 코스 설명
-	private List<CourseResDTO> courseDetail; // 하루 여행 상세 코스
-	private Timestamp courRegdate; // 등록 일시
-	private Timestamp courUpdate; // 수정 일시
-
-	public CourseDTO() {
+    public CourseDTO() {
+		// TODO Auto-generated constructor stub
 	}
+    
+    
 
-	public CourseDTO(int courId, int tripId, String areaCode, String dCourse, List<CourseResDTO> courseDetail,
+	public CourseDTO(int courId, int tripId, String areacode, String dcourse, List<CourseResDTO> courseDetail,
 			Timestamp courRegdate, Timestamp courUpdate) {
+		super();
 		this.courId = courId;
 		this.tripId = tripId;
-		this.areaCode = areaCode;
-		this.dCourse = dCourse;
+		this.areacode = areacode;
+		this.dcourse = dcourse;
 		this.courseDetail = courseDetail;
 		this.courRegdate = courRegdate;
 		this.courUpdate = courUpdate;
 	}
+
+
 
 	public int getCourId() {
 		return courId;
@@ -35,12 +41,12 @@ public class CourseDTO {
 		return tripId;
 	}
 
-	public String getAreaCode() {
-		return areaCode;
+	public String getAreacode() {
+		return areacode;
 	}
 
-	public String getdCourse() {
-		return dCourse;
+	public String getDcourse() {
+		return dcourse;
 	}
 
 	public List<CourseResDTO> getCourseDetail() {
@@ -63,12 +69,12 @@ public class CourseDTO {
 		this.tripId = tripId;
 	}
 
-	public void setAreaCode(String areaCode) {
-		this.areaCode = areaCode;
+	public void setAreacode(String areacode) {
+		this.areacode = areacode;
 	}
 
-	public void setdCourse(String dCourse) {
-		this.dCourse = dCourse;
+	public void setDcourse(String dcourse) {
+		this.dcourse = dcourse;
 	}
 
 	public void setCourseDetail(List<CourseResDTO> courseDetail) {
@@ -83,11 +89,14 @@ public class CourseDTO {
 		this.courUpdate = courUpdate;
 	}
 
+
 	@Override
 	public String toString() {
-		return "CourseDTO [courId=" + courId + ", tripId=" + tripId + ", areaCode=" + areaCode + ", dCourse=" + dCourse
+		return "CourseDTO [courId=" + courId + ", tripId=" + tripId + ", areacode=" + areacode + ", dcourse=" + dcourse
 				+ ", courseDetail=" + courseDetail + ", courRegdate=" + courRegdate + ", courUpdate=" + courUpdate
 				+ "]";
 	}
-
+    
+	
+    
 }

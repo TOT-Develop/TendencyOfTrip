@@ -11,14 +11,19 @@ import tot.domain.TripVO;
 @Repository
 public class TripDAOImpl implements TripDAO {
 
-	private static final String NAMESPACE = "tot.mapper.TripMapper";
+    @Autowired
+    private SqlSession sqlSession;
 
-	@Autowired
-	private SqlSession sqlSession;
+    private static final String NAMESPACE = "tot.dao.TripDao";
 
-	@Override
-	public List<TripVO> getTripByMemId(String memId) {
-		return sqlSession.selectList(NAMESPACE + ".getTripByMemId", memId);
-	}
+    @Override
+    public List<TripVO> getTripsByMemId(String memId) {
+        return sqlSession.selectList(NAMESPACE + ".getTripsByMemId", memId);
+    }
+
+    @Override
+    public TripVO getTripById(int tripId) {
+        return sqlSession.selectOne(NAMESPACE + ".getTripById", tripId);
+    }
 
 }

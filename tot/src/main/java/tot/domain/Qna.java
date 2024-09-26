@@ -7,6 +7,7 @@ public class Qna {
 	
 	private int qnaid;
 	private String memid;
+	private String memnick; // 게시물에 아이디 아니고 닉네임 보여줄거임.
 	private String qna_001;
 	private String qna_002;
 	private String commentstatus;
@@ -14,6 +15,8 @@ public class Qna {
 	private String qnatext;
 	private Timestamp qnaregdate;
 	private Timestamp qnaupdate;
+	
+	
 	
 	public Qna() {
 	}
@@ -103,6 +106,15 @@ public class Qna {
 	public void setQnaupdate(Timestamp qnaupdate) {
 		this.qnaupdate = qnaupdate;
 	}
+	
+    // getters and setters
+    public String getMemNick() {
+        return memnick;
+    }
+
+    public void setMemNick(String memnick) {
+        this.memnick = memnick;
+    }
 
 	@Override
 	public String toString() {

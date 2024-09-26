@@ -13,16 +13,7 @@ window.onload = function () {
         var selectElement = document.querySelector('.qnaCategory');
 		var Elementttt = selectElement.value;
 		 console.log(Elementttt)
-        // Do something with the selected value, e.g., send it to the server
-
-
     }
-       // var selectElement = document.querySelector('.qnaCategory');
-      //  selectElement.addEventListener('change', getSelectedValue);
-	
-	// 등록하기
-	
-
 
 	// 등록하기
 	$('.registButton').on('click', function(){

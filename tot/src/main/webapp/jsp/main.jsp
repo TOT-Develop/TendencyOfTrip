@@ -7,6 +7,8 @@
     <title>Trick or Trip</title>
     <link rel="stylesheet" href="../static/css/global.css"/>
     <link rel="stylesheet" href="../static/css/main.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/main.js"></script>
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -18,7 +20,7 @@
                     <p>MBTI별로 추천해주는 여행코스를 즐겨보세요</p>
                 </div>
                 <div id="mainFirstBtn">
-                    <input type="button" value="TEST START"/>
+                    <input id="testBtn" type="button" value="TEST START"/>
                 </div>
             </div>
         </div>

@@ -1,0 +1,205 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* 기본 스타일 */
+body {
+    font-family: 'Pretendard-Regular';
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw; /* 전체 화면 너비를 차지 */
+    background-color: #fff; /* 흰색 배경 */
+    flex-direction: column; /* 수직 방향으로 정렬 */
+    min-width: 600px;
+}
+
+/* 제목 스타일 */
+h2 {
+    text-align: center;
+    font-size: 30px;
+    margin: 50px;
+}
+
+/* 밑줄 추가 */
+h2::after {
+    content: ""; /* Empty content for the pseudo-element */
+    display: block;
+    width: 60%; /* Width of the underline */
+    height: 2px; /* Thickness of the underline */
+    background-color: #1FB1D9; /* Color of the underline */
+    margin: 0 auto; /* Center align the underline */
+    margin-top: 20px;
+    bottom: 0; /* Align it to the bottom of the h2 */
+    left: 20%; /* Center the underline horizontally by adjusting left */
+}
+
+h3 {
+    text-align: center;
+    font-size: 20px;
+    font-weight: normal;
+    margin: 60px;
+}
+
+/* Title Group - 부모 요소 */
+.title-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* Position relative to allow absolute positioning of children */
+    margin-bottom: 20px; /* form과의 간격 조절 */
+}
+
+/* Title Line - 자식 요소 */
+.title-line {
+    position: absolute; /* Position absolute to make it full width */
+    bottom: 0; /* Align to the bottom of the parent element */
+    left: 15%; /* Adjust left to center the line */
+    width: 70%; /* Set width to 70% */
+    border-bottom: 1px solid #ddd;
+    margin-top: 50px; /* Remove margin since we use absolute positioning */
+}
+
+/* Form Container */
+.form-container {
+    width: 90%; /* 폼의 너비를 화면 너비의 90%로 설정 */
+    max-width: 600px; /* 최대 폭 설정 */
+    padding: 20px;
+    border-radius: 5px;
+    margin: 0 auto; /* 수평 중앙 정렬 */
+    margin-top: 100px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.date-group {
+    display: flex;
+    margin: 20px 0;
+}
+
+.date-group label,
+.form-group label {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+    flex-basis: 30%; /* Adjust the width of the label */
+    margin-right: 10px;
+}
+
+.line {
+    border-bottom: 1px solid #ddd;
+    margin: 15px 0;
+}
+
+.date-group input[type="date"],
+.form-group select,
+.form-group input[type="text"] {
+    font-family: 'Pretendard-Regular';
+    font-weight: bold;
+    color: #333;
+    width: 68%;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border: none;
+    border-radius: 3px;
+    font-size: 18px;
+}
+
+#trpeople,
+#tramt {
+	width: 35%;
+}
+
+.date-group span {
+    display: inline-block;
+    width: 20px;
+}
+
+/* 버튼 그룹 기본 스타일 */
+.button-group {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 buttons per row */
+    gap: 10px; /* Space between buttons */
+}
+
+/* 버튼 기본 스타일 */
+.button-group input[type="button"] {
+    font-family: 'Pretendard-Regular';
+    font-weight: bold;
+    width: 80px;
+    height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    color: #333;
+    cursor: pointer;
+    font-size: 15px;
+    text-align: center;
+}
+
+/* 선택된 버튼 스타일 */
+.button-group input[type="button"].selected {
+    background-color: #1FB1D9;
+    color: #fff;
+}
+
+/* 버튼 hover 상태 */
+.button-group input[type="button"]:hover {
+    background-color: #1FB1D9;
+    color: #fff;
+}
+
+/* 버튼 focus 상태 */
+.button-group input[type="button"]:focus {
+    outline: none; /* 기본 포커스 스타일 제거 */
+    background-color: #1FB1D9;
+    color: #fff;
+}
+
+/* 제출 및 뒤로 가기 버튼 그룹 */
+.final-button-group {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px 0;
+}
+
+/* 버튼 기본 스타일 */
+.back-button, .submit-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 130px;
+}
+
+/* 뒤로 가기 버튼 */
+.back-button {
+    background-color: #cfcfcf;
+    color: #fff;
+}
+
+/* 제출 버튼 */
+.submit-button {
+    background-color: #1FB1D9;
+    color: #fff;
+}
+
+/* 뒤로 가기 버튼 hover 상태 */
+.back-button:hover {
+    background-color: #f0f0f0;
+}
+
+/* 제출 버튼 hover 상태 */
+.submit-button:hover {
+    background-color: #cfcfcf;
+}

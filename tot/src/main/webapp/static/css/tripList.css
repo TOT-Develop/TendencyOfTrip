@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+#trip-list-container {
+    margin-top: 20px;
+}
+
+.trip-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-size: cover; /* 이미지 크기에 맞게 배경 조정 */
+    background-position: center; /* 배경 이미지 위치 조정 */
+    position: relative;
+    color: white;
+    overflow: hidden;
+}
+
+.trip-item:hover {
+    background-color: rgba(0, 0, 0, 0.3); /* 호버 시 배경색 반투명 */
+}
+
+.trip-item h2 {
+    margin: 0;
+    color: #fff; /* 텍스트 색상 변경 */
+}
+
+.trip-item p {
+    margin: 5px 0;
+    color: #fff; /* 텍스트 색상 변경 */
+    position: relative;
+    z-index: 2; /* 배경 이미지 위에 텍스트 표시 */
+}
+
+.trip-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.butdiv {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.backbtn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.backbtn:hover {
+    background-color: #0056b3;
+}

@@ -17,29 +17,35 @@
     
 </head>
 <body>
-<%
-	session.setAttribute("memid", "M01"); 
-%>
-<input type="hidden" name="memid" value="<%=session.getAttribute("memid")%>"/>
 	<jsp:include page="header.jsp"></jsp:include>
+<%
+	session.getAttribute("member"); 
+%>
+<p>안녕하세요, ${member.memNick}님!</p>
+
+<input type="hidden" name="memid" value="<%=session.getAttribute("memid")%>"/>
     <div class="wrapper">
       <div class="container">
           <div class="row1">
             <h2 class="row1Text">Q & A</h2>
           </div>        
           <div class="row2">
-            <div class="qnaCategories">
-                <select class="qnaCategory">
-                    <option value="" selected <c:if test="${qnacatno==null || qnacatno==''}" ></c:if>>전체</option>
-                    <option value="1"  <c:if test="${qnacatno==null || qnacatno=='1'}" ></c:if>>계정관리</option>
-                    <option value="2" <c:if test="${qnacatno==null || qnacatno=='2'}" ></c:if>>기술지원</option>
-                    <option value="3" <c:if test="${qnacatno==null || qnacatno=='3'}" ></c:if>>불만요청</option>
-                    <option value="4" <c:if test="${qnacatno==null || qnacatno=='4'}" ></c:if>>기타요청</option>
-                </select>
-                <input type="text" name="searchValue" placeholder="Search" class="searchBox" />
-                <input type="submit" value="검색" class="searchBtn"/>
-                <input type="button" value="+ 글쓰기" class="toWrite"/>
-            </div>
+          	<form id="searchForm" action="${pageContext.request.contextPath}/qna" method="get">	
+	            <div class="qnaCategories">
+					<select name="searchType" class="qnaCategory">
+					    <option value="ALL" ${pageReqDTO.categoryType == 'ALL' ? 'selected' : ''}>전체</option>
+					    <option value="Q01" ${pageReqDTO.categoryType == 'Q01' ? 'selected' : ''}>계정관리</option>
+					    <option value="Q02" ${pageReqDTO.categoryType == 'Q02' ? 'selected' : ''}>기술지원</option>
+					    <option value="Q03" ${pageReqDTO.categoryType == 'Q03' ? 'selected' : ''}>불만요청</option>
+					    <option value="Q04" ${pageReqDTO.categoryType == 'Q04' ? 'selected' : ''}>기타요청</option>
+					</select>
+					
+	                <input type="text"  placeholder="Search" class="searchBox" />
+	                <input type="submit" value="검색" class="searchBtn"/>
+	                <input type="button" value="+ 글쓰기" class="toWrite"/>
+	                <input type="button" value="내 글 보기" id="myQnaBtn"/>
+	            </div>					
+	         </form>
 
             <div class="questionList">
                 <div class="tableContainer">
