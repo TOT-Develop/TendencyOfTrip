@@ -1,9 +1,8 @@
-# TotTourReviews
-![header_logo](https://github.com/user-attachments/assets/1bdba29b-e267-4ef9-a8eb-ac0b262e532a)
+# TRICK OR TRIP (나의 성향따라 떠나는 여행가이드)
 
-
-**TRICK OR TRIP (나의 성향따라 떠나는 여행가이드)** <br />
 **개발기간** : 2024.08.26 ~ 2024.10.07
+
+<img src="https://github.com/user-attachments/assets/1bdba29b-e267-4ef9-a8eb-ac0b262e532a" alt="header_logo" width="300"/>
 
 --- 
 
@@ -20,7 +19,6 @@
 
 - **데이터베이스** : Oracle
 - **프론트엔드** :  HTML/CSS/Javascript, jQuery, JSP
-- **백엔드** : Servlet(Dynamic Web Project)
 - **서버** : Apache Tomcat 9.0
 - **프레임워크** : Spring
 
@@ -28,7 +26,6 @@
 
 ### 1. 메인 페이지
 - **개요**: 메인 페이지에서는 사이트를 이용하는 방법을 알려주는 영상이 소개되고, test start, planner, qna, review, notice, login 버튼이 있습니다.
-- ****
 
 ### 2. 로그인
 - **로그인**: 구글, 네이버, 카카오 로그인 API를 이용해 간편로그인이 가능합니다.
