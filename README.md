@@ -59,11 +59,11 @@
 
 ## 🎥 Preview
 ### 성향 테스트
-| https://github.com/user-attachments/assets/f036fb8b-626b-4a44-8f7d-0c1d3c805fdf | https://github.com/user-attachments/assets/fb0c8e65-425a-4c45-b022-b07e79f627be|
+| ![test_video](https://github.com/user-attachments/assets/fb1f9eca-f44f-4b31-a975-c3dcf49e2bb9) | ![test_video](https://github.com/user-attachments/assets/a40fb327-1e34-401f-936b-5846f954c127)|
 |----------------------------|----------------------------|
 
 ### 추천받은 경로 
-|https://github.com/user-attachments/assets/570009e8-922d-405c-872b-78f1ff63f3bd | https://github.com/user-attachments/assets/9d375ee1-68ee-4e7d-8ae3-a3168f2b5bff |
+| ![planner_video](https://github.com/user-attachments/assets/ddc9d649-82be-43f4-a718-f6ec27ab1622) | ![planner_video](https://github.com/user-attachments/assets/da507dd4-429c-462d-804f-c584dbb98fb4)|
 |----------------------------|----------------------------|
 
 
