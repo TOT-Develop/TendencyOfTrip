@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="tot.mapper.AdminReportMapper">
+<mapper namespace="tot.admin.dao.AdminReportDao">
 
 	<update id="updateReportStatus">
 		UPDATE REPORT
@@ -112,6 +112,27 @@
 			</if>
 	    ) c
 	    WHERE rn BETWEEN #{offset} + 1 AND #{offset} + #{pageRowCount}
+	</select>
+	
+	<select id="findReportedContentTypeByReportId" resultType="string">
+		SELECT REPORTEDCONTENTTYPE
+		FROM REPORT 
+		WHERE REPORTID = #{reportId}
+	</select>
+	
+	<select id="findMemberEmailByReportId" resultType="string">
+		SELECT M.MEMEMAIL
+	    FROM REPORT R
+	    JOIN TREVIEW T ON R.REPORTEDTREVID = T.TREVID
+	    JOIN MEMBER M ON T.MEMID = M.MEMID
+	    WHERE R.REPORTID = #{reportId}
+	</select>
+	
+	<select id="findPostTitleByReportId" resultType="string">
+		SELECT t.TREVTITLE 
+		FROM REPORT r
+		JOIN TREVIEW t ON r.REPORTEDTREVID = t.TREVID 
+		WHERE r.REPORTID = #{reportId}
 	</select>
 	
 	<resultMap id="ReportDTOMap" type="ReportDTO">

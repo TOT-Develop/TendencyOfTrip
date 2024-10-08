@@ -1,0 +1,166 @@
+.wrapper {
+  width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.wrapper .container {
+  padding: 180px 40px;
+
+}
+
+/* h1 */
+.wrapper .container .row1 {
+  font-size: 20px;
+  padding: 20px;
+}
+
+/* catecory */
+.wrapper .container .row2 {
+  width: 100%;
+}
+
+.wrapper .container .row2 .qnaCategories {
+  text-align: right;
+  height: 40px;
+  line-height: 40px;
+}
+
+.wrapper .container .row2 .qnaCategories select {
+  width: 100px;
+  height: 40px;
+  font-size: 15px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.wrapper .container .row2 .qnaCategories input {
+  height: 18px;
+  text-align: center;
+}
+
+.wrapper .container .row2 .qnaCategories input[type='submit'] {
+  height: 30px;
+  padding: 0 15px;
+  color: #1FB1D9;
+  background-color: rgba(0, 0, 0, 0);
+  border: 2px solid #1FB1D9;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.wrapper .container .row2 .qnaCategories input[type='button'] {
+  height: 30px;
+  padding: 0 15px;
+  color: #fff;
+  background-color: #1FB1D9;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+/* table */
+.wrapper .container .row2 .questionList {
+  width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 20px 0;
+}
+
+.wrapper .container .row2 .questionList .table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: center;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead th {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  color: #333;
+  font-weight: bold;
+  padding: 12px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead td {
+  padding: 10px;
+  height: 30px;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead tr {
+  background-color: #ffffff;
+  color: #333;
+  padding: 12px;
+  border-bottom: 2px solid #dee2e6;
+  border: 1px solid #ddd;
+}
+
+
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(1) {
+  width: 10%;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(2) {
+  width: 60%;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(3) {
+  width: 15%
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(4) {
+  width: 15%
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableBody {
+  width: 100%;
+  height: 30px;
+  font-size: 15px;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableBody tr:hover {
+  cursor: pointer;
+  background-color: #f1f1f1;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableBody tr td {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 5px 0px;
+  height: 30px;
+}
+
+/* paging */
+.paging {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+}
+
+.paging button {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  cursor: pointer;
+}
+
+.paging .currentBtn {
+  width: 26px;
+  height: 26px;
+  border: 2px solid #333;
+  border-radius: 50%;
+}
+
+.paging button img {
+  width: 30px;
+  height: 30px;
+}

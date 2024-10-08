@@ -1,6 +1,5 @@
 package tot.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +12,11 @@ import tot.service.TourService;
 @RequestMapping("tour")
 public class TourRestController {
 
-	@Autowired
-	private TourService tourService;
+	private final TourService tourService;
+
+	public TourRestController(TourService tourService) {
+		this.tourService = tourService;
+	}
 
 	@GetMapping("/{tourId}")
 	public TourVO getTourById(@PathVariable("tourId") String tourId) {

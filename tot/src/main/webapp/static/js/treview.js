@@ -2,9 +2,9 @@
 const IS_MEMBER_LOGIN_URL = '/tot/member/checkLogin'; // 사용자 로그인 여부 확인 URL
 const LOGIN_URL = '/tot/login'; // 로그인 URL
 const BASE_TREVIEW_URL = '/tot/review'; // 여행 후기 기본 URL
-const ALL_TREVIEW_URL = `${BASE_TREVIEW_URL}/all/1`; // 전체 후기 조회 URL
-const MY_TREVIEW_URL = `${BASE_TREVIEW_URL}/my/1`; // 나의 후기 조회 URL
-const WRITE_TREVIEW_URL = `${BASE_TREVIEW_URL}/all/add`; // 후기 작성 URL
+const ALL_TREVIEW_URL = `${BASE_TREVIEW_URL}/1/1`; // 전체 후기 조회 URL
+const MY_TREVIEW_URL = `${BASE_TREVIEW_URL}/2/1`; // 나의 후기 조회 URL
+const WRITE_TREVIEW_URL = `${BASE_TREVIEW_URL}/1/add`; // 후기 작성 URL
 
 // 에러 메시지 선언
 const ERROR_MESSAGES = {
@@ -16,13 +16,18 @@ const ERROR_MESSAGES = {
     FAIL_LOGIN_CONFIRM: '로그인 상태 확인 중 오류 발생',
     AGREE_REQUIRED: '개인정보 수집 및 이용에 동의하셔야 글을 작성할 수 있습니다.',
     FAIL_TREVIEW_DELETE: '여행 후기글 삭제를 실패했습니다.',
-    FILE_UPLOAD: '파일 업로드 중 오류가 발생했습니다.',
+    FAIL_COMMON_ERROR: '예상치 못한 오류가 발생했습니다. 관리자에게 문의하세요. ',
     FAIL_GET_COURSE: '코스를 가져오는 데 실패했습니다.',
     FAIL_EDIT_COMMENT: '댓글 수정에 실패했습니다.',
     FAIL_DELETE_COMMENT: '댓글 삭제를 실패했습니다.',
     FAIL_REPORT_TREVIEW: '여행 후기 신고 접수를 실패했습니다.',
-    FAIL_TOTAL: '신고 중 오류가 발생했습니다. 관리자에게 문의하세요.'
+    FAIL_TOTAL: '신고 중 오류가 발생했습니다. 관리자에게 문의하세요.',
+    MAXIMUM_FILE_SIZE: '업로드할 수 있는 총 파일 크기를 초과했습니다. (100MB 이하로 제한)'
 };
+
+// 파일 크기 선언
+const MAX_TOTAL_SIZE = 104857600; // 총 최대 용량: 100MB
+const MAX_FILE_SIZE = 10485760; // 개별 최대 용량: 10MB
 
 let fileList = [];  // 업로드 파일 리스트 초기화
 
@@ -76,7 +81,6 @@ $(document).ready(() => {
     // 여행 후기 등록 버튼 클릭 시 유효성 검사 후 등록
     $('#submitButton').on('click', function (event) {
         event.preventDefault();
-
         const validationResult = validate();
 
         if (validationResult.isValid) {
@@ -124,17 +128,13 @@ $(document).ready(() => {
     $('#reportTReviewBtn').on('click', async function (event) {
         event.preventDefault();
 
-        const isLoggedIn = await checkLoginStatus();
-
-        const reviewTitle = $(this).data('title');
-        const reportUrl = $(this).data('report-url');
-        const reportedContentType = 'Treview';
-
-        $('#reportCommentText').text(`여행 후기 제목 : "${reviewTitle}"`);
-        $('#reportForm').attr('action', reportUrl);
-        $('#reportForm').find('input[name="reportedContentType"]').val(reportedContentType);
-
-        $('#reportModal').show();
+	    const isLoggedIn = await checkLoginStatus();
+	    if (!isLoggedIn) {
+	        return; // 로그인하지 않은 경우 바로 리턴
+	    }
+	
+	    // 로그인 된 경우만 실행
+	    openReportModal($(this));
     });
 
     // 전체 여행 후기 버튼 클릭 시 전체 여행 후기 페이지 이동
@@ -292,15 +292,19 @@ $(document).ready(() => {
         e.preventDefault();
         const isLoggedIn = await checkLoginStatus();
 
-        let commentText = $(this).closest('.commentItem').find('.commentText').text().trim();
-        let reportUrl = $(this).attr('href');
-        let reportedContentType = 'Treview Comment';
-
-        $('#reportCommentText').text(`댓글 내용: "${commentText}"`);
-        $('#reportForm').attr('action', reportUrl);
-        $('#reportForm').find('input[name="reportedContentType"]').val(reportedContentType);
-
-        $('#reportModal').show();
+		if (isLoggedIn) {
+	        let commentText = $(this).closest('.commentItem').find('.commentText').text().trim();
+	        let reportUrl = $(this).attr('href');
+	        let reportedContentType = 'Treview Comment';
+	
+	        $('#reportCommentText').text(`댓글 내용: "${commentText}"`);
+	        $('#reportForm').attr('action', reportUrl);
+	        $('#reportForm').find('input[name="reportedContentType"]').val(reportedContentType);
+	
+	        $('#reportModal').show();
+        } else {
+        	$('#reportModal').hide();
+        }
     });
 
     // 신고 댓글 모달 폼 닫기
@@ -407,10 +411,18 @@ const submitReview = () => {
             window.location.href = ALL_TREVIEW_URL;
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log('에러 상태:', textStatus);
-            console.log('에러 내용:', errorThrown);
-            console.log('서버 응답:', jqXHR.responseText);
-            alert(ERROR_MESSAGES.FILE_UPLOAD + " ");
+            console.log('Error status:', jqXHR.status);
+            console.log('Response:', jqXHR.responseText);
+            console.log('Text status:', textStatus);
+            console.log('Error thrown:', errorThrown);
+
+            try {
+                const errorResponse = JSON.parse(jqXHR.responseText);
+                alert(errorResponse.message);
+            } catch (e) {
+                console.log(e);
+                alert(ERROR_MESSAGES.FAIL_COMMON_ERROR);
+            }
         }
     });
 }
@@ -440,11 +452,13 @@ const editReview = () => {
             alert(response.message);
             window.location.href = ALL_TREVIEW_URL;
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log('에러 상태:', textStatus);
-            console.log('에러 내용:', errorThrown);
-            console.log('서버 응답:', jqXHR.responseText);
-            alert(ERROR_MESSAGES.FILE_UPLOAD + " ");
+        error: function (jqXHR) {
+            try {
+                const errorResponse = JSON.parse(jqXHR.responseText);
+                alert(errorResponse.message);
+            } catch (e) {
+                alert(ERROR_MESSAGES.FAIL_COMMON_ERROR);
+            }
         }
     });
 }
@@ -464,6 +478,12 @@ const initFileList = () => {
 // 이미지 파일 업로드 처리
 const handleFileSelect = event => {
     const files = Array.from(event.target.files);
+
+    if (!checkFileSize(files)) {
+        $('#reviewImage').val('');
+        return;
+    }
+
     fileList = [...fileList, ...files];
 
     if (files) {
@@ -562,12 +582,14 @@ const handleBackspace = event => {
 }
 
 // 로그인 여부 유효성 검사
-const checkLoginStatus = () => {
-    return $.ajax({
-        url: IS_MEMBER_LOGIN_URL,
-        type: 'GET',
-        dataType: 'json'
-    }).done((response) => {
+const checkLoginStatus = async () => {
+    try {
+        const response = await $.ajax({
+            url: IS_MEMBER_LOGIN_URL,
+            type: 'GET',
+            dataType: 'json'
+        });
+
         if (response.loggedIn) {
             return true; // 로그인된 경우
         } else {
@@ -575,12 +597,25 @@ const checkLoginStatus = () => {
             window.location.href = LOGIN_URL;
             return false; // 로그인되지 않은 경우
         }
-    }).fail((jqXHR, textStatus, errorThrown) => {
-        console.log(textStatus, errorThrown);
+    } catch (error) {
+        console.log(error);
         alert(ERROR_MESSAGES.FAIL_LOGIN_CONFIRM);
         window.location.href = LOGIN_URL;
         return false;
-    });
+    }
+};
+
+// 여행 후기글 신고 모달 열기
+const openReportModal = (button) => {
+    const reviewTitle = button.data('title');
+    const reportUrl = button.data('report-url');
+    const reportedContentType = 'Treview';
+
+    $('#reportCommentText').text(`여행 후기 제목 : "${reviewTitle}"`);
+    $('#reportForm').attr('action', reportUrl);
+    $('#reportForm').find('input[name="reportedContentType"]').val(reportedContentType);
+
+    $('#reportModal').show();
 };
 
 // 공백 여부 유효성 검사
@@ -593,6 +628,29 @@ const checkField = (selector, errorMessage) => {
 const checkRating = (errorMessage) => {
     return $('input[name="trevRating"]:checked').length === 0 ? errorMessage : '';
 };
+
+// 업로드 파일 크기 검사
+const checkFileSize = files => {
+    let totalSize = fileList.reduce((acc, file) => acc + file.size, 0); // 기존 파일 크기 합계
+
+    for (const file of files) {
+        totalSize += file.size;
+
+        // 개별 파일 크기 검사
+        if (file.size > MAX_FILE_SIZE) {
+            alert(`파일 "${file.name}"의 크기가 10MB를 초과합니다.`);
+            return false;
+        }
+    }
+
+    // 총 파일 크기 검사
+    if (totalSize > MAX_TOTAL_SIZE) {
+        alert(ERROR_MESSAGES.MAXIMUM_FILE_SIZE);
+        return false;
+    }
+
+    return true;
+}
 
 const validate = () => {
     const validations = [

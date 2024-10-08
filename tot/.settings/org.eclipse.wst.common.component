@@ -16,6 +16,8 @@
                         
         
         <property name="java-output-path" value="/tot/build/classes"/>
+                        
+        
         <property name="context-root" value="tot"/>
                     
     

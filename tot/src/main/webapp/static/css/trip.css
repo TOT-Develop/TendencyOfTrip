@@ -1,0 +1,482 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Pretendard-Regular';
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 모든 요소에 박스 사이징 적용 */
+}
+#tripH1{
+   margin-left:40px;
+}
+#locationTypeSelect{
+   margin-left: 20px;
+}
+#locationSearchInput{
+   margin-left: 20px;
+}
+.modal-header{
+   margin-left: 20px;
+}
+#pagination {
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    margin-top: 20px;
+}
+#resetBtn,#searchBtn {
+   padding: 10px 15px;
+    margin: 0 5px;
+    margin-left: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+}
+
+.page-btn {
+    padding: 10px 15px;
+    margin: 0 5px;
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.page-btn:hover {
+    background-color: #ddd; /* 호버 시 색상 변경 */
+}
+
+.page-btn.active {
+    background-color: #007bff; /* 활성화된 버튼의 배경색 */
+    color: white; /* 활성화된 버튼의 글자색 */
+}
+.locationModal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed; /* 고정 위치 */
+    top: 50%; /* 세로 중앙 */
+    left: 50%; /* 가로 중앙 */
+    transform: translate(-50%, -50%); /* 중앙 정렬 */
+    width: 90%; /* 너비 조정 (80%에서 90%로 변경) */
+    max-width: 800px; /* 최대 너비 (600px에서 800px로 변경) */
+    background-color: white; /* 배경색 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* 그림자 효과 강하게 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    padding: 30px; /* 내부 여백 (20px에서 30px로 변경) */
+    max-height: 80vh; /* 최대 세로 높이 */
+    overflow-y: auto; /* 세로 스크롤 */
+}
+
+.locationModal-content {
+    background-color: #fefefe;
+    margin: 0; /* 여백 제거 */
+    padding: 0; /* 여백 제거 */
+    border: none; /* 테두리 제거 */
+    width: 100%; /* 전체 너비 사용 */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 32px; /* 폰트 크기 증가 */
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.location-item {
+    display: flex;
+    align-items: center;
+    margin: 15px 0; /* 여백 증가 */
+}
+
+.location-checkbox {
+    margin :15px 30px; /* 체크박스와의 간격 증가 */
+}
+
+.location-info {
+    display: flex;
+    align-items: center;
+    width: 100%; /* 전체 너비 사용 */
+}
+
+.location-image {
+    width: 70px; /* 이미지 크기 조절 (50px에서 70px로 변경) */
+    height: auto;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
+.location-details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* 남은 공간 차지 */
+}
+
+.location-name {
+    font-weight: bold;
+    font-size: 16px; /* 폰트 크기 증가 */
+    margin: 5px 0px;
+}
+
+.location-type {
+    font-weight: bold;
+    margin: 15px 30px;
+    font-size: 16px; /* 폰트 크기 증가 */
+}
+
+.location-address {
+    color: gray;
+    font-size: 14px; /* 폰트 크기 증가 */
+}
+
+
+/* CSS for Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 600px;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+
+
+#festivals-container {
+   width:80%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #cfcfcf;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+    max-height: 500px; /* 최대 높이 설정 */
+    overflow-y: auto; /* 세로 스크롤 허용 */
+    margin-top:40px;
+}
+#festivals-container h2{
+   font-size:30px;
+}
+
+.festival-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer; /* 클릭 커서로 변경 */
+}
+
+.festival-item:last-child {
+    border-bottom: none;
+}
+
+.festival-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 18px; /* 제목 크기 조정 */
+}
+
+.festival-description {
+    color: #666;
+    font-size: 14px; /* 설명 텍스트 크기 조정 */
+}
+
+.festival-details {
+    display: none; /* 기본적으로 숨김 */
+    margin-top: 10px;
+    color: #333;
+    font-size: 14px;
+}
+
+.festImg {
+    width: 200px;
+    height: 150px;
+    border: 1px solid #333;
+    border-radius: 15px;
+}
+.festContent{
+   display:flex;
+}
+.festP{
+   margin-left:40px;
+}
+.festP p{
+   margin-bottom:5px;
+   font-size:16px;
+}
+#courses-container {
+    width: 40%;
+    max-height: 60%;
+    display: flex;
+    overflow: auto;
+    padding: 0 20px; /* 좌우 여백 추가 */
+    box-sizing: border-box;
+    border:10px solid #efefef;
+    border-radius:20px;
+    margin-left:5%;
+    padding:15px;
+}
+.courseDiv{
+   margin-left:3%;
+}
+.container {
+    margin-top: 200px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* main-content를 가로로 배치 */
+.main-content {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap; /* 화면 크기에 따라 자동으로 줄바꿈 */
+}
+
+
+.day-container {
+    flex: 0 0 auto;
+    margin: 0 20px; /* 각 일자 간의 여백 */
+    width: 300px; /* 고정 폭 */
+    box-sizing: border-box; /* 패딩과 테두리를 폭에 포함 */
+}
+
+.timeline-container {
+    margin: 20px 0; /* 타임라인의 상하 여백 조정 */
+}
+
+.button-container {
+    display: flex;
+    margin-bottom: 20px;
+    overflow-x: auto; /* 버튼이 많을 경우 가로 스크롤 허용 */
+    padding: 0 20px; /* 좌우 여백 추가 */
+    box-sizing: border-box;
+}
+
+.toggle-course-btn,
+.day-button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #007bff;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.toggle-course-btn{
+   margin-left:30px;   
+}
+
+.day-button.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.pheader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.timeline-container {
+    position: relative;
+}
+
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10px;
+    width: 1.5px;
+    height: 100%;
+    background-color: #cfcfcf;
+    z-index: -1;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    margin-right: 50px; /* 마커와 텍스트 사이 간격 조정 */
+    margin-bottom:40px;
+}
+
+.number1 {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.time-content {
+   width:210px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.asd123 {
+    margin-top: 10px;
+}
+.asd123 div:last-child > a {
+   display:block;
+   width:210px;
+}
+
+.imgdiv1 {
+    margin-left: 20px;
+    width: 80px;
+    height: 100px;
+    border: 1px solid #333;
+    border-radius: 15px;
+}
+
+.pcolor {
+   font-size:16px;
+    color: #1FB1D9;
+}
+
+.endnumber {
+    margin-left: 5px;
+    margin-top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #cfcfcf;
+    color: white;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.pdate {
+    color: rgb(170, 177, 184);
+    margin-left: 40px;
+}
+
+.time-title, .date1 {
+    margin-right: 100px;
+    font-weight: 700;
+    font-size:20px;
+    color: rgb(15 23 42);
+}
+.time-title{
+   margin:10px 0;
+}
+
+.butdiv {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.backbtn {
+    margin-right: 200px;
+    background-color: #cfcfcf;
+    color: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #cfcfcf;
+    width: 170px;
+    height: 60px;
+}
+
+.okbtn {
+    width: 170px;
+    height: 60px;
+    background-color: #1FB1D9;
+    color: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #1FB1D9;
+}
+
+/* 선택된 버튼 스타일 */
+.day-button.active {
+    background-color: #007bff; /* 선택된 버튼 배경색 */
+    color: white; /* 선택된 버튼 글자색 */
+}
+
+
+/* 지도도 가로 레이아웃에 맞추기 */
+#map {
+    width: 100%; /* 지도 크기를 조정 */
+    height: 600px;
+    margin: 20px 0; /* 지도와 일차별 컨테이너 간격 */
+}
+
+.hidden {
+         position: absolute;
+            opacity: 0;
+            visibility: hidden;
+            height: 0; /* 지도의 높이를 0으로 설정하여 숨김 효과 추가 */
+        }
+#save-button{
+   cursor:pointer;
+}
+        
+.pbtn, .mbtn{
+   float:right;
+   background-color:#fff;
+   border:none;
+   margin-left:5px;
+}        
+
+/* 반응형 디자인 */
+@media (max-width: 800px) {
+    .container {
+        flex-direction: column;
+        overflow-x: visible; /* 모바일에서는 가로 스크롤 비활성화 */
+    }
+
+    .day-container {
+        width: 100%;
+        margin-bottom: 20px; /* 일자 간의 아래 여백 추가 */
+    }
+
+    .button-container {
+        flex-direction: column;
+    }
+}
+

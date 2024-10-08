@@ -6,9 +6,9 @@ public class MemberVO {
 	private String memId; // 회원 아이디
 	private String memNick; // 회원 닉네임
 	private String memEmail; // 회원 이메일
-	private String memberStatus; // 회원 상태 (참조 코드)
-	private String memberMbti; // MBTI (참조 코드)
-	private String memberTt; // TT (참조 코드)
+	private String member_status; // member_status_회원상태(M01-정상 / M02-제제 / M03-정지)
+	private String member_mbti; // member_mbti_MBTI 유형
+	private String member_tt; // member_tt_여행성향유형(TT01 ~ TT07)
 	private Timestamp memRegDate; // 회원 등록일
 	private Timestamp memUpdate; // 회원 수정일
 	private String ttImg; // 프로필 이미지
@@ -18,20 +18,42 @@ public class MemberVO {
 	public MemberVO() {
 	}
 
-	public MemberVO(String memId, String memNick, String memEmail, String memberStatus, String memberMbti,
-			String memberTt, Timestamp memRegDate, Timestamp memUpdate, String ttImg, Timestamp memberBanStart,
+	public MemberVO(String memId, String memNick, String memEmail, String member_status, String member_mbti,
+			String member_tt, Timestamp memRegDate, Timestamp memUpdate, String ttImg, Timestamp memberBanStart,
 			Timestamp memberBanEnd) {
 		this.memId = memId;
 		this.memNick = memNick;
 		this.memEmail = memEmail;
-		this.memberStatus = memberStatus;
-		this.memberMbti = memberMbti;
-		this.memberTt = memberTt;
+		this.member_status = member_status;
+		this.member_mbti = member_mbti;
+		this.member_tt = member_tt;
 		this.memRegDate = memRegDate;
 		this.memUpdate = memUpdate;
 		this.ttImg = ttImg;
 		this.memberBanStart = memberBanStart;
 		this.memberBanEnd = memberBanEnd;
+	}
+
+	public MemberVO(String memId, String member_status) {
+		this.memId = memId;
+		this.member_status = member_status;
+	}
+
+	public MemberVO(String memId, String memNick, String memEmail, Timestamp memRegDate) {
+		this.memId = memId;
+		this.memNick = memNick;
+		this.memEmail = memEmail;
+		this.memRegDate = memRegDate;
+	}
+
+	public void changeMemnick(String memNick) {
+		this.memNick = memNick;
+	}
+
+	public boolean isEmpty() {
+		return memId == null && memNick == null && memEmail == null && member_status == null && member_mbti == null
+				&& member_tt == null && memRegDate == null && memUpdate == null && ttImg == null
+				&& memberBanStart == null && memberBanEnd == null;
 	}
 
 	public String getMemId() {
@@ -46,16 +68,16 @@ public class MemberVO {
 		return memEmail;
 	}
 
-	public String getMemberStatus() {
-		return memberStatus;
+	public String getMember_status() {
+		return member_status;
 	}
 
-	public String getMemberMbti() {
-		return memberMbti;
+	public String getMember_mbti() {
+		return member_mbti;
 	}
 
-	public String getMemberTt() {
-		return memberTt;
+	public String getMember_tt() {
+		return member_tt;
 	}
 
 	public Timestamp getMemRegDate() {
@@ -80,9 +102,9 @@ public class MemberVO {
 
 	@Override
 	public String toString() {
-		return "MemberVO [memId=" + memId + ", memNick=" + memNick + ", memEmail=" + memEmail + ", memberStatus="
-				+ memberStatus + ", memberMbti=" + memberMbti + ", memberTt=" + memberTt + ", memRegDate=" + memRegDate
-				+ ", memUpdate=" + memUpdate + ", ttImg=" + ttImg + ", memberBanStart=" + memberBanStart
+		return "MemberVO [memId=" + memId + ", memNick=" + memNick + ", memEmail=" + memEmail + ", member_status="
+				+ member_status + ", member_mbti=" + member_mbti + ", member_tt=" + member_tt + ", memRegDate="
+				+ memRegDate + ", memUpdate=" + memUpdate + ", ttImg=" + ttImg + ", memberBanStart=" + memberBanStart
 				+ ", memberBanEnd=" + memberBanEnd + "]";
 	}
 

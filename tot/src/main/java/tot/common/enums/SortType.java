@@ -12,5 +12,5 @@ public enum SortType {
 	public String getDescription() {
 		return description;
 	}
-	
+
 }

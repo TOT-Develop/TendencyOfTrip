@@ -10,65 +10,66 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class DelegatingMultipartFile implements MultipartFile {
 
-    private final Resource resource;
-    
-    public DelegatingMultipartFile(Resource resource) {
-        this.resource = resource;
-    }
+	private final Resource resource;
 
-    @Override
-    public String getName() {
-        return resource.getFilename();
-    }
+	public DelegatingMultipartFile(Resource resource) {
+		this.resource = resource;
+	}
 
-    @Override
-    public String getOriginalFilename() {
-        return resource.getFilename();
-    }
+	@Override
+	public String getName() {
+		return resource.getFilename();
+	}
 
-    @Override
-    public String getContentType() {
-        try {
-            return resource.getURL().openConnection().getContentType();
-        } catch (IOException e) {
-            return null;
-        }
-    }
+	@Override
+	public String getOriginalFilename() {
+		return resource.getFilename();
+	}
 
-    @Override
-    public boolean isEmpty() {
-        try {
-            return resource.contentLength() == 0;
-        } catch (IOException e) {
-            return true;
-        }
-    }
+	@Override
+	public String getContentType() {
+		try {
+			return resource.getURL().openConnection().getContentType();
+		} catch (IOException e) {
+			return null;
+		}
+	}
 
-    @Override
-    public long getSize() {
-        try {
-            return resource.contentLength();
-        } catch (IOException e) {
-            return 0;
-        }
-    }
+	@Override
+	public boolean isEmpty() {
+		try {
+			return resource.contentLength() == 0;
+		} catch (IOException e) {
+			return true;
+		}
+	}
 
-    @Override
-    public byte[] getBytes() throws IOException {
-        try (InputStream inputStream = resource.getInputStream()) {
-            return inputStream.readAllBytes();
-        }
-    }
+	@Override
+	public long getSize() {
+		try {
+			return resource.contentLength();
+		} catch (IOException e) {
+			return 0;
+		}
+	}
 
-    @Override
-    public InputStream getInputStream() throws IOException {
-        return resource.getInputStream();
-    }
+	@Override
+	public byte[] getBytes() throws IOException {
+		try (InputStream inputStream = resource.getInputStream()) {
+			return inputStream.readAllBytes();
+		}
+	}
 
-    @Override
-    public void transferTo(File dest) throws IOException, IllegalStateException {
-        try (InputStream inputStream = resource.getInputStream()) {
-            Files.copy(inputStream, dest.toPath());
-        }
-    }
+	@Override
+	public InputStream getInputStream() throws IOException {
+		return resource.getInputStream();
+	}
+
+	@Override
+	public void transferTo(File dest) throws IOException, IllegalStateException {
+		try (InputStream inputStream = resource.getInputStream()) {
+			Files.copy(inputStream, dest.toPath());
+		}
+	}
+	
 }

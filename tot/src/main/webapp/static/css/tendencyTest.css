@@ -1,0 +1,175 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Pretendard-Regular';
+    list-style: none;
+    margin-top: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    /* 모든 요소에 박스 사이징 적용 */
+}
+
+p {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 50px;
+}
+
+#testTitle {
+    text-align: center;
+    color: #333;
+    margin-top: 15%;
+    margin-bottom: 20px;
+}
+
+#questions {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.question {
+    display: none;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.question.active {
+    display: block;
+}
+
+.question img {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px auto;
+    /* Centers the image and adds some space below it */
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centers the buttons horizontally */
+}
+
+.button-group button {
+    background-color: #1FB1D9;
+    color: white;
+    border: none;
+    padding: 15px;
+    margin: 5px 0;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    width: 100%;
+    max-width: 500px;
+    /* Ensures buttons don’t stretch too wide on large screens */
+}
+
+#question7 .button-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* Creates 2 equal-width columns */
+    grid-gap: 10px;
+    /* Adds space between buttons */
+    justify-items: center;
+    /* Centers the buttons horizontally */
+}
+
+#question7 .button-group button {
+    background-color: #1FB1D9;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    /* Makes the text bold */
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    width: 100%;
+    /* Makes the button take up the full column width */
+    max-width: 200px;
+    /* Ensures the buttons don’t stretch too wide */
+}
+
+#question7 .button-group button:hover {
+    background-color: #cfcfcf;
+}
+
+.button-group button:hover {
+    background-color: #cfcfcf;
+}
+
+#result {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#result p {
+    font-size: 20px;
+    color: #555;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .button-group button {
+        font-size: 14px;
+        padding: 12px;
+        margin: 4px 0;
+    }
+
+    #result p {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    .button-group button {
+        font-size: 15px;
+        padding: 14px;
+    }
+
+    #result p {
+        font-size: 19px;
+    }
+}
+
+@media (min-width: 1025px) {
+    h1 {
+        font-size: 32px;
+    }
+
+    .button-group {
+        flex-wrap: wrap;
+    }
+
+    .button-group button {
+        flex: 1 1 48%;
+        margin: 20px;
+        font-size: 16px;
+    }
+
+    #result p {
+        font-size: 20px;
+    }
+}

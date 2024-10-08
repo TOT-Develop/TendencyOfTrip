@@ -1,0 +1,246 @@
+@charset "utf-8";
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+    box-sizing: border-box;
+    padding: 180px 40px;
+}
+
+.row1Text {
+    font-size: 30px;
+    padding: 20px;
+    text-align: center;
+}
+
+.fromHeaderParent {
+    width: 100%;
+}
+
+.fromHeader {
+    width: 100%;
+    display: flex;
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 20px;
+}
+
+.row1 {
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 4px solid #333;
+    width: 10%;
+    text-align: center;
+    box-sizing: border-box;
+
+}
+
+.instruction {
+    /* width:100%; */
+    padding: 0 20px;
+    width: 90%;
+    border-bottom: 4px solid #ccc;
+    font-size: 14px;
+}
+
+
+/* title */
+.row2 {
+    width: 100%;
+    line-height: 40px;
+}
+
+.row2 div {
+    width: 100%;
+    display: flex;
+}
+
+.row2 div b {
+    width: 10%;
+    text-align: center;
+}
+
+.row2 div p {
+    width: 97%;
+    padding: 0 15px;
+    border: 2px solid #e6e6e6;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.row3 {
+	width: 100%
+	display: flex;
+}
+
+.row3 h3 {
+	width: 110px;
+}
+
+.staffComent {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    line-height: 40px;
+    margin: 160px 0 60px;
+}
+
+.staffComent b {
+    width: 10%;
+    text-align: center;
+}
+
+
+.staffComent p {
+    width: 70%;
+    padding: 0 80px;
+    border: 2px solid #1FB1D9;
+    border-radius: 5px;
+}
+
+.buttons {
+    height: 26px;
+}
+
+.buttons button {
+    height: 50px;
+    padding: 0 15px;
+    color: #1FB1D9;
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid #1FB1D9;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    margin: auto;
+    display: block;
+}
+
+/* 댓글 목록 스타일 수정 */
+
+.commentForm {
+    display: flex; /* 플렉스 박스를 사용하여 댓글 입력창과 버튼을 한 줄로 배치 */
+    align-items: center; /* 수직 정렬 */
+}
+.commentList {
+    display: flex;
+    flex-direction: column;
+    /* 댓글들을 세로로 나열 */
+    gap: 10px;
+    /* 각 댓글 간의 간격 */
+    width: 100%;
+    /* 전체 목록을 차지하도록 설정 */
+}
+
+.commentItem {
+    display: flex;
+    align-items: center;
+    /* 세로 가운데 정렬 */
+    justify-content: space-between;
+    /* 좌우 정렬 */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    padding: 1px;
+    /* 내부 여백 */
+    width: 100%;
+    /* 부모 요소의 전체 너비를 차지하도록 설정 */
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    /* 댓글 작성 칸 아래 여백 */
+}
+
+
+.commentText {
+    flex: 6;
+    /* 댓글 내용은 가로 공간의 60% 차지 */
+    padding-right: 20px;
+    /* 오른쪽 여백 추가 */
+    word-break: break-all;
+    /* 긴 단어가 있을 때 줄바꿈 처리 */
+    margin: 10px;
+}
+
+.commentDate {
+    flex: 1;
+    /* 날짜는 가로 공간의 20% 차지 */
+    font-size: 14px;
+    color: #555;
+    text-align: end;
+    margin-left: 20px;
+}
+
+/* 댓글 액션 스타일 (이메일 보내기 버튼) */
+.commentActions {
+    flex: 0 0 150px;
+    /* 버튼은 고정 너비 150px로 설정 */
+    text-align: right;
+    /* 오른쪽 정렬 */
+}
+
+/* 댓글 작성 부분 스타일 */
+.addComment {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.addComment h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.commentItem .sendCommentEmailButton {
+    padding: 10px 10px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    margin-left: 45px;
+
+}
+
+.commentItem .sendCommentEmailButton:hover {
+    background-color: #0056b3;
+}
+
+/* 댓글 작성 input 텍스트 박스 스타일 */
+.commentTextInput {
+    width: 92%; /* 댓글 입력창의 너비를 80%로 설정 */
+    height: 40px;
+    padding: 10px;
+    border: 2px solid #e6e6e6 !important;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-right: 10px; /* 버튼과의 간격을 추가 */
+}
+
+/* 댓글 작성 버튼 스타일 */
+.sendCommentButton {
+    width: 8%; /* 댓글 달기 버튼의 너비를 15%로 설정 */
+    padding: 10px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sendCommentButton:hover {
+    background-color: #0056b3;
+    /* 호버 시 색상 변경 */
+}
+
+.qnaTitleContent p {
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+    overflow-wrap: break-word;
+}

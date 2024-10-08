@@ -94,7 +94,7 @@
             <div class="reviewCourseDiv">
                 <!-- 여행 코스 이미지 -->
                 <div class="reviewCourseImg">
-                    <img src="https://via.placeholder.com/300x200" alt="Review Course Image">
+                    <img src="${courses[0].regionImageUrl}" style="width: 300px; height: 200px; object-fit: cover;" alt="ReviewCourseImage">
                     <div class="initButton2">경로 상세보기</div>
                 </div>
 
@@ -187,8 +187,8 @@
 		        </thead>
 		        <tbody>
 		            <c:choose>
-		                <c:when test="${not empty comments}">
-		                    <c:forEach var="comment" items="${comments}" varStatus="status">
+		                <c:when test="${not empty comments.postList}">
+		                    <c:forEach var="comment" items="${comments.postList}" varStatus="status">
 		                        <tr style="margin-left: ${comment.depth * 20}px;">
 		                            <td>${status.index + 1}</td>
 		                            <td>
@@ -251,34 +251,82 @@
 		            </c:choose>
 		        </tbody>
 		    </table>
+		    
+			<!-- 페이징 버튼 -->
+			<nav class="paginationNav">
+			    <ul class="paginationList">
+			        <!-- 처음 페이지로 이동하는 버튼 -->
+		            <li class="paginationItem">
+		                <a href="${pageContext.request.contextPath}/admin/review/${boardId}/detail/${review.trevId}/${comments.startBlockPage}" class="paginationLink">&laquo;</a>
+		            </li>
+			
+			        <!-- 이전 페이지 버튼 -->
+			        <c:if test="${comments.isPrev}">
+			            <li class="paginationItem">
+			                <a href="${pageContext.request.contextPath}/admin/review/${boardId}/detail/${review.trevId}/${comments.currentPage - 1}" class="paginationLink">이전</a>
+			            </li>
+			        </c:if>
+			
+			        <!-- 페이지 번호 출력 -->
+			        <c:forEach begin="${comments.startBlockPage}" end="${comments.endBlockPage}" var="pageNum">
+			            <c:choose>
+			                <c:when test="${comments.currentPage == pageNum}">
+			                    <li class="paginationItem active">
+			                        <span class="paginationLink">${pageNum}</span>
+			                    </li>
+			                </c:when>
+			                <c:otherwise>
+			                    <li class="paginationItem">
+			                        <a href="${pageContext.request.contextPath}/admin/review/${boardId}/detail/${review.trevId}/${pageNum}" class="paginationLink">${pageNum}</a>
+			                    </li>
+			                </c:otherwise>
+			            </c:choose>
+			        </c:forEach>
+			
+			        <!-- 다음 페이지 버튼 -->
+			        <c:if test="${comments.isNext}">
+			            <li class="paginationItem">
+			                <a href="${pageContext.request.contextPath}/admin/review/${boardId}/detail/${review.trevId}/${comments.currentPage + 1}" class="paginationLink">다음</a>
+			            </li>
+			        </c:if>
+			
+			        <!-- 맨 끝으로 버튼 -->
+		            <li class="paginationItem">
+		                <a href="${pageContext.request.contextPath}/admin/review/${boardId}/detail/${review.trevId}/${comments.endBlockPage}" class="paginationLink">&raquo;</a>
+		            </li>
+			    </ul>
+			</nav>
+			<!-- 페이징 버튼 끝 -->
 		</div>
 		<!-- 댓글 관리 내역 끝 -->
 		
 		<!-- 5. 게시물 이력 내역 -->
 		<div class="section">
 		    <h3>이력 내역</h3>
-		    <table class="history-table">
-		        <thead>
-		            <tr>
-		                <th>번호</th>
-		                <th>작성자</th>
-		                <th>내용</th>
-		                <th>일시</th>
-		                <th>활동</th>
-		            </tr>
-		        </thead>
-		        <tbody>
-		            <c:forEach var="history" items="${historys}" varStatus="status">
-		                <tr>
-		                    <td>${historyCount - status.index}</td>
-		                    <td>${history.memNick}</td>
-		                    <td>${history.content}</td>
-		                    <td>${history.actionDate}</td>
-		                    <td>${history.action}</td>
-		                </tr>
-		            </c:forEach>
-		        </tbody>
-		    </table>
+		    <div class="history-table-container">
+			    <table class="history-table">
+			        <thead>
+			            <tr>
+			                <th>번호</th>
+			                <th>작성자</th>
+			                <th>내용</th>
+			                <th>일시</th>
+			                <th>활동</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <c:forEach var="history" items="${historys}" varStatus="status">
+			                <tr>
+			                    <td>${historyCount - status.index}</td>
+			                    <td>${history.memNick}</td>
+			                    <td>${history.content}</td>
+			                    <td>${history.actionDate}</td>
+			                    <td>${history.action}</td>
+			                </tr>
+			            </c:forEach>
+			        </tbody>
+			    </table>
+		    </div>
 		</div>
 		<!-- 게시물 이력 내역 끝 -->
     </div>
@@ -288,6 +336,15 @@
 	    <span class="close" onclick="closeModal()">&times;</span>
 	    <img class="modal-content" id="modalImage">
 	    <div id="caption"></div>
+	</div>
+	
+	 <!-- 로딩창 HTML -->
+	<div id="loading" style="display:none;">
+	    <div class="loader"></div>
+	    <p>메일을 전송 중입니다...</p>
+	    <div id="progressContainer">
+	        <div id="progressBar"></div>
+	    </div>
 	</div>
 </body>
 </html>

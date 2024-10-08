@@ -2,7 +2,6 @@ package tot.exception;
 
 public class ValidationException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
 	private final ErrorCode errorCode;
 
 	public ValidationException(ErrorCode errorCode) {
@@ -13,4 +12,5 @@ public class ValidationException extends RuntimeException {
 	public ErrorCode getErrorCode() {
 		return errorCode;
 	}
+
 }

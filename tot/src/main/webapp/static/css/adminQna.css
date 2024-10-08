@@ -1,0 +1,279 @@
+.wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-bottom: 0;
+  box-sizing: border-box;
+}
+
+.wrapper .container {
+  padding: 180px 40px;
+
+}
+
+/* h1 */
+.wrapper .container {
+  padding: 20px;
+}
+
+.row1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.row1Text {
+  font-size: 24px;
+  font-weight: bold;
+  font-size: xx-large;
+  flex: 1;
+  /* 남은 공간을 차지하도록 */
+  text-align: center;
+  /* 가운데 정렬 */
+}
+
+.qnaIntroDiv {
+  background-color: #f0f8ff;
+  /* 밝고 산뜻한 배경색 */
+  border: 1px solid #dcdcdc;
+  /* 연한 테두리 */
+  padding: 30px;
+  border-radius: 10px;
+  /* 둥근 모서리 */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  /* 그림자 효과 */
+  margin-bottom: 50px;
+  text-align: left;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+}
+
+.qnaIntroDiv div {
+  margin-bottom: 10px;
+}
+
+.qnaIntroDiv hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+.qnaIntroDiv h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1a73e8;
+  /* 제목 색상 */
+  margin-bottom: 10px;
+}
+
+/* catecory */
+.wrapper .container .row2 {
+  width: 100%;
+}
+
+.wrapper .container .row2 .qnaCategories {
+  text-align: right;
+  height: 40px;
+  line-height: 40px;
+}
+
+.wrapper .container .row2 .qnaCategories select {
+  height: 40px;
+  font-size: 15px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.wrapper .container .row2 .qnaCategories input {
+  height: 18px;
+  text-align: center;
+}
+
+.wrapper .container .row2 .qnaCategories input[type='submit'] {
+  height: 30px;
+  padding: 0 15px;
+  color: #1FB1D9;
+  background-color: rgba(0, 0, 0, 0);
+  border: 2px solid #1FB1D9;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.wrapper .container .row2 .qnaCategories input[type='button'] {
+  height: 30px;
+  padding: 0 15px;
+  color: #fff;
+  background-color: #1FB1D9;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+/* table */
+.wrapper .container .row2 .questionList {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 20px 0;
+}
+
+.wrapper .container .row2 .questionList .table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: center;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead th {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  color: #333;
+  font-weight: bold;
+  padding: 12px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead td {
+  padding: 10px;
+  height: 30px;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead tr {
+  background-color: #ffffff;
+  color: #333;
+  padding: 12px;
+  border-bottom: 2px solid #dee2e6;
+  border: 1px solid #ddd;
+}
+
+.wrapper .container .row2 .questionList .table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(1) {
+  width: 10%;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(2) {
+  width: 35%;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(3) {
+  width: 10%
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(4) {
+  width: 25%
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(5) {
+  width: 10%
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableHead tr th:nth-child(6) {
+  width: 10%
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableBody {
+  width: 100%;
+  height: 30px;
+  font-size: 15px;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableBody tr:hover {
+  cursor: pointer;
+  background-color: #f1f1f1;
+}
+
+.wrapper .container .row2 .questionList .table #qnaTableBody tr td {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 5px 0px;
+}
+
+/* paging */
+.paging {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+}
+
+.paging button {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  cursor: pointer;
+}
+
+.paging .currentBtn {
+  width: 26px;
+  height: 26px;
+  border: 2px solid #333;
+  border-radius: 50%;
+}
+
+.paging button img {
+  width: 30px;
+  height: 30px;
+}
+
+.initButton2 {
+  padding: 8px 20px !important;
+}
+
+.changeStatusBtn {
+  background: none;
+  /* 배경 제거 */
+  border: none;
+  /* 테두리 제거 */
+  color: #333;
+  /* 텍스트 색상 */
+  font-size: 16px;
+  /* 글자 크기 */
+  font-weight: bold;
+  /* 글자 굵게 설정 */
+  cursor: pointer;
+  /* 마우스 커서 설정 */
+  padding: 0;
+  /* 불필요한 패딩 제거 */
+  margin: 0;
+  /* 불필요한 여백 제거 */
+}
+
+/* 상태에 따른 색상 지정 */
+.changeStatusBtn.receivedStatus {
+  color: #007BFF;
+  /* 파란색 */
+}
+
+.changeStatusBtn.inprogressStatus {
+  color: #FF8C00;
+  /* 주황색 */
+}
+
+.changeStatusBtn.completedStatus {
+  color: #28a745;
+  /* 초록색 */
+}
+
+.changeStatusBtn.rejectedStatus {
+  color: #dc3545;
+  /* 빨간색 */
+}
+
+/* 호버 효과 */
+.changeStatusBtn:hover {
+  color: #0056b3;
+  /* 호버 시 색상 변경 */
+  text-decoration: underline;
+  /* 호버 시 밑줄 추가 */
+}

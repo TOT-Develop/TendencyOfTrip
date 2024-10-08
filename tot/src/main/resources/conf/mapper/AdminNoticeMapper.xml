@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tot.admin.dao.AdminNoticeDao">
+
+	<resultMap id="NoticeResultMap" type="tot.domain.NoticeVO">
+	    <id property="noId" column="NOID"/>
+	    <result property="noTitle" column="NOTITLE"/>
+	    <result property="noText" column="NOTEXT"/>
+	    <result property="noRegdate" column="NOREGDATE"/>
+	    <result property="noUpdate" column="NOUPDATE"/>
+	</resultMap>
+
+    
+	<select id="noticeListWithPaging" parameterType="PageDTO" resultMap="NoticeResultMap">
+    SELECT *
+    FROM (
+        SELECT NOID, NOTITLE, NOTEXT, NOREGDATE, NOUPDATE,
+               ROW_NUMBER() OVER(
+                   ORDER BY NOREGDATE DESC 
+               ) AS rn
+        FROM NOTICE
+        <where> 
+            <if test="dto.search != null and dto.search != ''">
+                <choose>
+                    <when test="dto.searchType.name() == 'TITLE'">
+                        AND NOTITLE LIKE '%' || #{dto.search} || '%'
+                    </when>
+                    <when test="dto.searchType.name() == 'CONTENT'">
+                        AND NOTEXT LIKE '%' || #{dto.search} || '%'
+                    </when>
+                    <when test="dto.searchType.name() == 'ALL'">
+                        AND (NOTITLE LIKE '%' || #{dto.search} || '%'
+                        OR NOTEXT LIKE '%' || #{dto.search} || '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+    )
+	    WHERE rn BETWEEN #{offset} AND #{offset} + #{pageRowCount}
+	</select>
+
+	
+    <!-- 총 게시물 수 조회 -->
+	<select id="selectNoticeTotalCount" parameterType="PageDTO" resultType="int">
+    SELECT COUNT(*)
+    FROM NOTICE
+	    <where>
+	        <if test="dto.search != null and dto.search != ''">
+	            <choose>
+	                <when test="dto.searchType.name() == 'TITLE'">
+	                    NOTITLE LIKE '%' || #{dto.search} || '%'
+	                </when>
+	                <when test="dto.searchType.name() == 'CONTENT'">
+	                    NOTEXT LIKE '%' || #{dto.search} || '%'
+	                </when>
+	                <when test="dto.searchType.name() == 'ALL'">
+	                    (NOTITLE LIKE '%' || #{dto.search} || '%'
+	                    OR NOTEXT LIKE '%' || #{dto.search} || '%')
+	                </when>
+	            </choose>
+	        </if>
+	    </where>
+	</select>
+
+	<select id="getNoticeById" parameterType="int" resultMap="NoticeResultMap">
+	    SELECT * FROM NOTICE WHERE NOID = #{noId}
+	</select>
+    
+    <insert id="insertNotice" parameterType="NoticeVO">
+        INSERT INTO NOTICE (noid, notitle, notext, noregdate)
+        VALUES (SEQ_NOID.NEXTVAL, #{noTitle}, #{noText}, SYSDATE)
+    </insert>
+    
+    <!-- 공지사항 삭제 -->
+	<delete id="deleteNotice" parameterType="int">
+	    DELETE FROM NOTICE WHERE NOID = #{noId}
+	</delete>
+	
+    <!-- 공지사항 수정 -->
+    <update id="updateNotice" parameterType="NoticeVO">
+        UPDATE NOTICE 
+        SET NOTITLE = #{noTitle}, NOTEXT = #{noText}, NOUPDATE = SYSDATE
+        WHERE NOID = #{noId}
+    </update>
+
+</mapper>

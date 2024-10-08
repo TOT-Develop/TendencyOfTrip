@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+main{
+    width: 100%;
+    margin:0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('/tot/static/image/loginBack2x1.png') no-repeat center/cover; /* 배경 이미지 경로 */
+}
+
+#loginWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    margin: 200px;
+    text-align: center;
+}
+
+#loginWrapper #loginCenter #loginText{
+    padding: 30px;
+}
+#loginWrapper #loginCenter #loginText h3{
+   margin: 25px;
+    font-size:40px;
+}
+#loginWrapper #loginCenter #loginText p{
+    font-size:25px;
+}
+
+
+#loginWrapper #loginCenter #loginImg ul{
+    display: flex;
+    justify-content: space-between;
+    margin-top:30px;
+}
+
+#loginWrapper #loginCenter #loginImg ul li a img{
+    width:100px;
+    border:2px solid #333;
+    border-radius:50%;
+}
+
+#newNicknameModal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#newNicknameModal .modal {
+  display: none; /* 기본적으로 숨김 */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* 배경을 어둡게 */
+}
+        
+#newNicknameModal .modal-content {
+  position: relative;
+  margin: 15% auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.form-group,
+.button-group {
+        display: inline-block;  
+        text-align: center;      
+}
+.button-group button {
+   margin: 10px;
+}
+
+@media screen and (max-width: 1600px) {
+  main {
+    background: url('/tot/static/image/loginBack16x9.png') no-repeat center/cover;
+  }
+}

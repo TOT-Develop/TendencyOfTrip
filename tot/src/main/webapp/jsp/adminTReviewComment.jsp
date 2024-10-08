@@ -13,6 +13,7 @@
     <script src="${pageContext.request.contextPath}/static/js/adminTReviewComment.js"></script>
     <title>댓글 관리</title>
 </head>
+    <%@ include file="adminMenu.jsp" %>
 <body>
     <div class="mainDiv">
         <div class="reviewTitleDiv">
@@ -80,7 +81,7 @@
 					    	<td><input type="checkbox" name="commentSelect" value="${comment.commentId}"></td>
 					        <td>${status.index+1}</td>
 					        <td>
-						        <a href="${pageContext.request.contextPath}/admin/review/${boardId}/detail/${comment.postId}">
+						        <a href="${pageContext.request.contextPath}/admin/review/${boardId}/detail/${comment.postId}/1">
 						        	${comment.postId}
 						        </a>
 					        </td>
@@ -177,11 +178,11 @@
     
     <!-- 댓글 전체 내용 모달 -->
     <div id="commentModal" class="modal">
-    <div class="modal-content">
-        <span class="close2">&times;</span>
-        <h2>댓글 내용</h2>
-        <div id="modalCommentContent"></div>
-    </div>
-</div>
+	    <div class="modal-content">
+	        <span class="close2">&times;</span>
+	        <h2>댓글 내용</h2>
+	        <div id="modalCommentContent"></div>
+	    </div>
+	</div>
 </body>
 </html>

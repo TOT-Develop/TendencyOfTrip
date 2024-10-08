@@ -2,45 +2,49 @@ package tot.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import tot.dao.HistoryDAO;
+import tot.dao.HistoryDao;
 import tot.domain.HistoryVO;
-import tot.exception.ServerException;
 
 @Service
 public class HistoryServiceImpl implements HistoryService {
 
-	@Autowired
-	HistoryDAO historyDAO;
+	private final HistoryDao historyDao;
 
+	public HistoryServiceImpl(HistoryDao historyDao) {
+		this.historyDao = historyDao;
+	}
+
+	/**
+	 * 여행 후기의 히스토리를 데이터베이스에 추가합니다.
+	 *
+	 * @param historyVO 추가할 히스토리 정보
+	 */
 	@Override
 	public void insertTReviewHistory(HistoryVO historyVO) {
-		try {
-			historyDAO.insertTReviewHistory(historyVO);
-		} catch (DataAccessException e) {
-			throw new ServerException("여행 후기 글 기록 중 오류 발생", e);
-		}
+		historyDao.insertTReviewHistory(historyVO);
 	}
 
+	/**
+	 * 댓글의 히스토리를 데이터베이스에 추가합니다.
+	 *
+	 * @param historyVO 추가할 히스토리 정보
+	 */
 	@Override
 	public void insertCommentHistory(HistoryVO historyVO) {
-		try {
-			historyDAO.insertCommentHistory(historyVO);
-		} catch (DataAccessException e) {
-			throw new ServerException("여행 후기 댓글 기록 중 오류 발생", e);
-		}
+		historyDao.insertCommentHistory(historyVO);
 	}
 
+	/**
+	 * 특정 후기 ID에 대한 히스토리 목록을 조회합니다.
+	 *
+	 * @param trevId 후기 ID
+	 * @return 해당 후기의 히스토리 목록
+	 */
 	@Override
 	public List<HistoryVO> getTReviewHistorysById(int trevId) {
-		try {
-			return historyDAO.getTReviewHistorysById(trevId);
-		} catch (DataAccessException e) {
-			throw new ServerException("여행 후기 기록 가져오던 중 오류 발생", e);
-		}
+		return historyDao.getTReviewHistorysById(trevId);
 	}
 
 }

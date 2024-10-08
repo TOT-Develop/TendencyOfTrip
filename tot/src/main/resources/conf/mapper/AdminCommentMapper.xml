@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="tot.mapper.AdminCommentMapper">
+<mapper namespace="tot.admin.dao.AdminCommentDao">
 
 	<select id="getCommentsByReviewId" parameterType="int" resultMap="CommentVOMap">
 		SELECT
-            TREVCID,
-            TREVID,
-            TOPPARENTID,
-            PARENTID,
-            PARENTNICKNAME,
-            MEMID,
-            MEMNICK,
-            COMMENTSTATUS,
-            TREVCTEXT,
-            TREVDEPTH,
-            TREVCREGDATE,
-            TREVDUPDATE
+            c.TREVCID,
+            c.TREVID,
+            c.TOPPARENTID,
+            c.PARENTID,
+            pm.MEMNICK AS PARENTNICKNAME,
+            c.MEMID,
+            m.MEMNICK,
+            c.COMMENTSTATUS,
+            c.TREVCTEXT,
+            c.TREVDEPTH,
+            c.TREVCREGDATE,
+            c.TREVDUPDATE
 		FROM
-		    TREVIEWCOMMENT
+		    TREVIEWCOMMENT c
+		LEFT JOIN
+        	MEMBER m ON c.MEMID = m.MEMID
+      	LEFT JOIN
+        	TREVIEWCOMMENT pc ON c.PARENTID = pc.TREVCID
+       	LEFT JOIN
+        	MEMBER pm ON pc.MEMID = pm.MEMID
 		WHERE
 		    TREVID = #{trevId}
 		START WITH
@@ -73,33 +79,15 @@
 	    FROM TREVIEWCOMMENT c
 	    WHERE 1=1
 	    
-	    <choose>
-			<when test="boardId == 1">
-				AND c.COMMENTSTATUS IN ('CMT001', 'CMT003', 'CMT005')
-			</when>
-			<when test="boardId == 2">
-				AND c.COMMENTSTATUS IN ('CMT002', 'CMT004')
-			</when>
-		</choose>
-
-		<if test="dto.search != null and dto.search != ''">
-			<choose>
-				<when test="dto.searchType.name() == 'CONTENT'">
-					AND c.TREVCTEXT LIKE '%' || #{dto.search} || '%'
-				</when>
-				<when test="dto.searchType.name() == 'POST'">
-					AND c.TREVID = #{dto.search}
-				</when>
-				<when test="dto.searchType.name() == 'MEMBER'">
-					AND c.MEMNICK LIKE '%' || #{dto.search} || '%'
-				</when>
-				<when test="dto.searchType.name() == 'ALL'">
-					AND (c.TREVCTEXT LIKE '%' || #{dto.search} || '%'
-					OR c.TREVID LIKE '%' || #{dto.search} || '%'
-					OR c.MEMNICK LIKE '%' || #{dto.search} || '%')
-				</when>
-			</choose>
-		</if>
+	    <include refid="commentStatusFilter"/>
+		<include refid="searchCondition"/>
+	</select>
+	
+	<select id="selectTotalCommentCountById" parameterType="PageDTO"
+		resultType="int">
+		SELECT COUNT(DISTINCT c.TREVCID) AS total_count
+	    FROM TREVIEWCOMMENT c
+	    WHERE TREVID = #{postId}
 	</select>
 	
 	<select id="selectCommentListWithPaging" parameterType="PageDTO" resultMap="CommentVOMap">
@@ -110,9 +98,9 @@
 	        	c.TREVID,
 	        	c.TOPPARENTID, 
 	        	c.PARENTID, 
-	        	c.PARENTNICKNAME, 
+	        	pm.MEMNICK AS PARENTNICKNAME, 
 	        	c.MEMID, 
-	        	c.MEMNICK, 
+	        	m.MEMNICK, 
 	        	c.TREVCTEXT, 
 	        	c.TREVDEPTH, 
 	        	c.COMMENTSTATUS, 
@@ -127,37 +115,86 @@
                    </choose>
                ) AS rn
 	        FROM TREVIEWCOMMENT c
+	        LEFT JOIN
+	            MEMBER m ON c.MEMID = m.MEMID  
+	        LEFT JOIN
+	            TREVIEWCOMMENT pc ON c.PARENTID = pc.TREVCID
+	        LEFT JOIN
+	            MEMBER pm ON pc.MEMID = pm.MEMID
 	        WHERE 1=1
 	        
-	        <choose>
-				<when test="boardId == 1">
-					AND c.COMMENTSTATUS IN ('CMT001', 'CMT003', 'CMT005')
-				</when>
-				<when test="boardId == 2">
-					AND c.COMMENTSTATUS IN ('CMT002', 'CMT004')
-				</when>
-			</choose>
-	        
-	        <if test="dto.search != null and dto.search != ''">
-	            <choose>
-	                <when test="dto.searchType.name() == 'CONTENT'">
-	                    AND c.TREVCTEXT LIKE '%' || #{dto.search} || '%'
-	                </when>
-	                <when test="dto.searchType.name() == 'POST'">
-	                    AND c.TREVID = #{dto.search}
-	                </when>
-	                <when test="dto.searchType.name() == 'MEMBER'">
-	                    AND c.MEMNICK LIKE '%' || #{dto.search} || '%'
-	                </when>
-	                <when test="dto.searchType.name() == 'ALL'">
-	                    AND (c.TREVCTEXT LIKE '%' || #{dto.search} || '%'
-	                    OR c.MEMNICK LIKE '%' || #{dto.search} || '%')
-	                </when>
-	            </choose>
-	        </if>
+	        <include refid="commentStatusFilter"/>
+	        <include refid="searchCondition"/>
 	    ) c
 	    WHERE rn BETWEEN #{offset} + 1 AND #{offset} + #{pageRowCount}
 	</select>
+	
+	<select id="selectCommentListWithPagingById" parameterType="PageDTO" resultMap="CommentVOMap">
+	    SELECT *
+	    FROM (
+	        SELECT 
+	        	c.TREVCID,
+	        	c.TREVID,
+	        	c.TOPPARENTID, 
+	        	c.PARENTID, 
+	        	pm.MEMNICK AS PARENTNICKNAME, 
+	        	c.MEMID, 
+	        	m.MEMNICK, 
+	        	c.TREVCTEXT, 
+	        	c.TREVDEPTH, 
+	        	c.COMMENTSTATUS, 
+	        	c.TREVCREGDATE, 
+	        	c.TREVDUPDATE, 
+	            ROW_NUMBER() OVER(
+                   ORDER BY 
+                   <choose>
+	                   <when test="dto.sortType.name() == 'LATEST'">c.TREVCREGDATE DESC</when>
+	                   <when test="dto.sortType.name() == 'OLDEST'">c.TREVCREGDATE ASC</when>
+	                   <otherwise>c.TREVCREGDATE DESC</otherwise>
+                   </choose>
+               ) AS rn
+	        FROM TREVIEWCOMMENT c
+	        LEFT JOIN
+	            MEMBER m ON c.MEMID = m.MEMID  
+	        LEFT JOIN
+	            TREVIEWCOMMENT pc ON c.PARENTID = pc.TREVCID
+	        LEFT JOIN
+	            MEMBER pm ON pc.MEMID = pm.MEMID
+	        WHERE c.TREVID = #{postId}
+	    ) c
+	    WHERE rn BETWEEN #{offset} + 1 AND #{offset} + #{pageRowCount}
+	</select>
+	
+	<sql id="commentStatusFilter">
+	    <choose>
+	        <when test="boardId == 1">
+	            AND c.COMMENTSTATUS IN ('CMT001', 'CMT003', 'CMT005')
+	        </when>
+	        <when test="boardId == 2">
+	            AND c.COMMENTSTATUS IN ('CMT002', 'CMT004')
+	        </when>
+	    </choose>
+	</sql>
+	
+	<sql id="searchCondition">
+	    <if test="dto.search != null and dto.search != ''">
+	        <choose>
+	            <when test="dto.searchType.name() == 'CONTENT'">
+	                AND c.TREVCTEXT LIKE '%' || #{dto.search} || '%'
+	            </when>
+	            <when test="dto.searchType.name() == 'POST'">
+	                AND c.TREVID = #{dto.search}
+	            </when>
+	            <when test="dto.searchType.name() == 'MEMBER'">
+	                AND m.MEMNICK LIKE '%' || #{dto.search} || '%'
+	            </when>
+	            <when test="dto.searchType.name() == 'ALL'">
+	                AND (c.TREVCTEXT LIKE '%' || #{dto.search} || '%'
+	                OR m.MEMNICK LIKE '%' || #{dto.search} || '%')
+	            </when>
+	        </choose>
+	    </if>
+	</sql>
 	
 	<resultMap id="CommentVOMap" type="CommentVO">
         <id property="commentId" column="TREVCID"/>

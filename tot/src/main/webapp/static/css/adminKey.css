@@ -1,0 +1,28 @@
+@charset "UTF-8";
+  		.status-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .status-ok {
+            background-color: green;
+        }
+        .status-error {
+            background-color: red;
+        }
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        .keyHeader{
+		    padding: 30px;
+		    display: flex;
+		    justify-content: center;
+        }

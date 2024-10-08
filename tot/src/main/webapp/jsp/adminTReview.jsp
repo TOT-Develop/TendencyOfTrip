@@ -14,6 +14,7 @@
     <script src="${pageContext.request.contextPath}/static/js/adminTReview.js"></script>
     <title>게시물 관리</title>
 </head>
+<%@ include file="adminMenu.jsp" %>
 <body>
     <div class="mainDiv">
         <div class="reviewTitleDiv">
@@ -78,11 +79,20 @@
                 </thead>
                 <tbody>
                     <c:forEach var="review" items="${pagination.postList}" varStatus="status">
-					    <tr onclick="location.href='${pageContext.request.contextPath}/admin/review/${boardId}/detail/${review.trevId}'">
+					    <tr onclick="location.href='${pageContext.request.contextPath}/admin/review/${boardId}/detail/${review.trevId}/1'">
 					    	<td><input type="checkbox" name="reviewSelect" value="${review.trevId}" onclick="event.stopPropagation();"></td>
 					        <td>${status.index + 1}</td>
-					        <td>${review.trevTitle}</td>
-					        <td>${review.memId}</td>
+					        <td>
+							    <c:choose>
+							        <c:when test="${fn:length(review.trevTitle) > 10}">
+							            ${fn:substring(review.trevTitle, 0, 10)}...
+							        </c:when>
+							        <c:otherwise>
+							            ${review.trevTitle}
+							        </c:otherwise>
+							    </c:choose>
+							</td>
+					        <td>${review.memNick}</td>
 					        <td>${review.trevRegdate}</td>
 					        <td>${review.trevUpdate}</td>
 					        <td>
@@ -171,5 +181,13 @@
 		</nav>
 		<!-- 페이징 버튼 끝 -->
     </div>
+    
+    <!-- 로딩창 HTML -->
+	<div id="loading" style="display:none;">
+	    <p>메일을 전송 중입니다...</p>
+	    <div id="progressContainer">
+	        <div id="progressBar"></div>
+	    </div>
+	</div>
 </body>
 </html>

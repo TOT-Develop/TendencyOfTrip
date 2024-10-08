@@ -4,11 +4,17 @@
 <script type="text/javascript">
 	$(() => {
 		const message = "${message}";
+		const redirectPage = "${redirectPage}";
 		
 		if (message) {
 			alert(message);
 			
-			window.history.back();
+			// redirectPage가 존재하면 해당 페이지로 이동
+            if (redirectPage) {
+                window.location.href = "/tot/" + redirectPage;
+            } else {
+                window.history.back();
+            }
 		}
 	});
 </script>

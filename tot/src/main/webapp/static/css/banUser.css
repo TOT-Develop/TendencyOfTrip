@@ -1,0 +1,122 @@
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  font-family: 'Pretendard-Regular';
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* 모든 요소에 박스 사이징 적용 */
+}
+
+/* 회원 제재 페이지 스타일 */
+#banUserContainer {
+  margin-left: 220px;
+  /* 사이드바의 너비를 고려한 여백 */
+  padding: 20px;
+  background-color: #f9f9f9;
+  /* 배경 색상 */
+  border-radius: 8px;
+  /* 둥근 모서리 */
+}
+
+#banUserContainer h1 {
+  color: #2c3e50;
+  /* 제목 색상 */
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+#banUserContainer label {
+  display: block;
+  /* 각 라벨을 블록으로 설정하여 여백을 줄 수 있도록 */
+  margin-top: 10px;
+  /* 라벨 상단 여백 */
+  font-weight: bold;
+  /* 라벨 두껍게 */
+  font-size: 20px;
+}
+
+#banUserContainer select,
+#banUserContainer input {
+  width: 50%;
+  /* 입력 및 선택 상자를 가로 전체로 설정 */
+  padding: 8px;
+  /* 안쪽 여백 */
+  border: 1px solid #ccc;
+  /* 테두리 색상 */
+  border-radius: 4px;
+  /* 둥근 모서리 */
+  margin-top: 5px;
+  /* 입력 상자 상단 여백 */
+  font-size: 40px;
+}
+
+#banUserContainer button {
+  margin-top: 15px;
+  /* 버튼 상단 여백 */
+  padding: 10px 30px;
+  /* 버튼 안쪽 여백 */
+  background-color: #007bff;
+  /* 버튼 배경 색상 */
+  color: white;
+  /* 버튼 글자 색상 */
+  border: none;
+  /* 테두리 제거 */
+  border-radius: 5px;
+  /* 둥근 모서리 */
+  cursor: pointer;
+  /* 마우스 포인터 변경 */
+  font-size: 40px;
+}
+
+#banUserContainer button:hover {
+  background-color: #0056b3;
+  /* 버튼 호버 색상 */
+}
+
+#banHistoryTable {
+  margin-top: 20px;
+  /* 테이블 상단 여백 */
+  width: 100%;
+  /* 테이블 너비 전체 */
+  border-collapse: collapse;
+  /* 테두리 겹치기 */
+}
+
+#banHistoryTable th,
+#banHistoryTable td {
+  border: 1px solid #ddd;
+  /* 셀 테두리 색상 */
+  padding: 8px;
+  /* 셀 안쪽 여백 */
+  text-align: center;
+  /* 텍스트 가운데 정렬 */
+  font-size: 20px;
+}
+
+#banHistoryTable th {
+  background-color: #f2f2f2;
+  /* 헤더 배경 색상 */
+  font-weight: bold;
+  /* 헤더 두껍게 */
+}
+
+#banHistoryTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+  /* 짝수 행 배경 색상 */
+}
+
+#banHistoryTable tr:hover {
+  background-color: #f1f1f1;
+  /* 행 호버 색상 */
+}
+
+p {
+	font-size: 30px;
+}

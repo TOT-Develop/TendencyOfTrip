@@ -1,5 +1,6 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -13,6 +14,7 @@
     <script src="${pageContext.request.contextPath}/static/js/adminTReviewReport.js"></script>
     <title>신고 내역 관리</title>
 </head>
+<jsp:include page="/jsp/adminMenu.jsp"></jsp:include>
 <body>
     <div class="mainDiv">
         <div class="reviewTitleDiv">
@@ -81,18 +83,20 @@
 					    	<td><input type="checkbox" name="reportSelect" value="${report.reportId}"></td>
 					        <td>${status.index+1}</td>
 					        <td>
-					        	<c:choose>
-						        	<c:when test="${report.reportedContentType == 'Treview'}">
-							        	<a href="${pageContext.request.contextPath}/admin/review/${boardId}/detail/${report.reportedTrevId}">
-								        	${report.postTitle}
-								        </a>
-						        	</c:when>
-	                                <c:when test="${report.reportedContentType == 'Treview Comment'}">
-	                                	<a href="${pageContext.request.contextPath}/admin/comment/${boardId}/1">
-							        		${report.commentContent}
-							        	</a>
-	                                </c:when>
-                                </c:choose>
+					        	<div class="report-content">
+						        	<c:choose>
+							        	<c:when test="${report.reportedContentType == 'Treview'}">
+								        	<a href="${pageContext.request.contextPath}/admin/review/${boardId}/detail/${report.reportedTrevId}/1">
+					                            ${report.postTitle}
+									        </a>
+							        	</c:when>
+		                                <c:when test="${report.reportedContentType == 'Treview Comment'}">
+		                                	<a href="${pageContext.request.contextPath}/admin/comment/${boardId}/1">
+									        	${report.commentContent}
+								        	</a>
+		                                </c:when>
+	                                </c:choose>
+					        	</div>
 					        </td>
 					        <td>${report.reporterNickName}</td>
 					        <td>
@@ -102,7 +106,11 @@
                                     <c:otherwise>기타</c:otherwise>
                                 </c:choose>
 					        </td>
-					        <td>${report.reportReason}</td>
+					        <td>
+					        	<div class="report-reason" data-full-reason="${report.reportReason}">
+						        	${report.reportReason}
+							    </div>
+					        </td>
 					        <td>${report.reportDate}</td>
 					        <td>${report.processDate}</td>
 					        <td>
@@ -173,19 +181,38 @@
     
     <!-- 신고 처리 모달 -->
     <div id="statusModal" class="modal">
-    <div class="modal-content">
-        <span class="close2">&times;</span>
-        <h2>신고 처리 상태 변경</h2>
-        <p>선택된 신고의 상태를 변경합니다.</p>
-        <label for="reportStatus">상태 선택:</label>
-        <select id="reportStatus">
-            <option value="RECEIVED">접수</option>
-            <option value="INPROGRESS">처리중</option>
-            <option value="COMPLETED">완료</option>
-            <option value="REJECTED">기각</option>
-        </select>
-        <button id="confirmUpdateBtn" class="initButton active">확인</button>
-    </div>
-</div>
+	    <div class="modal-content">
+	        <span class="close2">&times;</span>
+	        <h2>신고 내역 처리</h2>
+	        <p>선택된 신고의 상태를 변경합니다.</p>
+	        
+	        <!-- 상태 선택 -->
+	        <label for="reportStatus">상태 선택:</label>
+	        <select id="reportStatus">
+	            <option value="RECEIVED">접수</option>
+	            <option value="INPROGRESS">처리중</option>
+	            <option value="COMPLETED">완료</option>
+	            <option value="REJECTED">기각</option>
+	        </select>
+	        
+	        <!-- 제재 이유 선택 -->
+	        <label for="banReason">제재 이유 선택:</label>
+	        <select id="banReason" disabled>
+	            <option value="SPAM">스팸</option>
+	            <option value="INAPPROPRIATE">부적절한 내용</option>
+	            <option value="HARASSMENT">괴롭힘</option>
+	            <option value="COPYRIGHT">저작권 침해</option>
+	        </select>
+	        <button id="confirmUpdateBtn" class="initButton active">확인</button>
+	    </div>
+	</div>
+	<!-- 신고 전체 내용 모달 -->
+    <div id="reportModal" class="modal">
+	    <div class="modal-content">
+	        <span class="close2">&times;</span>
+	        <h2>신고내역 내용</h2>
+	        <div id="modalReportContent"></div>
+	    </div>
+	</div>
 </body>
 </html>

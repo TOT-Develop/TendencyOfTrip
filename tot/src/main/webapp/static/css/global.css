@@ -1,4 +1,21 @@
 @font-face {
+    @font-face {
+        font-family: 'Pretendard-Regular';
+        src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+    }
+}
+
+*{
+    text-decoration: none;
+    color:#333;
+    list-style: none;
+    margin:0;
+    padding:0;
+    font-family: 'pretendard';
+}
+@font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
     font-weight: 400;
@@ -52,9 +69,65 @@ hr {
 }
 
 input[type="text"] {
-    width: 350px;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+/* 페이지 번호 */
+/* 네비게이션 컨테이너 */
+.paginationNav {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* 페이지 리스트 스타일 */
+.paginationList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    gap: 5px;
+}
+
+/* 각 페이지 항목 스타일 */
+.paginationItem {
+    display: inline;
+}
+
+/* 페이지 링크 스타일 */
+.paginationLink {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #1fb1d9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    font-weight: bold;
+}
+
+/* 페이지 링크 호버 스타일 */
+.paginationLink:hover {
+    background-color: #f0f0f0;
+    border-color: #bbb;
+}
+
+/* 현재 페이지 스타일 */
+.paginationItem.active .paginationLink {
+    background-color: #1fb1d9;
+    color: #fff;
+    border-color: #1fb1d9;
+}
+
+/* 첫 번째 및 마지막 페이지 버튼 스타일 */
+.paginationItem a {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* 페이지 버튼 간격 */
+.paginationList li + li {
+    margin-left: 5px;
 }

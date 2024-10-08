@@ -8,7 +8,6 @@ import static tot.common.Constants.PAGE_WRITE_TREVIEW;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +27,7 @@ import tot.domain.CourseDTO;
 import tot.domain.MemberVO;
 import tot.domain.TReviewReqDTO;
 import tot.domain.TReviewResDTO;
-import tot.domain.TripVO;
+import tot.domain.TripDTO;
 import tot.service.CommentService;
 import tot.service.CourseService;
 import tot.service.TReviewService;
@@ -40,21 +39,22 @@ import tot.util.ResponseUtil;
 @RequestMapping("/review/{boardId}")
 public class TReviewController {
 
-	@Autowired
-	private TReviewService treviewService;
+	private final TReviewService treviewService;
+	private final TripService tripService;
+	private final CourseService courseService;
+	private final CommentService commentService;
 
-	@Autowired
-	private TripService tripService;
-
-	@Autowired
-	private CourseService courseService;
-
-	@Autowired
-	private CommentService commentService;
+	public TReviewController(TReviewService treviewService, TripService tripService, CourseService courseService,
+			CommentService commentService) {
+		this.treviewService = treviewService;
+		this.tripService = tripService;
+		this.courseService = courseService;
+		this.commentService = commentService;
+	}
 
 	// 여행 후기 화면 이동
 	@GetMapping("/{page}")
-	public String showTourReview(@PathVariable String boardId, @ModelAttribute PageReqDTO pageReqDTO, Model model) {
+	public String showTourReview(@PathVariable int boardId, @ModelAttribute PageReqDTO pageReqDTO, Model model) {
 		PageResDTO<TReviewResDTO> pagination = treviewService.findTReviewListWithPaging(pageReqDTO, boardId);
 
 		model.addAttribute("boardId", boardId);
@@ -66,9 +66,9 @@ public class TReviewController {
 	// 여행 후기 작성 화면 이동
 	@GetMapping("/add")
 	public String showTourReviewWrite(Model model) {
-		MemberVO member = MemberUtil.getAuthenticatedMember();
+		MemberVO member = MemberUtil.isAuthenticatedMember();
 
-		List<TripVO> trips = tripService.getTripByMemId(member.getMemId());
+		List<TripDTO> trips = tripService.getTripsByMemId(member.getMemId());
 
 		model.addAttribute("trips", trips);
 		model.addAttribute("member", member);
@@ -77,8 +77,8 @@ public class TReviewController {
 	}
 
 	// 해당 여행의 코스 정보 처리
-	@ResponseBody
 	@GetMapping("/add/{tripId}")
+	@ResponseBody
 	public List<CourseDTO> getCourseDetailById(@RequestParam("tripId") int tripId) {
 		List<CourseDTO> courses = courseService.getCourseDetailsByTripId(tripId);
 
@@ -90,7 +90,7 @@ public class TReviewController {
 	@ResponseBody
 	public ResponseEntity<Map<String, String>> submitTourReviewWrite(@ModelAttribute TReviewReqDTO tReviewReqDTO,
 			@RequestParam(value = "reviewImage", required = false) MultipartFile[] imageFiles) {
-		MemberVO member = MemberUtil.getAuthenticatedMember();
+		MemberVO member = MemberUtil.isAuthenticatedMember();
 		tReviewReqDTO.setMemId(member.getMemId());
 
 		treviewService.insertTReview(tReviewReqDTO, imageFiles);
@@ -101,9 +101,9 @@ public class TReviewController {
 	// 여행 후기 수정 화면 이동
 	@GetMapping("/edit/{trevId}")
 	public String showTourReviewEdit(@PathVariable int trevId, Model model) {
-		MemberVO member = MemberUtil.getAuthenticatedMember();
+		MemberVO member = MemberUtil.isAuthenticatedMember();
 
-		List<TripVO> trips = tripService.getTripByMemId(member.getMemId());
+		List<TripDTO> trips = tripService.getTripsByMemId(member.getMemId());
 		TReviewResDTO review = treviewService.getTReviewById(trevId);
 		List<CourseDTO> courses = courseService.getCourseDetailsByTripId(review.getTripId());
 
@@ -122,7 +122,7 @@ public class TReviewController {
 			@ModelAttribute TReviewReqDTO tReviewReqDTO,
 			@RequestParam(value = "reviewImage", required = false) MultipartFile[] imageFiles,
 			@RequestParam(value = "existingImages", required = false) List<String> existingImages) {
-		MemberVO member = MemberUtil.getAuthenticatedMember();
+		MemberVO member = MemberUtil.isAuthenticatedMember();
 		tReviewReqDTO.setMemId(member.getMemId());
 
 		treviewService.editTReview(tReviewReqDTO, imageFiles, existingImages);
@@ -145,7 +145,9 @@ public class TReviewController {
 	public ResponseEntity<Map<String, String>> reportTourReview(@PathVariable int trevId,
 			@RequestParam("reportedContentType") String reportedContentType,
 			@RequestParam("reportReason") String reportReason) {
-		treviewService.reportTReview(trevId, reportedContentType, reportReason);
+		MemberVO member = MemberUtil.isAuthenticatedMember();
+
+		treviewService.reportTReview(trevId, member, reportedContentType, reportReason);
 
 		return ResponseUtil.createTReviewResponse("여행 후기 글 신고가 접수되었습니다.");
 	}
@@ -155,9 +157,10 @@ public class TReviewController {
 	public String showTourReviewDetail(@PathVariable("boardId") String boardId, @PathVariable("trevId") int trevId,
 			Model model) {
 		MemberVO member = MemberUtil.getAuthenticatedMember();
-
 		TReviewResDTO review = treviewService.getTReviewById(trevId);
+
 		treviewService.incrementTReviewCount(trevId);
+
 		List<CourseDTO> courses = courseService.getCourseDetailsByTripId(review.getTripId());
 		List<CommentVO> comments = commentService.getCommentsByReviewId(trevId);
 

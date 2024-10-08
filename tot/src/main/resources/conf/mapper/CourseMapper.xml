@@ -1,11 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="tot.mapper.CourseMapper">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-    <select id="getCourseById" parameterType="String" resultType="CourseDTO">
-        SELECT * FROM COURSE WHERE COURID = #{courseId}
-    </select>
+<mapper namespace="tot.dao.CourseDao">
 
+	<select id="getCourse" resultType="tot.domain.CourseDTO">
+	    SELECT C.*
+	    FROM COURSE C
+	    JOIN TRIP  T ON C.TRIPID= T.TRIPID
+	    WHERE T.TRIPID = #{tripId}
+	    ORDER BY C.COURID ASC
+	</select>
+	
+	<select id="getLodging" resultType="tot.domain.LodgingDTO">
+	    SELECT *
+	    FROM LODGING
+	    WHERE LODID = #{lodId}
+	</select>
+
+	<select id="getRestaurant" resultType="tot.domain.RestaurantDTO">
+	    SELECT *
+	    FROM RESTAURANT
+	    WHERE RESTID = #{restId}
+	</select>
+	
+	  <select id="getTour" resultType="tot.domain.TourDTO">
+	    SELECT *
+	    FROM TOUR
+	    WHERE TOID = #{toId}
+	</select>
+	
+	<select id="selectHotel" parameterType="String" resultType="tot.domain.LodgingDTO">
+		select * from LODGING
+    		where areacode = #{areacode} and ROWNUM &lt;= 1000
+	</select>
+	
+	<select id="selectRestaurant" parameterType="String" resultType="tot.domain.RestaurantDTO" >
+		select * from Restaurant
+    		where areacode = #{areacode} and ROWNUM &lt;= 1000
+	</select>
+	
+	<select id="selectTour" parameterType="String" resultType="tot.domain.TourDTO">
+		select * from Tour
+    		where areacode = #{areacode} and ROWNUM &lt;= 1000
+	</select>
+	
+   <update id="updateDcourse" parameterType="map">
+        UPDATE course
+        SET dcourse = #{dcourse}
+        WHERE tripId = #{tripId}
+        AND courId = #{courId}
+    </update>
+	
+	<select id="getCourseById" parameterType="int" resultType="tot.domain.CourseDTO">
+    	SELECT * FROM course WHERE courId = #{courId}
+	</select>
+	
 	<select id="getCourseByTripId" parameterType="int" resultMap="CourseDTOMap">
 		SELECT 
 		    C.COURID, 
@@ -13,9 +63,13 @@
 		    C.AREACODE, 
 		    C.DCOURSE, 
 		    C.COURREGDATE, 
-		    C.COURUPDATE
-		FROM 
-		    COURSE C
+		    C.COURUPDATE,
+		    C1.CODENAME as regionName,
+		    C2.CODENAME as regionImageUrl 
+		FROM
+			COURSE C
+		   LEFT JOIN CODE c1 ON c.AREACODE = c1.CODEID AND c1.PCODEID = 'areacode'
+		   LEFT JOIN CODE c2 ON c2.CODEID = CONCAT('areaImg', c.AREACODE)
 		JOIN 
 		    TRIP T ON C.TRIPID = T.TRIPID
 		WHERE 
@@ -52,6 +106,8 @@
 	    <result property="dCourse" column="DCOURSE" />
 	    <result property="courRegdate" column="COURREGDATE" />
 	    <result property="courUpdate" column="COURUPDATE" />
+	    <result property="regionName" column="REGIONNAME" />
+	    <result property="regionImageUrl" column="REGIONIMAGEURL" />
 	</resultMap>
-
+	
 </mapper>

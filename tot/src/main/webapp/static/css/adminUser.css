@@ -1,0 +1,205 @@
+@charset "utf-8";
+
+html, body {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#userWrapper {
+    margin-left: 200px;
+    position: absolute;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+#userContainer {
+    margin: 0 auto;
+    width: 95%;
+    max-width: 100%;
+    box-sizing: border-box;
+    background-color: #ffffff; /* 내용 영역 배경색 */
+    padding: 20px; /* 패딩 추가 */
+    border-radius: 10px; /* 둥근 모서리 */
+    /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */ /* 그림자 효과 */
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px; /* 제목 아래 여백 */
+}
+
+#searchForm {
+    display: flex; /* 플렉스박스 사용 */
+    justify-content: flex-end; /* 공간을 골고루 배분 */
+    margin-bottom: 20px; /* 검색 양식 아래 여백 */
+    gap: 10px;
+}
+
+.searchInput,
+.statusSelect,
+.searchButton {
+    padding: 10px; /* 안쪽 여백 */
+    border: 1px solid #ccc; /* 테두리 색상 */
+    border-radius: 4px; /* 둥근 모서리 */
+}
+
+.searchButton {
+	width: 7%; /* 입력 및 선택 상자를 가로 전체로 설정 */
+    background-color: #333; /* 버튼 배경색 */
+    font-size: 16px;
+    color: white; /* 버튼 텍스트 색상 */
+    cursor: pointer; /* 포인터 커서 */
+    min-width: 50px;
+    max-width: 100px;
+}
+
+.searchInput {
+	 width: 10%; /* 입력 및 선택 상자를 가로 전체로 설정 */
+	 min-width: 140px;
+    max-width: 200px;
+}
+
+.statusSelect {
+	 width: 7%; /* 입력 및 선택 상자를 가로 전체로 설정 */
+	 min-width: 100px;
+}
+
+.ststusButton {
+	 width: 10%; /* 입력 및 선택 상자를 가로 전체로 설정 */
+	 height : 50px;
+}
+
+#userTable {
+    width: 100%;
+    border-collapse: collapse; /* Remove cell borders */
+    margin-bottom: 20px; /* 테이블 아래 여백 */
+    table-layout: auto; 
+}
+
+#userTable th, #userTable td {
+    border: 2px solid #bdbdbd; /* Border style */
+    padding: 10px; /* Cell padding */
+    text-align: center; /* Center alignment */
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#userTable th {
+    background-color: #f2f2f2; /* Header background color */
+    font-weight: bold; /* Bold font */
+}
+
+#userTable td {
+    line-height: 30px; /* Line height */     
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis; /* 줄임표 처리 */   
+}
+
+/* 각 열에 퍼센트 기반 너비 설정 */
+#userTable td:nth-child(1) { /* 닉네임 */
+    width: 10%; /* 닉네임은 10% */
+}
+
+#userTable td:nth-child(2) { /* ID */
+    width: 15%; /* ID는 15% */
+    max-width: 200px; /* 최대 너비 제한 */
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis; /* 줄임표 처리 */
+}   
+
+#userTable td:nth-child(3) { /* 이메일 */
+    width: 10%; /* 이메일은 20% */
+}
+
+#userTable td:nth-child(4), 
+#userTable td:nth-child(5) {
+	width: 6%; 
+}
+
+#userTable td:nth-child(6) { 
+    width: 8%; /* 성향은 각각 8% */
+}
+
+#userTable td:nth-child(7), /* 가입일 */
+#userTable td:nth-child(8) { /* 수정일 */
+	width: 7%; /* 성향은 각각 8% */
+}
+#userTable td:nth-child(9), /* BAN START */
+#userTable td:nth-child(10) { /* BAN END */
+    width: 10%; /* 날짜 관련 정보는 각각 10% */
+}
+
+#userTable td:nth-child(11) { /* ACTION 버튼 */
+    width: 5%; /* 액션 버튼은 9% */
+}
+
+#userTable input[type="button"] {
+    width: 80px; /* 버튼 너비 */
+    height: 50px; /* 버튼 높이 */
+    border: none;
+    border-radius: 12px;
+    background-color: #28a745; /* 버튼 배경색 */
+    color: white; /* 버튼 텍스트 색상 */
+    cursor: pointer;
+}
+
+#pagination {
+    text-align: center;
+    margin: 20px 0; /* 여백 설정 */
+}
+
+#pagination a {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ccc; /* 테두리 추가 */
+    border-radius: 5px; /* 둥근 모서리 */
+}
+
+#pagination a.active {
+    font-weight: bold;
+    color: #fff; /* 활성화된 링크 텍스트 색상 */
+    background-color: #007bff; /* 활성화된 링크 배경색 */
+}
+
+#pagination a.prev, #pagination a.next {
+    font-weight: bold;
+}
+
+select,
+input {   
+    padding: 10px; /* 안쪽 여백 */
+    border: 1px solid #ccc; /* 테두리 색상 */
+    border-radius: 4px; /* 둥근 모서리 */
+    margin-top: 5px; /* 입력 상자 상단 여백 */
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    #userWrapper {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    #userContainer {
+        width: 100%;
+    }
+
+    #userContent {
+        padding: 5px; /* Reduce padding on small screens */
+    }
+
+    #userTable th, #userTable td {
+        padding: 5px; /* Reduce padding on small screens */
+    }
+
+    #userTable input[type="button"] {
+        width: 50px; /* Adjust button width on small screens */
+        height: 25px; /* Adjust button height on small screens */
+    }
+}

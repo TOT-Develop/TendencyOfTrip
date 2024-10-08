@@ -5,7 +5,6 @@ import static tot.common.Constants.PAGE_ADMIN_TREVIEW_COMMENT;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,12 +25,15 @@ import tot.util.ResponseUtil;
 @RequestMapping("/admin/comment/{boardId}")
 public class AdminCommentController {
 
-	@Autowired
-	private AdminCommentService adminCommentService;
+	private final AdminCommentService adminCommentService;
+
+	public AdminCommentController(AdminCommentService adminCommentService) {
+		this.adminCommentService = adminCommentService;
+	}
 
 	// 게시물 관리 화면 이동
 	@GetMapping("/{page}")
-	public String showAdminComment(@PathVariable String boardId, @ModelAttribute PageReqDTO pageReqDTO, Model model) {
+	public String showAdminComment(@PathVariable int boardId, @ModelAttribute PageReqDTO pageReqDTO, Model model) {
 		PageResDTO<CommentVO> pagination = adminCommentService.findCommentListWithPaging(pageReqDTO, boardId);
 
 		model.addAttribute("boardId", boardId);
@@ -44,14 +46,9 @@ public class AdminCommentController {
 	@PostMapping("/{status}")
 	public ResponseEntity<Map<String, String>> updateCommentStatus(@PathVariable String status,
 			@RequestBody List<Integer> trevcIds) {
-		try {
-			adminCommentService.updateCommentStatus(status, trevcIds);
+		adminCommentService.updateCommentStatus(status, trevcIds);
 
-			return ResponseUtil.createTReviewResponse("댓글 상태가 업데이트되었습니다.");
-		} catch (IllegalStateException e) {
-			return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
-		}
-
+		return ResponseUtil.createTReviewResponse("댓글 상태가 업데이트되었습니다.");
 	}
 
 }

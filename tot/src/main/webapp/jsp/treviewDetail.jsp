@@ -15,6 +15,7 @@
     <title>여행 후기 상세</title>
 </head>
 <body>
+	<jsp:include page="header.jsp"></jsp:include>
     <div class="mainDiv">
         <div class="reviewTitleDiv">
             <div class="bigTitle">${review.trevTitle}</div>
@@ -39,7 +40,7 @@
         <div class="reviewCourseDiv">
             <!-- 여행 코스 이미지 -->
             <div class="reviewCourseImg">
-                <img src="https://via.placeholder.com/300x200" alt="Review Course Image">
+                <img src="${courses[0].regionImageUrl}" style="width: 300px; height: 200px; object-fit: cover;" alt="ReviewCourseImage">
                 <div class="initButton2">경로 상세보기 ></div>
             </div>
             <!-- 여행 코스 날짜별 내역 리스트 -->
@@ -124,7 +125,7 @@
 			        <div class="commentItem">
 			            <div class="commentDetailItem" style="margin-left: ${comment.depth * 20}px;">
 			                <div class="profileImg">
-			                    <img src="https://via.placeholder.com/50" alt="Profile Image">
+			                    <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?t=st=1728268060~exp=1728271660~hmac=6f8134298a9985ceaedf1eaa32a7382277a3b36ffddbf59715632e283ad220df&w=740" alt="Profile Image">
 			                </div>
 			                <div class="commentMemberDiv">
 			                    <div id="commentMember" class="commentMember" name="member">${comment.memNick}</div>
@@ -192,7 +193,7 @@
 			                    <div class="commentItem" style="margin-left: 20px;">
 			                        <div class="commentDetailItem">
 			                            <div class="profileImg">
-			                                <img src="https://via.placeholder.com/50" alt="Profile Image">
+			                                <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?t=st=1728268060~exp=1728271660~hmac=6f8134298a9985ceaedf1eaa32a7382277a3b36ffddbf59715632e283ad220df&w=740" alt="Profile Image">
 			                            </div>
 			                            <div class="commentMemberDiv">
 			                                <div id="commentMember" class="commentMember">${reply.memNick}</div>
@@ -277,5 +278,6 @@
 	    </div>
 	</div>
 	<!-- 신고 모달 폼 끝 -->
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

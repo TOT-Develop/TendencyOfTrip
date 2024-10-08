@@ -1,15 +1,16 @@
 package tot.exception;
 
 public class ServerException extends RuntimeException {
-	
-	private static final long serialVersionUID = 1L;
 
-	public ServerException(String message) {
-		super(message);
+	private final ErrorCode errorCode;
+
+	public ServerException(ErrorCode errorCode) {
+		super(errorCode.getMessage());
+		this.errorCode = errorCode;
 	}
 
-	public ServerException(String message, Throwable cause) {
-		super(message, cause);
+	public ErrorCode getErrorCode() {
+		return errorCode;
 	}
 
 }

@@ -1,0 +1,239 @@
+@charset "utf-8";
+
+#main{
+    width:100%;
+    margin:0 auto;
+   height:3000px;
+}
+
+#main #main1{
+    width:100%;
+    height: 1000px;
+    background: url(../image/main1.jpg) no-repeat center/cover;
+    display: flex;
+    align-items: center;
+}
+
+#main #main1 #mainFirst{
+    width:1600px;
+    margin:0 auto;
+
+}
+#main #main1 #mainFirst #mainFirstText{
+}
+#main #main1 #mainFirst #mainFirstText h2{
+    color:#fff;
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 60px;
+    margin-bottom:15px;
+}
+#main #main1 #mainFirst #mainFirstText p{
+    color:#fff;
+    font-weight: 300;
+}
+
+/* button */
+
+#main #main1 #mainFirst #mainFirstBtn{
+    margin-top:80px;
+}
+
+#main #main1 #mainFirst #mainFirstBtn input{
+    padding:10px 50px;
+    font-size:20px;
+    font-weight: 500;
+    border-radius: 50px;
+    background-color: rgba(0,0,0,0);
+    color:#fff;
+    border:4px solid #1FB1D9;
+    cursor: pointer;
+}
+
+#main #main1 #mainFirst #mainFirstBtn input:hover{
+    background-color: #1FB1D9;
+}
+ 
+/* banner */
+#main #main2 #mainSecond{
+   width:80%;
+   height:600px;
+   min-height:250px;
+    background: url(../image/airplane.jpg) no-repeat ;
+   background-position: left 50%;
+    background-size:130%;
+    margin:100px auto;
+    box-sizing:border-box;
+    position:relative;
+}
+#main #main2 #mainSecond #mainSecond2{
+   width:40%;
+   position:absolute;
+   top:50%;
+   left:10%;
+   transform: translateY(-50%);
+}
+#main #main2 #mainSecond #mainSecond2 p{
+   
+}
+
+#main #main2 #mainSecond #mainSecond2 > p:nth-child(1){
+   font-size:18px;
+   color:#fff;
+   font-weight:700;
+   line-height:38px;
+}
+
+#main #main2 #mainSecond #mainSecond2 > p:nth-child(2){
+   font-size:40px;
+   color:#fff;
+   font-weight:700;
+   line-height:38px;
+}
+
+/* main3 */
+
+#main #main3{
+   width:75%;
+   margin:150px auto 100px;
+   /*background: linear-gradient(to bottom, #ECFBFF, #1FB1D9);*/
+}
+#main #main3 h2{
+   font-size:80px;
+   font-weight:800;
+   margin-bottom: 50px;
+}
+#main #main3 .step{
+   width:80%;
+   margin:70px auto 35px;
+   display:flex;
+   align-items:center;
+   box-sizing:border-box;
+}
+#main #main3 .step .texts{
+   
+}
+
+.images{
+   width:80%;
+   display:block;
+   margin:0 auto;
+}
+
+.images video{
+   width:100%;
+   max-width:100%;
+   height:auto;
+    justify-content: flex-end;
+}
+
+/*  main4  */
+
+#main #main4{
+   width:75%;
+   margin:150px auto 100px;
+   background-color:pink;
+}
+
+
+/* 모달 배경 - 전체 화면을 덮도록 설정 */
+.modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed; /* 화면에 고정 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* 어두운 반투명 배경 */
+    transition: opacity 0.3s ease; /* 부드러운 나타남 효과 */
+}
+
+/* 모달 내용 */
+#testModal .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 화면 중앙에 오도록 설정 */
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 420px; /* 모달의 너비 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* 더 부드러운 그림자 */
+    text-align: center;
+    transition: all 0.3s ease; /* 부드러운 애니메이션 */
+    font-family: 'Arial', sans-serif; /* 폰트 스타일 */
+}
+
+/* 닫기 버튼 (X) */
+#testModal .close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#testModal .close:hover {
+    color: #e74c3c; /* 호버 시 색상 변화 */
+}
+
+/* 버튼 스타일 */
+#testModal button {
+    margin: 15px 5px;
+    padding: 12px 25px;
+    background-color: #3498db; /* 기본 파란색 버튼 */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#testModal button:hover {
+    background-color: #2980b9; /* 호버 시 좀 더 진한 파란색 */
+    transform: scale(1.05); /* 살짝 커짐 효과 */
+}
+
+/* 이미지 스타일 */
+#testModal img {
+    margin-bottom: 20px;
+    width: 100px;
+    height: auto;
+}
+
+/* 타이틀 스타일 */
+#testModal h2 {
+    margin: 10px 0;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* 모달 열림 시 부드러운 애니메이션 효과 */
+.modal.open {
+    display: block;
+    opacity: 1;
+    animation: fadeIn 0.4s ease;
+}
+
+/* 모달 등장 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+   #main #main3 .step .images img{
+      width:140px;
+   }
+   
+}

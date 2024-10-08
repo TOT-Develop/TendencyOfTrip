@@ -1,53 +1,65 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="tot.mapper.CommentMapper">
+<mapper namespace="tot.dao.CommentDao">
 
     <select id="getCommentsByReviewId" parameterType="int" resultMap="CommentVOMap">
 		SELECT
-            TREVCID,
-            TREVID,
-            TOPPARENTID,
-            PARENTID,
-            PARENTNICKNAME,
-            MEMID,
-            MEMNICK,
-            COMMENTSTATUS,
-            TREVCTEXT,
-            TREVDEPTH,
-            TREVCREGDATE,
-            TREVDUPDATE
+            c.TREVCID,
+            c.TREVID,
+            c.TOPPARENTID,
+            c.PARENTID,
+            pm.MEMNICK AS PARENTNICKNAME,
+            c.MEMID,
+            m.MEMNICK,
+            c.COMMENTSTATUS,
+            c.TREVCTEXT,
+            c.TREVDEPTH,
+            c.TREVCREGDATE,
+            c.TREVDUPDATE
 		FROM
-		    TREVIEWCOMMENT
+		    TREVIEWCOMMENT c
+		LEFT JOIN
+        	MEMBER m ON c.MEMID = m.MEMID
+      	LEFT JOIN
+        	TREVIEWCOMMENT pc ON c.PARENTID = pc.TREVCID
+       	LEFT JOIN
+        	MEMBER pm ON pc.MEMID = pm.MEMID
 		WHERE
-		    TREVID = #{trevId}
+		    c.TREVID = #{trevId}
 		AND
-			COMMENTSTATUS IN ('CMT001', 'CMT003')
+			c.COMMENTSTATUS IN ('CMT001', 'CMT003')
 		START WITH
-		    TREVCID = TOPPARENTID      
+		    c.TREVCID = c.TOPPARENTID      
 		CONNECT BY
-		    PRIOR TREVCID = PARENTID    
+		    PRIOR c.TREVCID = c.PARENTID    
 		ORDER SIBLINGS BY
-		    TREVCREGDATE ASC     
+		    c.TREVCREGDATE ASC     
     </select>
     
     <select id="getCommentById" parameterType="int" resultMap="CommentVOMap">
 	    SELECT
- 	        TREVCID,
-	        TREVID,
-	        TOPPARENTID,
-	        PARENTID,
-	        PARENTNICKNAME,
-	        MEMID,
-	        MEMNICK,
-	        COMMENTSTATUS,
-	        TREVCTEXT,
-	        TREVDEPTH,
-	        TREVCREGDATE,
-	        TREVDUPDATE
+ 	        c.TREVCID,
+	        c.TREVID,
+	        c.TOPPARENTID,
+	        c.PARENTID,
+	        pm.MEMNICK AS PARENTNICKNAME,
+	        c.MEMID,
+	        m.MEMNICK,
+	        c.COMMENTSTATUS,
+	        c.TREVCTEXT,
+	        c.TREVDEPTH,
+	        c.TREVCREGDATE,
+	        c.TREVDUPDATE
 	    FROM 
-	        TREVIEWCOMMENT
+	        TREVIEWCOMMENT c
+	    LEFT JOIN
+        	MEMBER m ON c.MEMID = m.MEMID
+       	LEFT JOIN
+        	TREVIEWCOMMENT pc ON c.PARENTID = pc.TREVCID
+       	LEFT JOIN
+        	MEMBER pm ON pc.MEMID = pm.MEMID
 	    WHERE 
-	        TREVCID = #{commentId}
+	        c.TREVCID = #{commentId}
 	</select>  
     
     <insert id="insertComment" parameterType="CommentVO" useGeneratedKeys="true" keyProperty="commentId">
@@ -59,9 +71,7 @@
             TREVID,
             TOPPARENTID,
             PARENTID,
-            PARENTNICKNAME,
             MEMID,
-            MEMNICK,
             TREVCTEXT,
             TREVDEPTH,
             TREVCREGDATE
@@ -71,9 +81,7 @@
             #{postId},
             #{topParentId},
             #{parentId},
-            #{parentNickname},
             #{memId},
-            #{memNick},
             #{content},
             #{depth},
             CURRENT_TIMESTAMP

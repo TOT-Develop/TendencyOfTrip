@@ -12,6 +12,21 @@ const ERROR_MESSAGES = {
 $(document).ready(() => {
     // 현재 경로에 따라 버튼 활성화
     let path = window.location.pathname;
+    
+    // 활성화 경로 패턴 (BASE_TREVIEW_URL/1/** 형태)
+    const activePathPattern = new RegExp(`${BASE_TREVIEW_URL}/1/\\d+`);
+    
+    // 비활성화 경로 패턴 (BASE_TREVIEW_URL/2/** 형태)
+    const deactivePathPattern = new RegExp(`${BASE_TREVIEW_URL}/2/\\d+`);
+
+    // 경로에 따라 버튼 활성화/비활성화 로직
+    if (activePathPattern.test(path)) {
+        $('#activeBtn').addClass('active');
+        $('#deactiveBtn').removeClass('active');
+    } else if (deactivePathPattern.test(path)) {
+        $('#deactiveBtn').addClass('active');
+        $('#activeBtn').removeClass('active');
+    }
 
     if (path.includes(ALL_ADMIN_ACTIVE_TREVIEW_COMMENT_URL)) {
         $('#activeBtn').addClass('active');

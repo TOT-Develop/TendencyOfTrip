@@ -13,10 +13,17 @@ $(document).ready(() => {
     // 현재 경로에 따라 버튼 활성화
     let path = window.location.pathname;
 
-    if (path.includes(ALL_ADMIN_ACTIVE_TREVIEW_REPORT_URL)) {
+    // 활성화 경로 패턴 (BASE_TREVIEW_URL/1/** 형태)
+    const activePathPattern = new RegExp(`${BASE_TREVIEW_URL}/1/\\d+`);
+    
+    // 비활성화 경로 패턴 (BASE_TREVIEW_URL/2/** 형태)
+    const deactivePathPattern = new RegExp(`${BASE_TREVIEW_URL}/2/\\d+`);
+
+    // 경로에 따라 버튼 활성화/비활성화 로직
+    if (activePathPattern.test(path)) {
         $('#activeBtn').addClass('active');
         $('#deactiveBtn').removeClass('active');
-    } else if (path.includes(ALL_ADMIN_DEACTIVE_TREVIEW_REPORT_URL)) {
+    } else if (deactivePathPattern.test(path)) {
         $('#deactiveBtn').addClass('active');
         $('#activeBtn').removeClass('active');
     }
@@ -48,8 +55,16 @@ $(document).ready(() => {
         checkbox.prop('checked', !checkbox.prop('checked'));
     });
 
-	// 게시글/댓글 내용 최대 길이 조정
-    handleCommentMaxLength();
+    // 상태 선택 변화에 따른 제재 이유 활성화/비활성화
+    $('#reportStatus').on('change', function() {
+        const selectedStatus = $(this).val();
+        if (selectedStatus === "COMPLETED") {
+            $('#banReason').prop('disabled', false); // "완료"인 경우 활성화
+        } else {
+        	// 다른 상태인 경우 비활성화 및 첫 번째 옵션으로 초기화
+            $('#banReason').prop('disabled', true).val($('#banReason option:first').val());
+        }
+    });
     
     // 신고 내역 목록에서 체크한 댓글에 대한 활성화, 비활성화 처리
     $('.activeButton').on('click', function (e) {
@@ -68,13 +83,24 @@ $(document).ready(() => {
         // 모달창 띄우기
 		$('#statusModal').show();
 		
+		// 제재 사유 초기화
+        $('#banReason').val($('#banReason option:first').val()); // 첫 번째 옵션으로 초기화
+        $('#banReason').prop('disabled', true); // 기본 비활성화
+		
 		// 확인 버튼 클릭 시 신고 처리 요청
 		$('#confirmUpdateBtn').off('click').on('click', function() {
 	        const status = $('#reportStatus').val();
+	        const reason = $('#banReason').val();
 	        const url = $(e.currentTarget).attr('href');
 	
 	        // 단순 ID 배열을 JSON.stringify로 변환하여 전송
-	        handleActiveStatus(url.replace("{status}", status), JSON.stringify(selectedReports.map(id => parseInt(id))));
+	        const dataToSend = {
+                reportIds: selectedReports.map(id => parseInt(id)),
+                status: status,
+                reason: reason
+            };
+	        
+	        handleActiveStatus(url.replace("{status}", status), JSON.stringify(dataToSend));
 	        $('#statusModal').hide();
     	});
     });
@@ -88,6 +114,29 @@ $(document).ready(() => {
     $(window).on('click', function(event) {
         if ($(event.target).is('#statusModal')) {
             $('#statusModal').hide();
+        }
+    });
+    
+    // 댓글 사유 최대 길이 조정
+    handleReportMaxLength();
+    
+    // 신고사유를 클릭했을 때 모달 열기 
+    $('.report-reason').on('click', function() {
+        const reportText = $(this).data('full-reason');
+        const trimmedReportText = reportText.trim();
+        $('#modalReportContent').text(reportText);
+        $('#reportModal').show();
+    });
+
+    // 모달 닫기 버튼 클릭 시 모달 닫기
+    $('.close2').on('click', function() {
+        $('#reportModal').hide(); // 모달 닫기
+    });
+
+    // 모달 외부 클릭 시 모달 닫기
+    $(window).on('click', function(event) {
+        if ($(event.target).is('#reportModal')) {
+            $('#reportModal').hide();
         }
     });
     
@@ -116,11 +165,22 @@ const handleActiveStatus = (url, data) => {
     });
 }
 
-// 댓글 내용 최대 길이 조정 함수
-const handleCommentMaxLength = () => {
-	const maxLength = 20; // 최대 글자 수
+// 게시물, 댓글 내용 및 신고사유 최대 길이 조정 함수
+const handleReportMaxLength = () => {
+	const maxLength = 15; // 최대 글자 수
 
-    $('.comment-content').each(function() {
+    $('.report-content').each(function() {
+        const $link = $(this).find('a'); // report-content 안의 a 태그
+        const content = $link.text().trim();
+
+        if (content.length > maxLength) {
+            $link.text(content.slice(0, maxLength) + '...');
+        } else {
+            $link.text(content);
+        }
+    });
+    
+    $('.report-reason').each(function() {
         const content = $(this).text().trim();
 
         if (content.length > maxLength) {

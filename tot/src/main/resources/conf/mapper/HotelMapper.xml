@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tot.dao.Hotel">
+
+	<insert id="insertHotel" parameterType="tot.domain.Accommodation">
+    insert into LODGING
+    (
+        LODID, 
+        LG_001, 
+        AREACODE, 
+        LODNAME, 
+        LODADDRESS, 
+        LODURL, 
+        LODPRICE, 
+        LODIMGPATH
+    ) 
+    values(
+        seq_LODID.nextVal, 
+        <choose>
+            <when test="lodLG != null and lodLG.contains('모텔')">
+                'MOT'
+            </when>
+            <when test="lodLG != null and lodLG.contains('호텔')">
+                'RES'
+            </when>
+            <when test="lodLG != null and lodLG.contains('펜션')">
+                'PEN'
+            </when>
+            <when test="lodLG != null and lodLG.contains('빌라')">
+                'HOM'
+            </when>
+            <when test="lodLG != null and lodLG.contains('캠핑')">
+                'CAM'
+            </when>
+            <when test="lodLG != null and lodLG.contains('게히')">
+                'GUE'
+            </when>
+            <otherwise>
+                ''
+            </otherwise>
+        </choose>, 
+        #{areacode}, 
+        #{lodName}, 
+        #{lodAddress}, 
+        #{lodURL}, 
+        #{lodPrice}, 
+        #{lodImgPath}
+    )
+</insert>   
+	
+</mapper>
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+

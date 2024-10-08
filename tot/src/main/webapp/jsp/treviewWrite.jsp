@@ -13,6 +13,7 @@
     <title>여행 후기 작성</title>
 </head>
 <body>
+	<jsp:include page="header.jsp"></jsp:include>
     <div class="mainDiv">
         <div class="reviewTitleDiv">
             <div class="bigTitle">여행 후기 작성</div>
@@ -121,5 +122,6 @@
         </div>
         <!-- 여행 후기 작섬 폼 END -->
     </div>
+    <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

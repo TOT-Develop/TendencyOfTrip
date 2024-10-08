@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="tot.mapper.HistoryMapper">
+<mapper namespace="tot.dao.HistoryDao">
 
     <insert id="insertTReviewHistory">
-        INSERT INTO HISTORY (HISTORYID, TREVID, MEMID, MEMNICK, ACTION, CONTENT, ACTIONDATE, STATUS)
-        VALUES (SEQ_HISTORYID.NEXTVAL, #{trevId}, #{memId}, #{memNick}, #{action}, #{content}, CURRENT_TIMESTAMP, #{status})
+        INSERT INTO HISTORY (HISTORYID, TREVID, MEMID, ACTION, CONTENT, ACTIONDATE, STATUS)
+        VALUES (SEQ_HISTORYID.NEXTVAL, #{trevId}, #{memId}, #{action}, #{content}, CURRENT_TIMESTAMP, #{status})
     </insert>
     
     <insert id="insertCommentHistory">
-        INSERT INTO HISTORY (HISTORYID, TREVCID, MEMID, MEMNICK, ACTION, CONTENT, ACTIONDATE, STATUS)
-        VALUES (SEQ_HISTORYID.NEXTVAL, #{trevcId}, #{memId}, #{memNick}, #{action}, #{content}, CURRENT_TIMESTAMP, #{status})
+        INSERT INTO HISTORY (HISTORYID, TREVCID, MEMID, ACTION, CONTENT, ACTIONDATE, STATUS)
+        VALUES (SEQ_HISTORYID.NEXTVAL, #{trevcId}, #{memId}, #{action}, #{content}, CURRENT_TIMESTAMP, #{status})
     </insert>
     
     <select id="getTReviewHistorysById" parameterType="int" resultMap="HistoryVOMap">
 		SELECT
-		        HISTORYID,
-		        TREVID,
-		        TREVCID,
-		        MEMID,
-		        MEMNICK,
-		        ACTION,
-		        ACTIONDATE,
-		        CONTENT,
-		        STATUS
-	    FROM HISTORY
-	    WHERE TREVID = #{trevId}
-	    ORDER BY ACTIONDATE DESC
+	        h.HISTORYID,
+	        h.TREVID,
+	        h.TREVCID,
+	        h.MEMID,
+	        m.MEMNICK,
+	        h.ACTION,
+	        h.ACTIONDATE,
+	        h.CONTENT,
+	        h.STATUS
+	    FROM 
+	    	HISTORY h
+	   	LEFT JOIN
+        	MEMBER m ON h.MEMID = m.MEMID
+	    WHERE 
+	    	h.TREVID = #{trevId}
+	    ORDER BY h.ACTIONDATE DESC
     </select>
-    
     
     <resultMap id="HistoryVOMap" type="HistoryVO">
 	    <id column="historyId" property="historyId" />

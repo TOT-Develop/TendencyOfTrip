@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tot.admin.dao.AdminQnaDao">
+
+    <resultMap id="QnaResultMap" type="QnaDTO">
+        <id property="qnaId" column="QNAID"/>
+        <result property="memId" column="MEMID"/>
+        <result property="memNick" column="MEMNICK"/>
+        <result property="qna_001" column="QNA_001"/>
+        <result property="qna_002" column="QNA_002"/>
+        <result property="commentStatus" column="COMMENTSTATUS"/>
+        <result property="qnaTitle" column="QNATITLE"/>
+        <result property="qnaText" column="QNATEXT"/>
+        <result property="qnaRegdate" column="QNAREGDATE"/>
+        <result property="qnaUpdate" column="QNAUPDATE"/>
+    </resultMap>
+    
+	<select id="qnaListWithPaging" parameterType="PageDTO" resultMap="QnaResultMap">
+	    SELECT *
+	    FROM (
+	        SELECT qnaid, q.memid, m.memnick, qna_001, qna_002, commentstatus, qnatitle, qnatext, qnaregdate, qnaupdate,
+	               ROW_NUMBER() OVER(ORDER BY qnaregdate DESC) AS rn
+	        FROM qna q
+	        	LEFT JOIN MEMBER m ON q.MEMID = m.MEMID
+	        <where>
+	            <if test="dto.category != null and dto.category != 'ALL'">
+	                AND qna_001 = #{dto.category}
+	            </if>
+	            <if test="dto.search != null and dto.search != ''">
+	                AND (qnatitle LIKE '%' || #{dto.search} || '%'
+	                OR qnatext LIKE '%' || #{dto.search} || '%')
+	            </if>
+	            <if test="dto.status != null and dto.status != ''">
+	                AND qna_002 = #{dto.status}
+	            </if>
+	        </where>
+	    )
+	    WHERE rn BETWEEN #{offset} + 1 AND #{offset} + #{pageRowCount}
+	</select>
+
+	 <select id="selectQnaTotalCount" parameterType="PageDTO" resultType="int">
+	    SELECT COUNT(*)
+	    FROM qna
+	    WHERE 1=1
+	    
+	   	<choose>
+			<when test="boardId == 2">
+				AND MEMID = #{memId}
+			</when>
+		</choose>
+		
+		<if test="dto.searchType.name() != 'ALL'">
+            AND qna_001 = #{dto.searchType}
+        </if>
+		
+		<if test="dto.search != null and dto.search != ''">
+			<if test="dto.searchType.name() != 'ALL'">
+	            AND qna_001 = #{dto.searchType}
+	        </if>
+		</if>
+	</select>
+
+	<select id="getQnaDetail" parameterType="int" resultType="QnaDTO">
+		SELECT * 
+		FROM QNA q
+		LEFT JOIN MEMBER m ON q.MEMID = m.MEMID
+		where QNAID = #{qnaId}	
+	</select>
+	
+	<insert id="insertQnaComment" parameterType="QnaCommentVO">
+	    INSERT INTO QNACOMMENT (QNACID, QNAID, QNACTEXT, QNACREGDATE, QNACUPDATE)
+	    VALUES (SEQ_QNACID.NEXTVAL, #{qnaId}, #{qnacText}, SYSDATE, NULL)
+	</insert>
+	
+	<select id="getCommentsByQnaId" parameterType="int" resultType="QnaCommentVO">
+	    SELECT QNACID, QNAID, QNACTEXT, QNACREGDATE, QNACUPDATE 
+	    FROM QNACOMMENT 
+	    WHERE QNAID = #{qnaId}
+	</select>
+	
+	<update id="updateQnaStatus">
+	    UPDATE qna
+	    SET qna_002 = #{qna_002}, QNAUPDATE = SYSDATE
+	    WHERE qnaid = #{qnaId}
+	</update>
+
+</mapper>

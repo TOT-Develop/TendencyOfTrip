@@ -3,9 +3,13 @@
 }
 
 .container {
-    display: flex;
-    justify-content: center; /* Center align the day containers */
-    margin-top: 50px;
+   display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: auto;
+    left: -150px;
+    top: -100px;
 }
 
 .day-container{
@@ -19,12 +23,12 @@
 }
 .pheader {
     display: flex;
-    justify-content: center;
     align-items: center;
     position: relative;
-    top: -400px;
-    left: 265px;
-    margin-bottom: 20px;
+    top: -1000px;
+    left: 65px;
+    width:350px;
+    min-width:350px;
 }
 
 .datanav1 {
@@ -51,6 +55,7 @@
     display: flex;
     position: relative;
     margin-bottom: 50px;
+   
 }
 
 .number1 {
@@ -106,16 +111,21 @@
 
 .time-date {
     color: rgb(170, 177, 184);
+    display: flex;
+    align-items: center;
 }
 
 .pdate{
     color: rgb(170, 177, 184);
     margin-left: 40px;
+    font-size:20px;
 }
 
 .time-title, .date1 {
     margin-right: 100px;
     font-weight: 700;
+    margin-bottom: 20px;
+    margin-top: 10px;
     color: rgb(15 23 42);
 }
 
@@ -123,6 +133,7 @@
     display: flex;
     justify-content: center;
     margin-top: 50px;
+    margin-bottom: 100px;
 }
 
 .backbtn {
@@ -133,6 +144,7 @@
     border: 1px solid #cfcfcf;
     width: 170px;
     height: 60px;
+    cursor:pointer;
 }
 
 .okbtn {
@@ -142,4 +154,42 @@
     color: #ffffff;
     border-radius: 20px;
     border: 1px solid #1FB1D9;
+    cursor:pointer;
 }
+
+.mbtn{
+    margin-left: 145px; 
+    font-size: 25px; 
+    color: #333;
+}
+
+.pbtn{
+    margin-left: 30px; 
+    font-size: 25px; 
+    color: #333;
+}
+
+#h2s{
+	display:flex;
+    align-items: center;
+	position:relatvie;
+	left:65px;
+	min-width:350px;
+	    justify-content: center;
+}
+
+#h2s>p {
+	margin-left: 50px;
+	margin-right: 50px;
+}
+#h2s>*{
+	margin-right:10px;
+}
+
+.plannerHead{
+	margin-top: 300px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+

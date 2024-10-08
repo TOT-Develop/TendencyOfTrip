@@ -1,7 +1,7 @@
 package tot.domain;
 
 public class CommentReqDTO {
-	
+
 	private int parentId; // 부모 댓글 아이디
 	private String parentNickname; // 부모 댓글 닉네임
 	private String content; // 내용

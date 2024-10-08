@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="tot.mapper.TReviewMapper">
+<mapper namespace="tot.dao.TReviewDao">
 
 	<insert id="insertTReview" parameterType="TReviewVO"
 		useGeneratedKeys="true" keyProperty="trevId">
@@ -44,15 +44,12 @@
 		resultType="int">
 		SELECT COUNT(DISTINCT r.TREVID) AS total_count
 		FROM TREVIEW r
-		LEFT JOIN
-		TReviewImage i
+		LEFT JOIN TReviewImage i
 		ON r.TREVID = i.TREVID
 		WHERE r.TREVSTATUS IN ('CMT001', 'CMT003')
 
 		<choose>
-			<when test="boardId == 'all'">
-			</when>
-			<when test="boardId == 'my'">
+			<when test="boardId == 2">
 				AND r.MEMID = #{memId}
 			</when>
 		</choose>
@@ -77,7 +74,7 @@
     resultMap="TReviewResDTOResultMap">
 	    SELECT *
 	    FROM (
-	        SELECT r.TREVID, r.TRIPID, r.MEMID, r.TREVSTATUS, r.TREVTITLE, r.TREVCONTENT,
+	        SELECT r.TREVID, r.TRIPID, r.MEMID, m.MEMNICK, r.TREVSTATUS, r.TREVTITLE, r.TREVCONTENT,
 	               r.TREVRATING, r.TREVREGDATE, r.TREVUPDATE, r.TREVCOUNT,
 	               ROW_NUMBER() OVER(
                    ORDER BY 
@@ -90,12 +87,11 @@
                    </choose>
                ) AS rn
 	        FROM TREVIEW r
+	        LEFT JOIN MEMBER m ON r.MEMID = m.MEMID
 	        WHERE r.TREVSTATUS IN ('CMT001', 'CMT003')
 	        
 	        <choose>
-	            <when test="boardId == 'all'">
-	            </when>
-	            <when test="boardId == 'my'">
+	            <when test="boardId == 2">
 	                AND r.MEMID = #{memId}
 	            </when>
 	        </choose>
@@ -138,6 +134,7 @@
             r.TREVID,
             r.TRIPID,
             r.MEMID,
+            m.MEMNICK,
             r.TREVSTATUS,
             r.TREVTITLE,
             r.TREVCONTENT,
@@ -151,6 +148,8 @@
             TREVIEW r
         LEFT JOIN
             TReviewImage i ON r.TREVID = i.TREVID
+        LEFT JOIN 
+        	MEMBER m ON r.MEMID = m.MEMID    
         WHERE
             r.TREVID = #{trevId}
 	</select>
@@ -192,6 +191,7 @@
 		<id property="trevId" column="TREVID" />
 		<result property="tripId" column="TRIPID" />
 		<result property="memId" column="MEMID" />
+		<result property="memNick" column="MEMNICK" />
 		<result property="trevStatus" column="TREVSTATUS" />
 		<result property="trevTitle" column="TREVTITLE" />
 		<result property="trevCourse" column="TREVCOURSE" />
